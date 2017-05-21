@@ -1,0 +1,120 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.logicware.jpi.jiprolog</groupId>
+	<artifactId>prolobjectlink-jpi-jiprolog</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>prolobjectlink-jpi-jiprolog</name>
+	<description>JIProlog Java Interface Implementation (Interface Adaptee)</description>
+
+	<url>http://www.logicware.org</url>
+	<inceptionYear>2012</inceptionYear>
+
+	<organization>
+		<name>Logicware Developments</name>
+		<url>http://www.logicware.org</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>jzalacain</id>
+			<name>Jose Zalacain</name>
+			<email>jzalacain@nauta.cu</email>
+			<organization>Logicware Developments</organization>
+			<organizationUrl>http://www.logicware.org</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+				<role>founder</role>
+			</roles>
+			<timezone>-5</timezone>
+		</developer>
+	</developers>
+
+	<properties>
+		<encoding>UTF-8</encoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>1.5</maven.compiler.source>
+		<maven.compiler.target>1.5</maven.compiler.target>
+		<surefire.version>2.17</surefire.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.logicware.jpi</groupId>
+			<artifactId>prolobjectlink-jpi</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ugos.jiprolog</groupId>
+			<artifactId>jiprolog-4.1.4.1</artifactId>
+			<scope>system</scope>
+			<version>4.1.4.1</version>
+			<systemPath>${basedir}\lib\jiprolog-4.1.4.1.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<configuration>
+					<nohelp>true</nohelp>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.8</version>
+			</plugin>
+		</plugins>
+	</reporting>
+
+</project>
