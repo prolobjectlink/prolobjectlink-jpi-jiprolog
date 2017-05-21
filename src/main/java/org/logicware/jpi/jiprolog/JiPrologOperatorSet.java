@@ -10,6 +10,8 @@ import org.logicware.jpi.IPrologOperator;
 import org.logicware.jpi.OperatorEntry;
 
 import com.ugos.jiprolog.engine.JIPEngine;
+import com.ugos.jiprolog.engine.Operator;
+import com.ugos.jiprolog.engine.OperatorManager;
 
 final class JiPrologOperatorSet extends AbstractSet<OperatorEntry> {
 

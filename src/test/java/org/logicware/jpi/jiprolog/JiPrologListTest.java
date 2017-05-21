@@ -32,7 +32,7 @@ public class JiPrologListTest extends JiPrologBaseTest {
 
 	@Before
 	public void setUp() throws Exception {
-		list = new JiPrologList(zero, one, two, three, four, five, six, seven, eight, nine);
+		list = new JiPrologList(new IPrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine });
 	}
 
 	@After
@@ -119,7 +119,7 @@ public class JiPrologListTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testGetTail() {
-		assertEquals(new JiPrologList(one, two, three, four, five, six, seven, eight, nine), list.getTail());
+		assertEquals(new JiPrologList(new IPrologTerm[] { one, two, three, four, five, six, seven, eight, nine }), list.getTail());
 	}
 
 	@Test

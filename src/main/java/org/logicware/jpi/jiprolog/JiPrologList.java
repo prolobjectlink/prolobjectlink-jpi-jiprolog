@@ -10,7 +10,11 @@ import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologList extends JiPrologTerm implements IPrologList {
 
-	protected JiPrologList(IPrologTerm... arguments) {
+	protected JiPrologList() {
+		super(LIST_TYPE);
+	}
+
+	protected JiPrologList(IPrologTerm[] arguments) {
 		super(LIST_TYPE);
 		value = adaptList(arguments);
 	}
@@ -18,6 +22,14 @@ public class JiPrologList extends JiPrologTerm implements IPrologList {
 	protected JiPrologList(JIPTerm[] arguments) {
 		super(LIST_TYPE);
 		value = JIPList.NIL;
+		for (int i = arguments.length - 1; i >= 0; --i) {
+			value = JIPList.create(arguments[i], value);
+		}
+	}
+
+	protected JiPrologList(JIPTerm[] arguments, JIPTerm tail) {
+		super(LIST_TYPE);
+		value = tail;
 		for (int i = arguments.length - 1; i >= 0; --i) {
 			value = JIPList.create(arguments[i], value);
 		}

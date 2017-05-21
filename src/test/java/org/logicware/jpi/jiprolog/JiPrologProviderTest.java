@@ -18,14 +18,6 @@ import org.logicware.jpi.IPrologStructure;
 import org.logicware.jpi.IPrologTerm;
 import org.logicware.jpi.IPrologVariable;
 import org.logicware.jpi.JiPrologBaseTest;
-import org.logicware.jpi.jiprolog.JiPrologAtom;
-import org.logicware.jpi.jiprolog.JiPrologExpression;
-import org.logicware.jpi.jiprolog.JiPrologFloat;
-import org.logicware.jpi.jiprolog.JiPrologInteger;
-import org.logicware.jpi.jiprolog.JiPrologList;
-import org.logicware.jpi.jiprolog.JiPrologProvider;
-import org.logicware.jpi.jiprolog.JiPrologStructure;
-import org.logicware.jpi.jiprolog.JiPrologVariable;
 
 import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPEngine;
@@ -131,8 +123,8 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testNewPrologList() {
-		IPrologList list = provider.newPrologList(zero, one, two, three, four, five, six, seven, eight, nine);
-		assertEquals(new JiPrologList(zero, one, two, three, four, five, six, seven, eight, nine), list);
+		IPrologList list = provider.newPrologList(new IPrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine });
+		assertEquals(new JiPrologList(new IPrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine }), list);
 		assertEquals(IPrologTerm.LIST_TYPE, list.getType());
 		assertEquals(".", list.getFunctor());
 		assertEquals("./2", list.getIndicator());
@@ -176,7 +168,7 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 		// assertEquals(new FloatAdapter(3.14), f);
 
 		IPrologList list = (IPrologList) provider.parsePrologTerm("[0,1,2,3,4,5,6,7,8,9]");
-		assertEquals(new JiPrologList(zero, one, two, three, four, five, six, seven, eight, nine), list);
+		assertEquals(new JiPrologList(new IPrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine }), list);
 
 		IPrologStructure structure = (IPrologStructure) provider.parsePrologTerm("digits(0,1,2,3,4,5,6,7,8,9)");
 		assertEquals(new JiPrologStructure("digits", zero, one, two, three, four, five, six, seven, eight, nine), structure);

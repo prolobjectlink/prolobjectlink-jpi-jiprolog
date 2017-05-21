@@ -1,6 +1,7 @@
 package org.logicware.jpi.jiprolog;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -17,7 +18,6 @@ import org.logicware.jpi.IPrologStructure;
 import org.logicware.jpi.IPrologTerm;
 import org.logicware.jpi.IPrologVariable;
 
-import com.ugos.a.a;
 import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPTerm;
@@ -78,9 +78,7 @@ public class JiPrologProvider extends JiPrologAbstract implements IPrologProvide
 
 	public IPrologTerm[] parsePrologTerms(String stringTerms) {
 		JIPTermParser parser = new JIPEngine().getTermParser();
-		// InputStream inputStream = new
-		// ByteArrayInputStream(stringTerms.getBytes());
-		a inputStream = new a(new ByteArrayInputStream(stringTerms.getBytes()));
+		InputStream inputStream = new ByteArrayInputStream(stringTerms.getBytes());
 		Enumeration<JIPTerm> e = parser.parseStream(inputStream, inputStream.toString());
 		ArrayList<IPrologTerm> terms = new ArrayList<IPrologTerm>();
 		while (e.hasMoreElements()) {
@@ -166,12 +164,20 @@ public class JiPrologProvider extends JiPrologAbstract implements IPrologProvide
 		return new JiPrologVariable(name);
 	}
 
-	public IPrologList newPrologList(IPrologTerm... arguments) {
+	public IPrologList newPrologList() {
+		return new JiPrologList();
+	}
+
+	public IPrologList newPrologList(IPrologTerm[] arguments) {
 		return new JiPrologList(adapt(arguments));
 	}
 
-	public IPrologList newPrologHTList(IPrologTerm head, IPrologTerm tail) {
+	public IPrologList newPrologList(IPrologTerm head, IPrologTerm tail) {
 		return new JiPrologList(head, tail);
+	}
+
+	public IPrologList newPrologList(IPrologTerm[] arguments, IPrologTerm tail) {
+		return new JiPrologList(adapt(arguments), adapt(tail));
 	}
 
 	public IPrologStructure newPrologStructure(String functor, IPrologTerm... arguments) {

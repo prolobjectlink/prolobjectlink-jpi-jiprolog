@@ -1,13 +1,15 @@
 package org.logicware.jpi.jiprolog;
 
+import org.logicware.jpi.IPrologList;
 import org.logicware.jpi.IPrologTerm;
 
 import com.ugos.jiprolog.engine.JIPList;
 
-public class JiPrologEmpty extends JiPrologTerm implements IPrologTerm {
+public class JiPrologEmpty extends JiPrologList implements IPrologList {
 
 	protected JiPrologEmpty() {
-		super(EMPTY_TYPE, JIPList.create(null, null));
+		// super(EMPTY_TYPE);
+		value = JIPList.create(null, null);
 	}
 
 	@Override

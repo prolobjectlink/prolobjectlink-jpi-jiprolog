@@ -19,13 +19,14 @@ import org.logicware.jpi.IPrologTerm;
 import org.logicware.jpi.OperatorEntry;
 import org.logicware.jpi.PredicateIndicator;
 
-import com.ugos.a.a;
 import com.ugos.jiprolog.engine.JIPClause;
 import com.ugos.jiprolog.engine.JIPClausesDatabase;
 import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPFunctor;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPTermParser;
+import com.ugos.jiprolog.engine.Operator;
+import com.ugos.jiprolog.engine.OperatorManager;
 
 public final class JiPrologEngine extends JiPrologAbstract implements IPrologEngine {
 
@@ -54,8 +55,7 @@ public final class JiPrologEngine extends JiPrologAbstract implements IPrologEng
 
 	public void include(String path) {
 		try {
-			// FileInputStream fins = new FileInputStream(path);
-			a fins = new a(new FileInputStream(path));
+			FileInputStream fins = new FileInputStream(path);
 			Enumeration<JIPTerm> loadEnumeration = parser.parseStream(fins, path);
 			while (loadEnumeration.hasMoreElements()) {
 				JIPTerm jipTerm = (JIPTerm) loadEnumeration.nextElement();
@@ -84,8 +84,7 @@ public final class JiPrologEngine extends JiPrologAbstract implements IPrologEng
 			retract("ver(jipxxml, '3.0.0')");
 
 			// load and assert
-			// FileInputStream fins = new FileInputStream(path);
-			a fins = new a(new FileInputStream(path));
+			FileInputStream fins = new FileInputStream(path);
 			Enumeration<JIPTerm> loadEnumeration = parser.parseStream(fins, path);
 			while (loadEnumeration.hasMoreElements()) {
 				JIPTerm jipTerm = (JIPTerm) loadEnumeration.nextElement();

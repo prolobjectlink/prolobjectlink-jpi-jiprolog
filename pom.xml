@@ -56,10 +56,10 @@
 		</dependency>
 		<dependency>
 			<groupId>com.ugos.jiprolog</groupId>
-			<artifactId>jiprolog-4.1.4.1</artifactId>
+			<artifactId>jiprolog-4.0.6.27</artifactId>
 			<scope>system</scope>
-			<version>4.1.4.1</version>
-			<systemPath>${basedir}\lib\jiprolog-4.1.4.1.jar</systemPath>
+			<version>4.0.6.27</version>
+			<systemPath>${basedir}\lib\jiprolog-4.0.6.27.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
