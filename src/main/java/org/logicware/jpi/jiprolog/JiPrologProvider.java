@@ -33,6 +33,10 @@ public class JiPrologProvider extends JiPrologAbstract implements IPrologProvide
 	static final IPrologTerm FALSE = new JiPrologFalse();
 	static final IPrologTerm EMPTY = new JiPrologList();
 
+	public boolean isCompliant() {
+		return false;
+	}
+
 	public IPrologTerm prologNil() {
 		return NIL;
 	}
