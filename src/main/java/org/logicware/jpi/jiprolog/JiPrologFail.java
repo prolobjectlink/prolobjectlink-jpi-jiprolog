@@ -1,5 +1,6 @@
 package org.logicware.jpi.jiprolog;
 
+import org.logicware.jpi.IPrologIndex;
 import org.logicware.jpi.IPrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
@@ -38,6 +39,10 @@ public final class JiPrologFail extends JiPrologTerm implements IPrologTerm {
 	@Override
 	public IPrologTerm clone() {
 		return new JiPrologFail();
+	}
+
+	public IPrologIndex getIndex() {
+		throw new UnsupportedOperationException();
 	}
 
 }

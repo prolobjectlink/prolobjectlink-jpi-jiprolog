@@ -1,5 +1,6 @@
 package org.logicware.jpi.jiprolog;
 
+import org.logicware.jpi.IPrologIndex;
 import org.logicware.jpi.IPrologTerm;
 
 import com.ugos.jiprolog.engine.JIPTerm;
@@ -111,6 +112,10 @@ public abstract class JiPrologTerm extends JiPrologAbstract implements IPrologTe
 	public abstract String getFunctor();
 
 	public abstract IPrologTerm[] getArguments();
+
+	public IPrologIndex getIndex() {
+		throw new UnsupportedOperationException();
+	}
 
 	public final boolean unify(IPrologTerm term) {
 		return value.unifiable(adapt(term));
