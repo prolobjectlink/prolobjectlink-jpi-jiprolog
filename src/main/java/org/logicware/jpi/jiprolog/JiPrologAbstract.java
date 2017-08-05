@@ -2,10 +2,8 @@ package org.logicware.jpi.jiprolog;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
-import org.logicware.jpi.ExpressionExpectedError;
+import org.logicware.jpi.IPrologAbstract;
 import org.logicware.jpi.IPrologAtom;
 import org.logicware.jpi.IPrologDouble;
 import org.logicware.jpi.IPrologExpression;
@@ -16,8 +14,6 @@ import org.logicware.jpi.IPrologLong;
 import org.logicware.jpi.IPrologStructure;
 import org.logicware.jpi.IPrologTerm;
 import org.logicware.jpi.IPrologVariable;
-import org.logicware.jpi.ListExpectedError;
-import org.logicware.jpi.StructureExpectedError;
 import org.logicware.jpi.UnknownTermError;
 
 import com.ugos.jiprolog.engine.JIPAtom;
@@ -28,10 +24,9 @@ import com.ugos.jiprolog.engine.JIPNumber;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 
-public abstract class JiPrologAbstract {
+public abstract class JiPrologAbstract extends IPrologAbstract<JIPTerm> {
 
 	protected static final JiPrologOperatorSet OPERATORS = new JiPrologOperatorSet();
-	protected static final String SIMPLE_ATOM_REGEX = ".|[a-z][A-Za-z0-9_]*";
 
 	protected final HashMap<String, IPrologVariable> sharedVariables;
 	protected final HashMap<String, JIPVariable> sharedPrologVariables;
@@ -39,31 +34,6 @@ public abstract class JiPrologAbstract {
 	protected JiPrologAbstract() {
 		sharedPrologVariables = new HashMap<String, JIPVariable>();
 		sharedVariables = new HashMap<String, IPrologVariable>();
-	}
-
-	protected final static String analys(String functor) {
-		if (!functor.matches(SIMPLE_ATOM_REGEX) && !quoted(functor)) {
-			return "'" + functor + "'";
-		}
-		return functor;
-	}
-
-	protected final static boolean quoted(String functor) {
-		if (!functor.isEmpty()) {
-			char beginChar = functor.charAt(0);
-			char endChar = functor.charAt(functor.length() - 1);
-			return beginChar == '\'' && endChar == '\'';
-		}
-		return false;
-	}
-
-	protected static final String removeQuoted(String functor) {
-		if (quoted(functor)) {
-			String newFunctor = "";
-			newFunctor += functor.substring(1, functor.length() - 1);
-			return newFunctor;
-		}
-		return functor;
 	}
 
 	protected final IPrologTerm adapt(JIPTerm prologTerm) {
@@ -185,40 +155,6 @@ public abstract class JiPrologAbstract {
 		return prologTerms;
 	}
 
-	protected final IPrologTerm[] adapt(JIPTerm[] terms) {
-		IPrologTerm[] iTerms = new IPrologTerm[terms.length];
-		for (int i = 0; i < terms.length; i++) {
-			iTerms[i] = adapt(terms[i]);
-		}
-		return iTerms;
-	}
-
-	protected final IPrologTerm[][] adapt(JIPTerm[][] terms) {
-		IPrologTerm[][] iTerms = new IPrologTerm[terms.length][terms[0].length];
-		for (int i = 0; i < terms.length; i++) {
-			iTerms[i] = adapt(terms[i]);
-		}
-		return iTerms;
-	}
-
-	protected final Map<String, IPrologTerm> adapt(Map<String, JIPTerm> map) {
-		Map<String, IPrologTerm> solutionMap = new HashMap<String, IPrologTerm>(map.size());
-		Set<String> keys = map.keySet();
-		for (String key : keys) {
-			solutionMap.put(key, adapt(map.get(key)));
-		}
-		return solutionMap;
-	}
-
-	@SuppressWarnings("unchecked")
-	protected final Map<String, IPrologTerm>[] adapt(Map<String, JIPTerm>[] map) {
-		Map<String, IPrologTerm>[] solutions = new Map[map.length];
-		for (int i = 0; i < map.length; i++) {
-			solutions[i] = adapt(map[i]);
-		}
-		return solutions;
-	}
-
 	protected final JIPList adaptList(IPrologTerm[] arguments) {
 		JIPList list = JIPList.NIL;
 		for (int i = arguments.length - 1; i >= 0; --i) {
@@ -227,36 +163,24 @@ public abstract class JiPrologAbstract {
 		return list;
 	}
 
+	protected final JIPTerm adapt(IPrologTerm head, IPrologTerm[] body) {
+		JIPTerm clauseHead = adapt(head);
+		if (body != null && body.length > 0) {
+			JIPTerm clauseBody = adapt(body[body.length - 1]);
+			for (int i = body.length - 2; i >= 0; --i) {
+				clauseBody = JIPFunctor.create(",", JIPCons.create(adapt(body[i]), clauseBody));
+			}
+			return JIPFunctor.create(":-", JIPCons.create(clauseHead, clauseBody));
+		}
+		return clauseHead;
+	}
+
 	protected final JIPCons adaptCons(IPrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
 			cons = JIPCons.create(adapt(arguments[i]), cons);
 		}
 		return cons;
-	}
-
-	protected final void checkListType(IPrologTerm term) {
-		if (!term.isList()) {
-			throw new ListExpectedError(getClass(), term);
-		}
-	}
-
-	protected final void checkStructureType(IPrologTerm term) {
-		if (!term.isStructure()) {
-			throw new StructureExpectedError(getClass(), term);
-		}
-	}
-
-	protected final void checkExpressionType(IPrologTerm term) {
-		if (!term.isExpression()) {
-			throw new ExpressionExpectedError(getClass(), term);
-		}
-	}
-
-	protected final void checkIndexOutOfBound(int index, int lenght) {
-		if (index < 0 || index > lenght) {
-			throw new ArrayIndexOutOfBoundsException(index);
-		}
 	}
 
 }
