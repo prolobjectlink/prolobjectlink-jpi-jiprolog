@@ -101,6 +101,23 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pdf-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>site-pdf</id>
+						<phase>site</phase>
+						<goals>
+							<goal>pdf</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.reporting.outputDirectory}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.5.3</version>
 				<configuration>
