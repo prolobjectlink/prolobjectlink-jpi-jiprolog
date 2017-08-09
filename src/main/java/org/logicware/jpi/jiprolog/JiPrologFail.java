@@ -1,19 +1,19 @@
 package org.logicware.jpi.jiprolog;
 
-import org.logicware.jpi.IPrologIndex;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologIndex;
+import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
 
-public final class JiPrologFail extends JiPrologTerm implements IPrologTerm {
+public final class JiPrologFail extends JiPrologTerm implements PrologTerm {
 
 	protected JiPrologFail() {
 		super(FAIL_TYPE, JIPAtom.create("fail"));
 	}
 
 	@Override
-	public IPrologTerm[] getArguments() {
-		return new IPrologTerm[0];
+	public PrologTerm[] getArguments() {
+		return new PrologTerm[0];
 	}
 
 	@Override
@@ -37,11 +37,11 @@ public final class JiPrologFail extends JiPrologTerm implements IPrologTerm {
 	}
 
 	@Override
-	public IPrologTerm clone() {
+	public PrologTerm clone() {
 		return new JiPrologFail();
 	}
 
-	public IPrologIndex getIndex() {
+	public PrologIndex getIndex() {
 		throw new UnsupportedOperationException();
 	}
 

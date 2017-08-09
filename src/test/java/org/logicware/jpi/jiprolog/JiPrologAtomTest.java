@@ -9,15 +9,15 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.logicware.jpi.IPrologAtom;
-import org.logicware.jpi.IPrologDouble;
-import org.logicware.jpi.IPrologExpression;
-import org.logicware.jpi.IPrologFloat;
-import org.logicware.jpi.IPrologInteger;
-import org.logicware.jpi.IPrologList;
-import org.logicware.jpi.IPrologLong;
+import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologDouble;
+import org.logicware.jpi.PrologExpression;
+import org.logicware.jpi.PrologFloat;
+import org.logicware.jpi.PrologInteger;
+import org.logicware.jpi.PrologList;
+import org.logicware.jpi.PrologLong;
 import org.logicware.jpi.IPrologStructure;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.IPrologVariable;
 import org.logicware.jpi.jiprolog.JiPrologAtom;
 import org.logicware.jpi.jiprolog.JiPrologDouble;
@@ -50,7 +50,7 @@ public class JiPrologAtomTest {
 	@Test
 	public final void testAtomAdapter() {
 		assertNotNull(atom.value);
-		assertEquals(IPrologTerm.ATOM_TYPE, atom.type);
+		assertEquals(PrologTerm.ATOM_TYPE, atom.type);
 		assertEquals(JIPAtom.create("an_atom"), atom.value);
 	}
 
@@ -78,7 +78,7 @@ public class JiPrologAtomTest {
 
 	@Test
 	public final void testGetType() {
-		assertEquals(IPrologTerm.ATOM_TYPE, atom.getType());
+		assertEquals(PrologTerm.ATOM_TYPE, atom.getType());
 	}
 
 	@Test
@@ -154,27 +154,27 @@ public class JiPrologAtomTest {
 	@Test
 	public final void testUnify() {
 		// with atom
-		IPrologAtom atom = new JiPrologAtom("smith");
-		IPrologAtom atom1 = new JiPrologAtom("doe");
+		PrologAtom atom = new JiPrologAtom("smith");
+		PrologAtom atom1 = new JiPrologAtom("doe");
 		// true because the atoms are equals
 		assertTrue(atom.unify(atom));
 		// false because the atoms are different
 		assertFalse(atom.unify(atom1));
 
 		// with integer
-		IPrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = new JiPrologInteger(28);
 		assertFalse(atom.unify(iValue));
 
 		// with long
-		IPrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = new JiPrologLong(28);
 		assertFalse(atom.unify(lValue));
 
 		// with float
-		IPrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = new JiPrologFloat(36.47);
 		assertFalse(atom.unify(fValue));
 
 		// with double
-		IPrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = new JiPrologDouble(36.47);
 		assertFalse(atom.unify(dValue));
 
 		// with variable
@@ -187,11 +187,11 @@ public class JiPrologAtomTest {
 		assertFalse(atom.unify(structure));
 
 		// with list
-		IPrologList flattenedList = new JiPrologProvider().parsePrologList("[a,b,c]");
+		PrologList flattenedList = new JiPrologProvider().parsePrologList("[a,b,c]");
 		assertFalse(atom.unify(flattenedList));
 
 		// with expression
-		IPrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
 		assertFalse(atom.unify(expression));
 	}
 
@@ -199,27 +199,27 @@ public class JiPrologAtomTest {
 	public final void testCompareTo() {
 
 		// with atom
-		IPrologAtom atom = new JiPrologAtom("smith");
-		IPrologAtom atom1 = new JiPrologAtom("doe");
+		PrologAtom atom = new JiPrologAtom("smith");
+		PrologAtom atom1 = new JiPrologAtom("doe");
 		// true because the atoms are equals
 		assertEquals(atom.compareTo(atom), 0);
 		// false because the atoms are different
 		assertEquals(atom.compareTo(atom1), 1);
 
 		// with integer
-		IPrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = new JiPrologInteger(28);
 		assertEquals(atom.compareTo(iValue), 1);
 
 		// with long
-		IPrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = new JiPrologLong(28);
 		assertEquals(atom.compareTo(lValue), 1);
 
 		// with float
-		IPrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = new JiPrologFloat(36.47);
 		assertEquals(atom.compareTo(fValue), 1);
 
 		// with double
-		IPrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = new JiPrologDouble(36.47);
 		assertEquals(atom.compareTo(dValue), 1);
 
 		// with variable
@@ -232,11 +232,11 @@ public class JiPrologAtomTest {
 		assertEquals(atom.compareTo(structure), -1);
 
 		// with list
-		IPrologList flattenedList = new JiPrologProvider().parsePrologList("[a,b,c]");
+		PrologList flattenedList = new JiPrologProvider().parsePrologList("[a,b,c]");
 		assertEquals(atom.compareTo(flattenedList), -1);
 
 		// with expression
-		IPrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
 		assertEquals(atom.compareTo(expression), -1);
 
 	}

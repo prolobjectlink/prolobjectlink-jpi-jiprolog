@@ -1,11 +1,11 @@
 package org.logicware.jpi.jiprolog;
 
-import org.logicware.jpi.IPrologList;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologList;
+import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPList;
 
-public class JiPrologEmpty extends JiPrologList implements IPrologList {
+public class JiPrologEmpty extends JiPrologList implements PrologList {
 
 	protected JiPrologEmpty() {
 		super(EMPTY_TYPE);
@@ -13,8 +13,8 @@ public class JiPrologEmpty extends JiPrologList implements IPrologList {
 	}
 
 	@Override
-	public IPrologTerm[] getArguments() {
-		return new IPrologTerm[0];
+	public PrologTerm[] getArguments() {
+		return new PrologTerm[0];
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class JiPrologEmpty extends JiPrologList implements IPrologList {
 	}
 
 	@Override
-	public IPrologTerm clone() {
+	public PrologTerm clone() {
 		return new JiPrologEmpty();
 	}
 

@@ -7,15 +7,15 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.logicware.jpi.IPrologAtom;
-import org.logicware.jpi.IPrologEngine;
-import org.logicware.jpi.IPrologExpression;
-import org.logicware.jpi.IPrologFloat;
-import org.logicware.jpi.IPrologInteger;
-import org.logicware.jpi.IPrologList;
-import org.logicware.jpi.IPrologQuery;
+import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologEngine;
+import org.logicware.jpi.PrologExpression;
+import org.logicware.jpi.PrologFloat;
+import org.logicware.jpi.PrologInteger;
+import org.logicware.jpi.PrologList;
+import org.logicware.jpi.PrologQuery;
 import org.logicware.jpi.IPrologStructure;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.IPrologVariable;
 import org.logicware.jpi.JiPrologBaseTest;
 
@@ -89,8 +89,8 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testNewPrologAtom() {
-		IPrologAtom atom = provider.newPrologAtom("an_atom");
-		assertEquals(IPrologTerm.ATOM_TYPE, atom.getType());
+		PrologAtom atom = provider.newPrologAtom("an_atom");
+		assertEquals(PrologTerm.ATOM_TYPE, atom.getType());
 		assertEquals(new JiPrologAtom("an_atom"), atom);
 		assertEquals("an_atom", atom.getFunctor());
 		assertEquals("an_atom/0", atom.getIndicator());
@@ -99,16 +99,16 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testNewPrologFloat() {
-		IPrologFloat f = provider.newPrologFloat(3.14);
-		assertEquals(IPrologTerm.FLOAT_TYPE, f.getType());
+		PrologFloat f = provider.newPrologFloat(3.14);
+		assertEquals(PrologTerm.FLOAT_TYPE, f.getType());
 		assertEquals(new JiPrologFloat(3.14), f);
 		assertEquals(3.14F, f.getFloatValue(), 0);
 	}
 
 	@Test
 	public final void testNewPrologInteger() {
-		IPrologInteger integer = provider.newPrologInteger(100);
-		assertEquals(IPrologTerm.INTEGER_TYPE, integer.getType());
+		PrologInteger integer = provider.newPrologInteger(100);
+		assertEquals(PrologTerm.INTEGER_TYPE, integer.getType());
 		assertEquals(new JiPrologInteger(100), integer);
 		assertEquals(100, integer.getIntValue());
 	}
@@ -116,16 +116,16 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 	@Test
 	public final void testNewPrologVariable() {
 		IPrologVariable variable = provider.newPrologVariable("X");
-		assertEquals(IPrologTerm.VARIABLE_TYPE, variable.getType());
+		assertEquals(PrologTerm.VARIABLE_TYPE, variable.getType());
 		assertEquals(new JiPrologVariable("X"), variable);
 		assertEquals("X", variable.getName());
 	}
 
 	@Test
 	public final void testNewPrologList() {
-		IPrologList list = provider.newPrologList(new IPrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine });
-		assertEquals(new JiPrologList(new IPrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine }), list);
-		assertEquals(IPrologTerm.LIST_TYPE, list.getType());
+		PrologList list = provider.newPrologList(new PrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine });
+		assertEquals(new JiPrologList(new PrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine }), list);
+		assertEquals(PrologTerm.LIST_TYPE, list.getType());
 		assertEquals(".", list.getFunctor());
 		assertEquals("./2", list.getIndicator());
 		assertEquals(2, list.getArity());
@@ -135,7 +135,7 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 	public final void testNewPrologStructure() {
 		IPrologStructure structure = provider.newPrologStructure("digits", zero, one, two, three, four, five, six, seven, eight, nine);
 		assertEquals(new JiPrologStructure("digits", zero, one, two, three, four, five, six, seven, eight, nine), structure);
-		assertEquals(IPrologTerm.STRUCTURE_TYPE, structure.getType());
+		assertEquals(PrologTerm.STRUCTURE_TYPE, structure.getType());
 		assertEquals("digits", structure.getFunctor());
 		assertEquals("digits/10", structure.getIndicator());
 		assertEquals(10, structure.getArity());
@@ -143,9 +143,9 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testNewPrologExpression() {
-		IPrologExpression expression = provider.newPrologExpression(x, "+", y);
+		PrologExpression expression = provider.newPrologExpression(x, "+", y);
 		assertEquals(new JiPrologExpression(x, "+", y), expression);
-		assertEquals(IPrologTerm.EXPRESSION_TYPE, expression.getType());
+		assertEquals(PrologTerm.EXPRESSION_TYPE, expression.getType());
 		assertEquals("+", expression.getFunctor());
 		assertEquals("+/2", expression.getIndicator());
 		assertEquals(2, expression.getArity());
@@ -161,19 +161,19 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 		assertEquals(provider.prologFail(), provider.parsePrologTerm("fail"));
 		assertEquals(provider.prologEmpty(), provider.parsePrologTerm("[]"));
 
-		IPrologAtom atom = (IPrologAtom) provider.parsePrologTerm("an_atom");
+		PrologAtom atom = (PrologAtom) provider.parsePrologTerm("an_atom");
 		assertEquals(new JiPrologAtom("an_atom"), atom);
 
 		// IPrologFloat f = (IPrologFloat) adapter.parseTerm("3.14");
 		// assertEquals(new FloatAdapter(3.14), f);
 
-		IPrologList list = (IPrologList) provider.parsePrologTerm("[0,1,2,3,4,5,6,7,8,9]");
-		assertEquals(new JiPrologList(new IPrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine }), list);
+		PrologList list = (PrologList) provider.parsePrologTerm("[0,1,2,3,4,5,6,7,8,9]");
+		assertEquals(new JiPrologList(new PrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine }), list);
 
 		IPrologStructure structure = (IPrologStructure) provider.parsePrologTerm("digits(0,1,2,3,4,5,6,7,8,9)");
 		assertEquals(new JiPrologStructure("digits", zero, one, two, three, four, five, six, seven, eight, nine), structure);
 
-		IPrologExpression expression = (IPrologExpression) provider.parsePrologTerm("X+Y");
+		PrologExpression expression = (PrologExpression) provider.parsePrologTerm("X+Y");
 		assertEquals(new JiPrologExpression(x, "+", y), expression);
 
 	}
@@ -181,13 +181,13 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 	@Test
 	public final void testParseTerms() {
 
-		IPrologTerm employeeStructure = provider.newPrologStructure(employee, name, dpto, scale);
-		IPrologTerm departmentStructure = provider.newPrologStructure(department, dpto, dptoName);
-		IPrologTerm salaryStructure = provider.newPrologStructure(salary, scale, money);
+		PrologTerm employeeStructure = provider.newPrologStructure(employee, name, dpto, scale);
+		PrologTerm departmentStructure = provider.newPrologStructure(department, dpto, dptoName);
+		PrologTerm salaryStructure = provider.newPrologStructure(salary, scale, money);
 
-		IPrologTerm expression = provider.newPrologExpression(money, "<", provider.newPrologInteger(2000));
+		PrologTerm expression = provider.newPrologExpression(money, "<", provider.newPrologInteger(2000));
 
-		IPrologTerm[] structures = new IPrologTerm[] { employeeStructure, departmentStructure, salaryStructure, expression };
+		PrologTerm[] structures = new PrologTerm[] { employeeStructure, departmentStructure, salaryStructure, expression };
 		assertArrayEquals(structures, provider.parsePrologTerms("employee(Name,Dpto,Scale),department(Dpto,DepartmentName),salary(Scale,Money),Money < 2000"));
 
 	}
@@ -195,15 +195,15 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 	@Test
 	public final void test() {
 
-		IPrologEngine iPrologEngine = provider.newPrologEngine();
+		PrologEngine iPrologEngine = provider.newPrologEngine();
 		iPrologEngine.consult("company.pl");
 		// Map<String, IPrologTerm> map =
 		// iPrologEngine.find("employee(Name,Dpto,Scale),department(Dpto,DepartmentName),salary(Scale,Money),Money < 2000");
 		// Map<String, IPrologTerm> map =
 		// iPrologEngine.find(adapter.parseTerms("employee(Name,Dpto,Scale),department(Dpto,DepartmentName),salary(Scale,Money),Money < 2000"));
 
-		IPrologExpression expression = provider.newPrologExpression(money, "<", provider.newPrologInteger(2000));
-		IPrologQuery query = iPrologEngine.createQuery(expression);
+		PrologExpression expression = provider.newPrologExpression(money, "<", provider.newPrologInteger(2000));
+		PrologQuery query = iPrologEngine.createQuery(expression);
 
 		System.out.println(query.hasSolution());
 

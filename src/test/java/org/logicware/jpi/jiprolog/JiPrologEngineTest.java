@@ -17,9 +17,9 @@ import java.util.Set;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.logicware.jpi.IPrologProvider;
-import org.logicware.jpi.IPrologQuery;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologProvider;
+import org.logicware.jpi.PrologQuery;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.JiPrologBaseTest;
 import org.logicware.jpi.PredicateIndicator;
 
@@ -30,8 +30,8 @@ import com.ugos.jiprolog.engine.JIPTermParser;
 public class JiPrologEngineTest extends JiPrologBaseTest {
 
 	private JiPrologEngine engine;
-	private IPrologProvider adapter;
-	private IPrologQuery query;
+	private PrologProvider adapter;
+	private PrologQuery query;
 
 	@Before
 	public void setUp() throws Exception {
@@ -707,34 +707,34 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.assertz("different( X, Y)");
 
 		famillyAllSolutionMap = new HashMap[6];
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", pam);
 		solutionMap.put("Y", bob);
 		famillyAllSolutionMap[0] = solutionMap;
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", tom);
 		solutionMap.put("Y", bob);
 		famillyAllSolutionMap[1] = solutionMap;
 
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", tom);
 		solutionMap.put("Y", liz);
 		famillyAllSolutionMap[2] = solutionMap;
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", bob);
 		solutionMap.put("Y", ann);
 		famillyAllSolutionMap[3] = solutionMap;
 
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", bob);
 		solutionMap.put("Y", pat);
 		famillyAllSolutionMap[4] = solutionMap;
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", pat);
 		solutionMap.put("Y", jim);
 		famillyAllSolutionMap[5] = solutionMap;
 
-		Map<String, IPrologTerm>[] allSolutionMap = engine.findAll("parent( X, Y)");
+		Map<String, PrologTerm>[] allSolutionMap = engine.findAll("parent( X, Y)");
 		assertArrayEquals(famillyAllSolutionMap, allSolutionMap);
 
 	}
@@ -766,36 +766,36 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.assertz("different( X, Y)");
 
 		famillyAllSolutionMap = new HashMap[6];
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", pam);
 		solutionMap.put("Y", bob);
 		famillyAllSolutionMap[0] = solutionMap;
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", tom);
 		solutionMap.put("Y", bob);
 		famillyAllSolutionMap[1] = solutionMap;
 
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", tom);
 		solutionMap.put("Y", liz);
 		famillyAllSolutionMap[2] = solutionMap;
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", bob);
 		solutionMap.put("Y", ann);
 		famillyAllSolutionMap[3] = solutionMap;
 
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", bob);
 		solutionMap.put("Y", pat);
 		famillyAllSolutionMap[4] = solutionMap;
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", pat);
 		solutionMap.put("Y", jim);
 		famillyAllSolutionMap[5] = solutionMap;
 
 		x = new JiPrologVariable("X");
 		y = new JiPrologVariable("Y");
-		Map<String, IPrologTerm>[] allSolutionMap = engine.findAll(new JiPrologStructure(parent, x, y));
+		Map<String, PrologTerm>[] allSolutionMap = engine.findAll(new JiPrologStructure(parent, x, y));
 		assertArrayEquals(famillyAllSolutionMap, allSolutionMap);
 	}
 
@@ -826,12 +826,12 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.assertz("different( X, Y)");
 
 		famillyAllSolutionMap = new HashMap[2];
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", pam);
 		solutionMap.put("Y", bob);
 		solutionMap.put("Z", ann);
 		famillyAllSolutionMap[0] = solutionMap;
-		solutionMap = new HashMap<String, IPrologTerm>();
+		solutionMap = new HashMap<String, PrologTerm>();
 		solutionMap.put("X", pam);
 		solutionMap.put("Y", bob);
 		solutionMap.put("Z", pat);
@@ -840,7 +840,7 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		x = new JiPrologVariable("X");
 		y = new JiPrologVariable("Y");
 		z = new JiPrologVariable("Z");
-		Map<String, IPrologTerm>[] allSolutionMap = engine.findAll(new JiPrologStructure(mother, x, y), new JiPrologStructure(grandparent, x, z));
+		Map<String, PrologTerm>[] allSolutionMap = engine.findAll(new JiPrologStructure(mother, x, y), new JiPrologStructure(grandparent, x, z));
 
 		assertArrayEquals(famillyAllSolutionMap, allSolutionMap);
 	}
@@ -876,9 +876,9 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.assertz("salary( 9, 5000 )");
 
 		query = engine.createQuery("employee(Name,Dpto,Scale),department(Dpto,DepartmentName),salary(Scale,Money)");
-		Map<String, IPrologTerm>[] allSolutionMap = query.allVariablesSolutions();
+		Map<String, PrologTerm>[] allSolutionMap = query.allVariablesSolutions();
 
-		Map<String, IPrologTerm> solutionMap = allSolutionMap[0];
+		Map<String, PrologTerm> solutionMap = allSolutionMap[0];
 		assertEquals(mcardon, solutionMap.get("Name"));
 		assertEquals(one, solutionMap.get("Dpto"));
 		assertEquals(five, solutionMap.get("Scale"));
@@ -964,9 +964,9 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		JiPrologStructure salary = new JiPrologStructure("salary", scale, money);
 
 		query = engine.createQuery(employee, department, salary);
-		Map<String, IPrologTerm>[] allSolutionMap = query.allVariablesSolutions();
+		Map<String, PrologTerm>[] allSolutionMap = query.allVariablesSolutions();
 
-		Map<String, IPrologTerm> solutionMap = allSolutionMap[0];
+		Map<String, PrologTerm> solutionMap = allSolutionMap[0];
 		assertEquals(mcardon, solutionMap.get("Name"));
 		assertEquals(one, solutionMap.get("Dpto"));
 		assertEquals(five, solutionMap.get("Scale"));

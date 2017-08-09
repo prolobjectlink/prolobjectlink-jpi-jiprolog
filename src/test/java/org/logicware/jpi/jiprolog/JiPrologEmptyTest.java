@@ -6,15 +6,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.logicware.jpi.IPrologAtom;
-import org.logicware.jpi.IPrologDouble;
-import org.logicware.jpi.IPrologExpression;
-import org.logicware.jpi.IPrologFloat;
-import org.logicware.jpi.IPrologInteger;
-import org.logicware.jpi.IPrologList;
-import org.logicware.jpi.IPrologLong;
+import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologDouble;
+import org.logicware.jpi.PrologExpression;
+import org.logicware.jpi.PrologFloat;
+import org.logicware.jpi.PrologInteger;
+import org.logicware.jpi.PrologList;
+import org.logicware.jpi.PrologLong;
 import org.logicware.jpi.IPrologStructure;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.IPrologVariable;
 import org.logicware.jpi.jiprolog.JiPrologAtom;
 import org.logicware.jpi.jiprolog.JiPrologDouble;
@@ -46,7 +46,7 @@ public class JiPrologEmptyTest {
 
 	@Test
 	public final void testGetArguments() {
-		assertArrayEquals(new IPrologTerm[0], empty.getArguments());
+		assertArrayEquals(new PrologTerm[0], empty.getArguments());
 	}
 
 	@Test
@@ -61,7 +61,7 @@ public class JiPrologEmptyTest {
 
 	@Test
 	public final void testGetType() {
-		assertEquals(IPrologTerm.EMPTY_TYPE, empty.getType());
+		assertEquals(PrologTerm.EMPTY_TYPE, empty.getType());
 	}
 
 	@Test
@@ -128,24 +128,24 @@ public class JiPrologEmptyTest {
 	public final void testUnify() {
 
 		// with atom
-		IPrologTerm empty = new JiPrologEmpty();
-		IPrologAtom atom = new JiPrologAtom("John Doe");
+		PrologTerm empty = new JiPrologEmpty();
+		PrologAtom atom = new JiPrologAtom("John Doe");
 		assertFalse(empty.unify(atom));
 
 		// with integer
-		IPrologInteger iValue = new JiPrologInteger(36);
+		PrologInteger iValue = new JiPrologInteger(36);
 		assertFalse(empty.unify(iValue));
 
 		// with long
-		IPrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = new JiPrologLong(28);
 		assertFalse(empty.unify(lValue));
 
 		// with float
-		IPrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = new JiPrologFloat(36.47);
 		assertFalse(empty.unify(fValue));
 
 		// with double
-		IPrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = new JiPrologDouble(36.47);
 		assertFalse(empty.unify(dValue));
 
 		// with variable
@@ -158,12 +158,12 @@ public class JiPrologEmptyTest {
 		assertFalse(empty.unify(structure));
 
 		// with list
-		IPrologList list = new JiPrologProvider().parsePrologList("[a,b,c]");
+		PrologList list = new JiPrologProvider().parsePrologList("[a,b,c]");
 		assertFalse(empty.unify(list));
 		assertTrue(empty.unify(empty));
 
 		// with expression
-		IPrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
 		assertFalse(empty.unify(expression));
 
 	}
@@ -172,24 +172,24 @@ public class JiPrologEmptyTest {
 	public final void testCompareTo() {
 
 		// with atom
-		IPrologTerm empty = new JiPrologEmpty();
-		IPrologAtom atom = new JiPrologAtom("John Doe");
+		PrologTerm empty = new JiPrologEmpty();
+		PrologAtom atom = new JiPrologAtom("John Doe");
 		assertEquals(empty.compareTo(atom), 1);
 
 		// with integer
-		IPrologInteger iValue = new JiPrologInteger(36);
+		PrologInteger iValue = new JiPrologInteger(36);
 		assertEquals(empty.compareTo(iValue), 1);
 
 		// with long
-		IPrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = new JiPrologLong(28);
 		assertEquals(empty.compareTo(lValue), 1);
 
 		// with float
-		IPrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = new JiPrologFloat(36.47);
 		assertEquals(empty.compareTo(fValue), 1);
 
 		// with double
-		IPrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = new JiPrologDouble(36.47);
 		assertEquals(empty.compareTo(dValue), 1);
 
 		// with variable
@@ -202,12 +202,12 @@ public class JiPrologEmptyTest {
 		assertEquals(empty.compareTo(structure), -1);
 
 		// with list
-		IPrologList list = new JiPrologProvider().parsePrologList("[a,b,c]");
+		PrologList list = new JiPrologProvider().parsePrologList("[a,b,c]");
 		assertEquals(empty.compareTo(list), -1);
 		assertEquals(empty.compareTo(empty), 0);
 
 		// with expression
-		IPrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
 		assertEquals(empty.compareTo(expression), -1);
 
 	}

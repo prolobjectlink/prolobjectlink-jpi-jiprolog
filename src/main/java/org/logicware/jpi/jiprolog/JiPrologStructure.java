@@ -1,7 +1,7 @@
 package org.logicware.jpi.jiprolog;
 
 import org.logicware.jpi.IPrologStructure;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPFunctor;
@@ -9,7 +9,7 @@ import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologStructure extends JiPrologCompound implements IPrologStructure {
 
-	protected JiPrologStructure(String functor, IPrologTerm... arguments) {
+	protected JiPrologStructure(String functor, PrologTerm... arguments) {
 		super(STRUCTURE_TYPE);
 		value = JIPFunctor.create(removeQuoted(functor), adaptCons(arguments));
 	}
@@ -23,17 +23,17 @@ public class JiPrologStructure extends JiPrologCompound implements IPrologStruct
 		value = JIPFunctor.create(removeQuoted(functor), cons);
 	}
 
-	public IPrologTerm getArgument(int index) {
-		IPrologTerm[] arguments = getArguments();
+	public PrologTerm getArgument(int index) {
+		PrologTerm[] arguments = getArguments();
 		checkIndexOutOfBound(index, arguments.length);
 		return arguments[index];
 	}
 
 	@Override
-	public IPrologTerm[] getArguments() {
+	public PrologTerm[] getArguments() {
 		JIPFunctor structure = (JIPFunctor) value;
 		int arity = structure.getArity();
-		IPrologTerm[] arguments = new IPrologTerm[arity];
+		PrologTerm[] arguments = new PrologTerm[arity];
 		for (int i = 0; i < arity; i++) {
 			arguments[i] = adapter.toTerm(structure.getTerm(i + 1));
 		}
@@ -63,9 +63,9 @@ public class JiPrologStructure extends JiPrologCompound implements IPrologStruct
 	}
 
 	@Override
-	public IPrologTerm clone() {
+	public PrologTerm clone() {
 		String f = getFunctor();
-		IPrologTerm[] a = getArguments();
+		PrologTerm[] a = getArguments();
 		return new JiPrologStructure(f, a);
 	}
 

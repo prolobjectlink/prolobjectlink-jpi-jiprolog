@@ -1,18 +1,18 @@
 package org.logicware.jpi.jiprolog;
 
-import org.logicware.jpi.IPrologExpression;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologExpression;
+import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPFunctor;
 import com.ugos.jiprolog.engine.JIPTerm;
 
-public final class JiPrologExpression extends JiPrologCompound implements IPrologExpression {
+public final class JiPrologExpression extends JiPrologCompound implements PrologExpression {
 
 	@Deprecated
-	JiPrologExpression(IPrologTerm left, String operator, IPrologTerm right) {
+	JiPrologExpression(PrologTerm left, String operator, PrologTerm right) {
 		super(EXPRESSION_TYPE);
-		value = JIPFunctor.create(operator, adaptCons(new IPrologTerm[] { left, right }));
+		value = JIPFunctor.create(operator, adaptCons(new PrologTerm[] { left, right }));
 	}
 
 	@Deprecated
@@ -24,19 +24,19 @@ public final class JiPrologExpression extends JiPrologCompound implements IProlo
 		return getFunctor();
 	}
 
-	public IPrologTerm getLeft() {
+	public PrologTerm getLeft() {
 		return adapter.toTerm(((JIPFunctor) value).getTerm(1));
 	}
 
-	public IPrologTerm getRight() {
+	public PrologTerm getRight() {
 		return adapter.toTerm(((JIPFunctor) value).getTerm(2));
 	}
 
 	@Override
-	public IPrologTerm[] getArguments() {
+	public PrologTerm[] getArguments() {
 		JIPFunctor structure = (JIPFunctor) value;
 		int arity = structure.getArity();
-		IPrologTerm[] arguments = new IPrologTerm[arity];
+		PrologTerm[] arguments = new PrologTerm[arity];
 		for (int i = 0; i < arity; i++) {
 			arguments[i] = adapter.toTerm(structure.getTerm(i + 1));
 		}
@@ -66,10 +66,10 @@ public final class JiPrologExpression extends JiPrologCompound implements IProlo
 	}
 
 	@Override
-	public IPrologTerm clone() {
-		IPrologTerm l = getLeft();
+	public PrologTerm clone() {
+		PrologTerm l = getLeft();
 		String o = getOperator();
-		IPrologTerm r = getRight();
+		PrologTerm r = getRight();
 		return new JiPrologExpression(l, o, r);
 	}
 

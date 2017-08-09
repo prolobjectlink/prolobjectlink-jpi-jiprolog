@@ -9,15 +9,15 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.logicware.jpi.IPrologAtom;
-import org.logicware.jpi.IPrologDouble;
-import org.logicware.jpi.IPrologExpression;
-import org.logicware.jpi.IPrologFloat;
-import org.logicware.jpi.IPrologInteger;
-import org.logicware.jpi.IPrologList;
-import org.logicware.jpi.IPrologLong;
+import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologDouble;
+import org.logicware.jpi.PrologExpression;
+import org.logicware.jpi.PrologFloat;
+import org.logicware.jpi.PrologInteger;
+import org.logicware.jpi.PrologList;
+import org.logicware.jpi.PrologLong;
 import org.logicware.jpi.IPrologStructure;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.IPrologVariable;
 import org.logicware.jpi.JiPrologBaseTest;
 import org.logicware.jpi.jiprolog.JiPrologAtom;
@@ -50,7 +50,7 @@ public class JiPrologExpressionTest extends JiPrologBaseTest {
 	@Test
 	public final void testExpressionAdapter() {
 		assertNotNull(expression.value);
-		assertEquals(IPrologTerm.EXPRESSION_TYPE, expression.type);
+		assertEquals(PrologTerm.EXPRESSION_TYPE, expression.type);
 		assertEquals(JIPFunctor.create("+", JIPCons.create(JIPVariable.create("X"), JIPCons.create(JIPVariable.create("Y"), JIPCons.NIL))), expression.value);
 	}
 
@@ -76,7 +76,7 @@ public class JiPrologExpressionTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testGetType() {
-		assertEquals(IPrologTerm.EXPRESSION_TYPE, expression.getType());
+		assertEquals(PrologTerm.EXPRESSION_TYPE, expression.getType());
 	}
 
 	@Test
@@ -147,26 +147,26 @@ public class JiPrologExpressionTest extends JiPrologBaseTest {
 	@Test
 	public final void testUnify() {
 
-		IPrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
 
 		// with atom
-		IPrologAtom atom = new JiPrologAtom("John Doe");
+		PrologAtom atom = new JiPrologAtom("John Doe");
 		assertFalse(expression.unify(atom));
 
 		// with integer
-		IPrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = new JiPrologInteger(28);
 		assertFalse(expression.unify(iValue));
 
 		// with long
-		IPrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = new JiPrologLong(28);
 		assertFalse(expression.unify(lValue));
 
 		// with float
-		IPrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = new JiPrologFloat(36.47);
 		assertFalse(expression.unify(fValue));
 
 		// with double
-		IPrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = new JiPrologDouble(36.47);
 		assertFalse(expression.unify(dValue));
 
 		// with variable
@@ -179,16 +179,16 @@ public class JiPrologExpressionTest extends JiPrologBaseTest {
 		assertFalse(expression.unify(structure));
 
 		// with list
-		IPrologList flattenList = new JiPrologProvider().parsePrologList("['Some Literal']");
-		IPrologList headTailList = new JiPrologProvider().parsePrologList("['Some Literal'|[]]");
-		IPrologTerm empty = new JiPrologProvider().prologEmpty();
+		PrologList flattenList = new JiPrologProvider().parsePrologList("['Some Literal']");
+		PrologList headTailList = new JiPrologProvider().parsePrologList("['Some Literal'|[]]");
+		PrologTerm empty = new JiPrologProvider().prologEmpty();
 		assertFalse(expression.unify(flattenList));
 		assertFalse(expression.unify(headTailList));
 		assertFalse(expression.unify(empty));
 
 		// with expression
-		IPrologExpression expression1 = new JiPrologProvider().parsePrologExpression("X+Y*Z");
-		IPrologExpression expression2 = new JiPrologProvider().parsePrologExpression("3.14+1.58*2.71");
+		PrologExpression expression1 = new JiPrologProvider().parsePrologExpression("X+Y*Z");
+		PrologExpression expression2 = new JiPrologProvider().parsePrologExpression("3.14+1.58*2.71");
 
 		// true because are equals
 		assertTrue(expression.unify(expression));
@@ -202,26 +202,26 @@ public class JiPrologExpressionTest extends JiPrologBaseTest {
 	@Test
 	public final void testCompareTo() {
 
-		IPrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
 
 		// with atom
-		IPrologAtom atom = new JiPrologAtom("John Doe");
+		PrologAtom atom = new JiPrologAtom("John Doe");
 		assertEquals(expression.compareTo(atom), 1);
 
 		// with integer
-		IPrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = new JiPrologInteger(28);
 		assertEquals(expression.compareTo(iValue), 1);
 
 		// with long
-		IPrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = new JiPrologLong(28);
 		assertEquals(expression.compareTo(lValue), 1);
 
 		// with float
-		IPrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = new JiPrologFloat(36.47);
 		assertEquals(expression.compareTo(fValue), 1);
 
 		// with double
-		IPrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = new JiPrologDouble(36.47);
 		assertEquals(expression.compareTo(dValue), 1);
 
 		// with variable
@@ -234,16 +234,16 @@ public class JiPrologExpressionTest extends JiPrologBaseTest {
 		assertEquals(expression.compareTo(structure), 1);
 
 		// with list
-		IPrologList flattenList = new JiPrologProvider().parsePrologList("['Some Literal']");
-		IPrologList headTailList = new JiPrologProvider().parsePrologList("['Some Literal'|[]]");
-		IPrologTerm empty = new JiPrologProvider().prologEmpty();
+		PrologList flattenList = new JiPrologProvider().parsePrologList("['Some Literal']");
+		PrologList headTailList = new JiPrologProvider().parsePrologList("['Some Literal'|[]]");
+		PrologTerm empty = new JiPrologProvider().prologEmpty();
 		assertEquals(expression.compareTo(flattenList), -1);
 		assertEquals(expression.compareTo(headTailList), -1);
 		assertEquals(expression.compareTo(empty), 1);
 
 		// with expression
-		IPrologExpression expression1 = new JiPrologProvider().parsePrologExpression("X+Y*Z");
-		IPrologExpression expression2 = new JiPrologProvider().parsePrologExpression("3.14+1.58*2.71");
+		PrologExpression expression1 = new JiPrologProvider().parsePrologExpression("X+Y*Z");
+		PrologExpression expression2 = new JiPrologProvider().parsePrologExpression("3.14+1.58*2.71");
 
 		// true because are equals
 		assertEquals(expression.compareTo(expression), 0);

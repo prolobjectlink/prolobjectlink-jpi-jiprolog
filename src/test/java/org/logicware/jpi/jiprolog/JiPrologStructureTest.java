@@ -9,15 +9,15 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.logicware.jpi.IPrologAtom;
-import org.logicware.jpi.IPrologDouble;
-import org.logicware.jpi.IPrologExpression;
-import org.logicware.jpi.IPrologFloat;
-import org.logicware.jpi.IPrologInteger;
-import org.logicware.jpi.IPrologList;
-import org.logicware.jpi.IPrologLong;
+import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologDouble;
+import org.logicware.jpi.PrologExpression;
+import org.logicware.jpi.PrologFloat;
+import org.logicware.jpi.PrologInteger;
+import org.logicware.jpi.PrologList;
+import org.logicware.jpi.PrologLong;
 import org.logicware.jpi.IPrologStructure;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.IPrologVariable;
 import org.logicware.jpi.JiPrologBaseTest;
 import org.logicware.jpi.jiprolog.JiPrologAtom;
@@ -51,7 +51,7 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 	@Test
 	public final void testStructureAdapter() {
 		assertNotNull(structure.value);
-		assertEquals(IPrologTerm.STRUCTURE_TYPE, structure.type);
+		assertEquals(PrologTerm.STRUCTURE_TYPE, structure.type);
 
 		JIPTerm[] arguments = new JIPTerm[] {
 
@@ -159,7 +159,7 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testGetType() {
-		assertEquals(IPrologTerm.STRUCTURE_TYPE, structure.getType());
+		assertEquals(PrologTerm.STRUCTURE_TYPE, structure.getType());
 	}
 
 	@Test
@@ -181,24 +181,24 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 	public final void testUnify() {
 
 		// with atom
-		IPrologAtom atom = new JiPrologAtom("John Doe");
+		PrologAtom atom = new JiPrologAtom("John Doe");
 		IPrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a)");
 		assertFalse(structure.unify(atom));
 
 		// with integer
-		IPrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = new JiPrologInteger(28);
 		assertFalse(structure.unify(iValue));
 
 		// with long
-		IPrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = new JiPrologLong(28);
 		assertFalse(structure.unify(lValue));
 
 		// with float
-		IPrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = new JiPrologFloat(36.47);
 		assertFalse(structure.unify(fValue));
 
 		// with double
-		IPrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = new JiPrologDouble(36.47);
 		assertFalse(structure.unify(dValue));
 
 		// with variable
@@ -217,15 +217,15 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 		assertFalse(structure.unify(structure2));
 
 		// with list
-		IPrologList flattenList = new JiPrologProvider().parsePrologList("['Some Literal']");
-		IPrologList headTailList = new JiPrologProvider().parsePrologList("['Some Literal'|[]]");
-		IPrologTerm empty = new JiPrologProvider().prologEmpty();
+		PrologList flattenList = new JiPrologProvider().parsePrologList("['Some Literal']");
+		PrologList headTailList = new JiPrologProvider().parsePrologList("['Some Literal'|[]]");
+		PrologTerm empty = new JiPrologProvider().prologEmpty();
 		assertFalse(structure.unify(flattenList));
 		assertFalse(structure.unify(headTailList));
 		assertFalse(structure.unify(empty));
 
 		// with expression
-		IPrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
 		assertFalse(structure.unify(expression));
 
 	}
@@ -234,24 +234,24 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 	public final void testCompareTo() {
 
 		// with atom
-		IPrologAtom atom = new JiPrologAtom("John Doe");
+		PrologAtom atom = new JiPrologAtom("John Doe");
 		IPrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a)");
 		assertEquals(structure.compareTo(atom), 1);
 
 		// with integer
-		IPrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = new JiPrologInteger(28);
 		assertEquals(structure.compareTo(iValue), 1);
 
 		// with long
-		IPrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = new JiPrologLong(28);
 		assertEquals(structure.compareTo(lValue), 1);
 
 		// with float
-		IPrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = new JiPrologFloat(36.47);
 		assertEquals(structure.compareTo(fValue), 1);
 
 		// with double
-		IPrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = new JiPrologDouble(36.47);
 		assertEquals(structure.compareTo(dValue), 1);
 
 		// with variable
@@ -270,15 +270,15 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 		assertEquals(structure.compareTo(structure2), 1);
 
 		// with list
-		IPrologList flattenList = new JiPrologProvider().parsePrologList("['Some Literal']");
-		IPrologList headTailList = new JiPrologProvider().parsePrologList("['Some Literal'|[]]");
-		IPrologTerm empty = new JiPrologProvider().prologEmpty();
+		PrologList flattenList = new JiPrologProvider().parsePrologList("['Some Literal']");
+		PrologList headTailList = new JiPrologProvider().parsePrologList("['Some Literal'|[]]");
+		PrologTerm empty = new JiPrologProvider().prologEmpty();
 		assertEquals(structure.compareTo(flattenList), -1);
 		assertEquals(structure.compareTo(headTailList), -1);
 		assertEquals(structure.compareTo(empty), 1);
 
 		// with expression
-		IPrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
 		assertEquals(structure.compareTo(expression), -1);
 
 	}

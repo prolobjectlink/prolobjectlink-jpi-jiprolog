@@ -8,17 +8,17 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 
 import org.logicware.jpi.AbstractProvider;
-import org.logicware.jpi.IPrologAtom;
-import org.logicware.jpi.IPrologDouble;
-import org.logicware.jpi.IPrologEngine;
-import org.logicware.jpi.IPrologExpression;
-import org.logicware.jpi.IPrologFloat;
-import org.logicware.jpi.IPrologInteger;
-import org.logicware.jpi.IPrologList;
-import org.logicware.jpi.IPrologLong;
-import org.logicware.jpi.IPrologProvider;
+import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologDouble;
+import org.logicware.jpi.PrologEngine;
+import org.logicware.jpi.PrologExpression;
+import org.logicware.jpi.PrologFloat;
+import org.logicware.jpi.PrologInteger;
+import org.logicware.jpi.PrologList;
+import org.logicware.jpi.PrologLong;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.IPrologStructure;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.IPrologVariable;
 import org.logicware.jpi.PrologAdapter;
 
@@ -27,15 +27,15 @@ import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPTermParser;
 
-public class JiPrologProvider extends AbstractProvider implements IPrologProvider {
+public class JiPrologProvider extends AbstractProvider implements PrologProvider {
 
 	// constants terms
-	static final IPrologTerm CUT = new JiPrologCut();
-	static final IPrologTerm NIL = new JiPrologNil();
-	static final IPrologTerm FAIL = new JiPrologFail();
-	static final IPrologTerm TRUE = new JiPrologTrue();
-	static final IPrologTerm FALSE = new JiPrologFalse();
-	static final IPrologTerm EMPTY = new JiPrologList();
+	static final PrologTerm CUT = new JiPrologCut();
+	static final PrologTerm NIL = new JiPrologNil();
+	static final PrologTerm FAIL = new JiPrologFail();
+	static final PrologTerm TRUE = new JiPrologTrue();
+	static final PrologTerm FALSE = new JiPrologFalse();
+	static final PrologTerm EMPTY = new JiPrologList();
 
 	final PrologAdapter<JIPTerm> adapter = createPrologAdapter(JiPrologAdapter.class);
 
@@ -43,48 +43,48 @@ public class JiPrologProvider extends AbstractProvider implements IPrologProvide
 		return false;
 	}
 
-	public IPrologTerm prologNil() {
+	public PrologTerm prologNil() {
 		return NIL;
 	}
 
-	public IPrologTerm prologCut() {
+	public PrologTerm prologCut() {
 		return CUT;
 	}
 
-	public IPrologTerm prologFail() {
+	public PrologTerm prologFail() {
 		return FAIL;
 	}
 
-	public IPrologTerm prologTrue() {
+	public PrologTerm prologTrue() {
 		return TRUE;
 	}
 
-	public IPrologTerm prologFalse() {
+	public PrologTerm prologFalse() {
 		return FALSE;
 	}
 
-	public IPrologTerm prologEmpty() {
+	public PrologTerm prologEmpty() {
 		return EMPTY;
 	}
 
 	// engine
 
-	public IPrologEngine newPrologEngine() {
+	public PrologEngine newPrologEngine() {
 		return new JiPrologEngine();
 	}
 
 	// parser helpers
 
-	public IPrologTerm parsePrologTerm(String term) {
+	public PrologTerm parsePrologTerm(String term) {
 		JIPTermParser parser = new JIPEngine().getTermParser();
 		return adapter.toTerm(parser.parseTerm(term));
 	}
 
-	public IPrologTerm[] parsePrologTerms(String stringTerms) {
+	public PrologTerm[] parsePrologTerms(String stringTerms) {
 		JIPTermParser parser = new JIPEngine().getTermParser();
 		InputStream inputStream = new ByteArrayInputStream(stringTerms.getBytes());
 		Enumeration<JIPTerm> e = parser.parseStream(inputStream, inputStream.toString());
-		ArrayList<IPrologTerm> terms = new ArrayList<IPrologTerm>();
+		ArrayList<PrologTerm> terms = new ArrayList<PrologTerm>();
 		while (e.hasMoreElements()) {
 			JIPTerm term = e.nextElement();
 			if (!(term instanceof JIPCons)) {
@@ -99,7 +99,7 @@ public class JiPrologProvider extends AbstractProvider implements IPrologProvide
 
 					System.out.println(j + "[ " + j.getClass() + " ]");
 
-					IPrologTerm k = adapter.toTerm(structure.getNth(i));
+					PrologTerm k = adapter.toTerm(structure.getNth(i));
 
 					terms.add(k);
 
@@ -107,44 +107,44 @@ public class JiPrologProvider extends AbstractProvider implements IPrologProvide
 
 			}
 		}
-		return terms.toArray(new IPrologTerm[0]);
+		return terms.toArray(new PrologTerm[0]);
 	}
 
 	// terms
 
-	public IPrologAtom newPrologAtom(String functor) {
+	public PrologAtom newPrologAtom(String functor) {
 		return new JiPrologAtom(functor);
 	}
 
-	public IPrologFloat newPrologFloat() {
+	public PrologFloat newPrologFloat() {
 		return new JiPrologFloat();
 	}
 
-	public IPrologFloat newPrologFloat(Number value) {
+	public PrologFloat newPrologFloat(Number value) {
 		return new JiPrologFloat(value);
 	}
 
-	public IPrologDouble newPrologDouble() {
+	public PrologDouble newPrologDouble() {
 		return new JiPrologDouble();
 	}
 
-	public IPrologDouble newPrologDouble(Number value) {
+	public PrologDouble newPrologDouble(Number value) {
 		return new JiPrologDouble(value);
 	}
 
-	public IPrologInteger newPrologInteger() {
+	public PrologInteger newPrologInteger() {
 		return new JiPrologInteger();
 	}
 
-	public IPrologInteger newPrologInteger(Number value) {
+	public PrologInteger newPrologInteger(Number value) {
 		return new JiPrologInteger(value);
 	}
 
-	public IPrologLong newPrologLong() {
+	public PrologLong newPrologLong() {
 		return new JiPrologLong();
 	}
 
-	public IPrologLong newPrologLong(Number value) {
+	public PrologLong newPrologLong(Number value) {
 		return new JiPrologLong(value);
 	}
 
@@ -156,27 +156,27 @@ public class JiPrologProvider extends AbstractProvider implements IPrologProvide
 		return new JiPrologVariable(name);
 	}
 
-	public IPrologList newPrologList() {
+	public PrologList newPrologList() {
 		return new JiPrologList();
 	}
 
-	public IPrologList newPrologList(IPrologTerm[] arguments) {
+	public PrologList newPrologList(PrologTerm[] arguments) {
 		return new JiPrologList(arguments);
 	}
 
-	public IPrologList newPrologList(IPrologTerm head, IPrologTerm tail) {
+	public PrologList newPrologList(PrologTerm head, PrologTerm tail) {
 		return new JiPrologList(head, tail);
 	}
 
-	public IPrologList newPrologList(IPrologTerm[] arguments, IPrologTerm tail) {
+	public PrologList newPrologList(PrologTerm[] arguments, PrologTerm tail) {
 		return new JiPrologList(arguments, tail);
 	}
 
-	public IPrologStructure newPrologStructure(String functor, IPrologTerm... arguments) {
+	public IPrologStructure newPrologStructure(String functor, PrologTerm... arguments) {
 		return new JiPrologStructure(functor, arguments);
 	}
 
-	public IPrologExpression newPrologExpression(IPrologTerm left, String operator, IPrologTerm right) {
+	public PrologExpression newPrologExpression(PrologTerm left, String operator, PrologTerm right) {
 		return new JiPrologExpression(left, operator, right);
 	}
 

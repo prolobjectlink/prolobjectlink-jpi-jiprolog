@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.logicware.jpi.IPrologOperator;
+import org.logicware.jpi.PrologOperator;
 import org.logicware.jpi.OperatorEntry;
 
 import com.ugos.jiprolog.engine.JIPEngine;
@@ -35,7 +35,7 @@ final class JiPrologOperatorSet extends AbstractSet<OperatorEntry> {
 	}
 
 	protected boolean currentOp(String opreator) {
-		for (IPrologOperator op : operators) {
+		for (PrologOperator op : operators) {
 			if (op.getOperator().equals(opreator)) {
 				return true;
 			}

@@ -3,16 +3,16 @@ package org.logicware.jpi.jiprolog;
 import static org.logicware.jpi.PrologAdapterFactory.createPrologAdapter;
 
 import org.logicware.jpi.AbstractTerm;
-import org.logicware.jpi.IPrologIndex;
-import org.logicware.jpi.IPrologNumber;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologIndex;
+import org.logicware.jpi.PrologNumber;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.NumberExpectedError;
 import org.logicware.jpi.PrologAdapter;
 
 import com.ugos.jiprolog.engine.JIPNumber;
 import com.ugos.jiprolog.engine.JIPTerm;
 
-public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
+public abstract class JiPrologTerm extends AbstractTerm implements PrologTerm {
 
 	protected int type;
 	protected JIPTerm value;
@@ -28,7 +28,7 @@ public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
 		this.value = value;
 	}
 
-	protected final void checkNumberType(IPrologTerm term) {
+	protected final void checkNumberType(PrologTerm term) {
 		if (!term.isNumber()) {
 			throw new NumberExpectedError(term);
 		}
@@ -126,17 +126,17 @@ public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
 
 	public abstract String getFunctor();
 
-	public abstract IPrologTerm[] getArguments();
+	public abstract PrologTerm[] getArguments();
 
-	public IPrologIndex getIndex() {
+	public PrologIndex getIndex() {
 		throw new UnsupportedOperationException();
 	}
 
-	public final boolean unify(IPrologTerm term) {
+	public final boolean unify(PrologTerm term) {
 		return value.unifiable(adapter.toNativeTerm(term));
 	}
 
-	public int compareTo(IPrologTerm term) {
+	public int compareTo(PrologTerm term) {
 
 		int termType = term.getType();
 
@@ -165,7 +165,7 @@ public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
 
 			checkNumberType(term);
 			double thisValue = ((JIPNumber) value).getDoubleValue();
-			double otherValue = ((IPrologNumber) term).getDoubleValue();
+			double otherValue = ((PrologNumber) term).getDoubleValue();
 
 			if (thisValue < otherValue) {
 				return -1;
@@ -179,8 +179,8 @@ public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
 		case EMPTY_TYPE:
 		case STRUCTURE_TYPE:
 
-			IPrologTerm thisCompound = this;
-			IPrologTerm otherCompound = term;
+			PrologTerm thisCompound = this;
+			PrologTerm otherCompound = term;
 
 			// comparison by arity
 			if (thisCompound.getArity() < otherCompound.getArity()) {
@@ -198,12 +198,12 @@ public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
 			}
 
 			// arguments comparison
-			IPrologTerm[] thisArguments = thisCompound.getArguments();
-			IPrologTerm[] otherArguments = otherCompound.getArguments();
+			PrologTerm[] thisArguments = thisCompound.getArguments();
+			PrologTerm[] otherArguments = otherCompound.getArguments();
 
 			for (int i = 0; i < thisArguments.length; i++) {
-				IPrologTerm thisArgument = thisArguments[i];
-				IPrologTerm otherArgument = otherArguments[i];
+				PrologTerm thisArgument = thisArguments[i];
+				PrologTerm otherArgument = otherArguments[i];
 				if (thisArgument != null && otherArgument != null) {
 					result = thisArgument.compareTo(otherArgument);
 					if (result != 0) {
@@ -215,8 +215,8 @@ public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
 
 		case VARIABLE_TYPE:
 
-			IPrologTerm thisVariable = this;
-			IPrologTerm otherVariable = (IPrologTerm) term;
+			PrologTerm thisVariable = this;
+			PrologTerm otherVariable = (PrologTerm) term;
 			if (thisVariable.hashCode() < otherVariable.hashCode()) {
 				return -1;
 			} else if (thisVariable.hashCode() > otherVariable.hashCode()) {
@@ -266,6 +266,6 @@ public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
 	}
 
 	@Override
-	public abstract IPrologTerm clone();
+	public abstract PrologTerm clone();
 
 }

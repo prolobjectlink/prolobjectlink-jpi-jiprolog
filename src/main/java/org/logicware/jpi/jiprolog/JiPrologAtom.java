@@ -1,11 +1,11 @@
 package org.logicware.jpi.jiprolog;
 
-import org.logicware.jpi.IPrologAtom;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
 
-public final class JiPrologAtom extends JiPrologTerm implements IPrologAtom {
+public final class JiPrologAtom extends JiPrologTerm implements PrologAtom {
 
 	public JiPrologAtom(String value) {
 		super(ATOM_TYPE, JIPAtom.create(value));
@@ -20,7 +20,7 @@ public final class JiPrologAtom extends JiPrologTerm implements IPrologAtom {
 	}
 
 	@Override
-	public IPrologTerm[] getArguments() {
+	public PrologTerm[] getArguments() {
 		return new JiPrologAtom[0];
 	}
 
@@ -45,7 +45,7 @@ public final class JiPrologAtom extends JiPrologTerm implements IPrologAtom {
 	}
 
 	@Override
-	public IPrologTerm clone() {
+	public PrologTerm clone() {
 		String s = getFunctor();
 		return new JiPrologAtom(s);
 	}

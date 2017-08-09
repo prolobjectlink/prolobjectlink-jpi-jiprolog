@@ -13,11 +13,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.logicware.jpi.AbstractEngine;
-import org.logicware.jpi.IPrologEngine;
-import org.logicware.jpi.IPrologIndicator;
-import org.logicware.jpi.IPrologOperator;
-import org.logicware.jpi.IPrologQuery;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologEngine;
+import org.logicware.jpi.PrologIndicator;
+import org.logicware.jpi.PrologOperator;
+import org.logicware.jpi.PrologQuery;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.OperatorEntry;
 import org.logicware.jpi.PredicateIndicator;
 import org.logicware.jpi.PrologAdapter;
@@ -32,7 +32,7 @@ import com.ugos.jiprolog.engine.JIPTermParser;
 import com.ugos.jiprolog.engine.Operator;
 import com.ugos.jiprolog.engine.OperatorManager;
 
-public final class JiPrologEngine extends AbstractEngine implements IPrologEngine {
+public final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 
 	JIPEngine engine;
 	JIPTermParser parser;
@@ -59,7 +59,7 @@ public final class JiPrologEngine extends AbstractEngine implements IPrologEngin
 
 	}
 
-	private JIPCons adaptCons(IPrologTerm[] arguments) {
+	private JIPCons adaptCons(PrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
 			cons = JIPCons.create(adapter.toNativeTerm(arguments[i]), cons);
@@ -136,7 +136,7 @@ public final class JiPrologEngine extends AbstractEngine implements IPrologEngin
 		asserta(JIPClause.create(parser.parseTerm(stringClause)));
 	}
 
-	public void asserta(IPrologTerm head, IPrologTerm... body) {
+	public void asserta(PrologTerm head, PrologTerm... body) {
 		asserta(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
 	}
 
@@ -150,7 +150,7 @@ public final class JiPrologEngine extends AbstractEngine implements IPrologEngin
 		assertz(JIPClause.create(parser.parseTerm(stringClause)));
 	}
 
-	public void assertz(IPrologTerm head, IPrologTerm... body) {
+	public void assertz(PrologTerm head, PrologTerm... body) {
 		assertz(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
 	}
 
@@ -164,7 +164,7 @@ public final class JiPrologEngine extends AbstractEngine implements IPrologEngin
 		return clause(JIPClause.create(parser.parseTerm(stringClause)));
 	}
 
-	public boolean clause(IPrologTerm head, IPrologTerm... body) {
+	public boolean clause(PrologTerm head, PrologTerm... body) {
 		return clause(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
 	}
 
@@ -176,7 +176,7 @@ public final class JiPrologEngine extends AbstractEngine implements IPrologEngin
 		retract(JIPClause.create(parser.parseTerm(stringClause)));
 	}
 
-	public void retract(IPrologTerm head, IPrologTerm... body) {
+	public void retract(PrologTerm head, PrologTerm... body) {
 		retract(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
 	}
 
@@ -184,11 +184,11 @@ public final class JiPrologEngine extends AbstractEngine implements IPrologEngin
 		engine.retract(clause);
 	}
 
-	public IPrologQuery createQuery(String stringQuery) {
+	public PrologQuery createQuery(String stringQuery) {
 		return new JiPrologQuery(engine, stringQuery);
 	}
 
-	public IPrologQuery createQuery(IPrologTerm... terms) {
+	public PrologQuery createQuery(PrologTerm... terms) {
 		return new JiPrologQuery(engine, terms);
 	}
 
@@ -197,7 +197,7 @@ public final class JiPrologEngine extends AbstractEngine implements IPrologEngin
 	}
 
 	public boolean currentPredicate(String functor, int arity) {
-		IPrologIndicator pi = new PredicateIndicator(functor, arity);
+		PrologIndicator pi = new PredicateIndicator(functor, arity);
 		return currentPredicates().contains(pi);
 	}
 
@@ -206,8 +206,8 @@ public final class JiPrologEngine extends AbstractEngine implements IPrologEngin
 		return op != null && op.m_nPrecedence == priority && op.m_strAssoc.equals(specifier);
 	}
 
-	public Set<IPrologIndicator> currentPredicates() {
-		Set<IPrologIndicator> builtins = new HashSet<IPrologIndicator>();
+	public Set<PrologIndicator> currentPredicates() {
+		Set<PrologIndicator> builtins = new HashSet<PrologIndicator>();
 		Collection<JIPClausesDatabase> collection = engine.getGlobalDataBase();
 		for (JIPClausesDatabase jipClausesDatabase : collection) {
 			String functor = jipClausesDatabase.getFunctorName();
@@ -218,8 +218,8 @@ public final class JiPrologEngine extends AbstractEngine implements IPrologEngin
 		return builtins;
 	}
 
-	public Set<IPrologOperator> currentOperators() {
-		HashSet<IPrologOperator> operators = new HashSet<IPrologOperator>();
+	public Set<PrologOperator> currentOperators() {
+		HashSet<PrologOperator> operators = new HashSet<PrologOperator>();
 		OperatorManager manager = engine.getOperatorManager();
 		Enumeration<?> e = manager.getOperators();
 		while (e.hasMoreElements()) {

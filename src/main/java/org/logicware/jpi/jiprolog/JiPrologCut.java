@@ -1,18 +1,18 @@
 package org.logicware.jpi.jiprolog;
 
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
 
-public class JiPrologCut extends JiPrologTerm implements IPrologTerm {
+public class JiPrologCut extends JiPrologTerm implements PrologTerm {
 
 	protected JiPrologCut() {
 		super(CUT_TYPE, JIPAtom.create("!"));
 	}
 
 	@Override
-	public IPrologTerm[] getArguments() {
-		return new IPrologTerm[0];
+	public PrologTerm[] getArguments() {
+		return new PrologTerm[0];
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class JiPrologCut extends JiPrologTerm implements IPrologTerm {
 	}
 
 	@Override
-	public IPrologTerm clone() {
+	public PrologTerm clone() {
 		return new JiPrologCut();
 	}
 

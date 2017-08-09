@@ -9,7 +9,7 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.JiPrologBaseTest;
 import org.logicware.jpi.jiprolog.JiPrologEngine;
 import org.logicware.jpi.jiprolog.JiPrologQuery;
@@ -152,7 +152,7 @@ public class JiPrologQueryTest extends JiPrologBaseTest {
 	@Test
 	public final void testNextVariablesSolution() {
 
-		Map<String, IPrologTerm> solutionMap = query.nextVariablesSolution();
+		Map<String, PrologTerm> solutionMap = query.nextVariablesSolution();
 		assertEquals(mcardon, solutionMap.get("Name"));
 		assertEquals(one, solutionMap.get("Dpto"));
 		assertEquals(five, solutionMap.get("Scale"));
@@ -211,9 +211,9 @@ public class JiPrologQueryTest extends JiPrologBaseTest {
 	@Test
 	public final void testNVariablesSolutions() {
 
-		Map<String, IPrologTerm>[] allSolutionMap = query.nVariablesSolutions(7);
+		Map<String, PrologTerm>[] allSolutionMap = query.nVariablesSolutions(7);
 
-		Map<String, IPrologTerm> solutionMap = allSolutionMap[0];
+		Map<String, PrologTerm> solutionMap = allSolutionMap[0];
 		assertEquals(mcardon, solutionMap.get("Name"));
 		assertEquals(one, solutionMap.get("Dpto"));
 		assertEquals(five, solutionMap.get("Scale"));
@@ -272,9 +272,9 @@ public class JiPrologQueryTest extends JiPrologBaseTest {
 	@Test
 	public final void testAllVariablesSolutions() {
 
-		Map<String, IPrologTerm>[] allSolutionMap = query.allVariablesSolutions();
+		Map<String, PrologTerm>[] allSolutionMap = query.allVariablesSolutions();
 
-		Map<String, IPrologTerm> solutionMap = allSolutionMap[0];
+		Map<String, PrologTerm> solutionMap = allSolutionMap[0];
 		assertEquals(mcardon, solutionMap.get("Name"));
 		assertEquals(one, solutionMap.get("Dpto"));
 		assertEquals(five, solutionMap.get("Scale"));

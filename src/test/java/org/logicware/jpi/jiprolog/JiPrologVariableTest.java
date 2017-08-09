@@ -9,14 +9,14 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.logicware.jpi.IPrologAtom;
-import org.logicware.jpi.IPrologDouble;
-import org.logicware.jpi.IPrologFloat;
-import org.logicware.jpi.IPrologInteger;
-import org.logicware.jpi.IPrologList;
-import org.logicware.jpi.IPrologLong;
+import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologDouble;
+import org.logicware.jpi.PrologFloat;
+import org.logicware.jpi.PrologInteger;
+import org.logicware.jpi.PrologList;
+import org.logicware.jpi.PrologLong;
 import org.logicware.jpi.IPrologStructure;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.IPrologVariable;
 import org.logicware.jpi.IndicatorError;
 import org.logicware.jpi.jiprolog.JiPrologAtom;
@@ -44,13 +44,13 @@ public class JiPrologVariableTest {
 
 	public final void testVariableAdapter() {
 		assertNotNull(variable.value);
-		assertEquals(IPrologTerm.VARIABLE_TYPE, variable.type);
+		assertEquals(PrologTerm.VARIABLE_TYPE, variable.type);
 		assertEquals(JIPVariable.create(), variable.value);
 	}
 
 	public final void testVariableAdapter(String name) {
 		assertNotNull(variable.value);
-		assertEquals(IPrologTerm.VARIABLE_TYPE, variable.type);
+		assertEquals(PrologTerm.VARIABLE_TYPE, variable.type);
 		assertEquals(JIPVariable.create("X"), variable.value);
 	}
 
@@ -84,7 +84,7 @@ public class JiPrologVariableTest {
 
 	@Test
 	public final void testGetType() {
-		assertEquals(IPrologTerm.VARIABLE_TYPE, variable.getType());
+		assertEquals(PrologTerm.VARIABLE_TYPE, variable.getType());
 	}
 
 	@Test
@@ -150,27 +150,27 @@ public class JiPrologVariableTest {
 
 		// with atom
 		IPrologVariable variable = new JiPrologVariable("X");
-		IPrologAtom atom = new JiPrologAtom("John Smith");
+		PrologAtom atom = new JiPrologAtom("John Smith");
 		assertTrue(variable.unify(atom));
 
 		// with integer
 		variable = new JiPrologVariable("X");
-		IPrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = new JiPrologInteger(28);
 		assertTrue(variable.unify(iValue));
 
 		// with long
 		variable = new JiPrologVariable("X");
-		IPrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = new JiPrologLong(28);
 		assertTrue(variable.unify(lValue));
 
 		// with float
 		variable = new JiPrologVariable("X");
-		IPrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = new JiPrologFloat(36.47);
 		assertTrue(variable.unify(fValue));
 
 		// with double
 		variable = new JiPrologVariable("X");
-		IPrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = new JiPrologDouble(36.47);
 		assertTrue(variable.unify(dValue));
 
 		// with variable
@@ -195,9 +195,9 @@ public class JiPrologVariableTest {
 		// with list
 		variable = new JiPrologVariable("X");
 		IPrologVariable z = new JiPrologVariable("Z");
-		IPrologList flattenList = new JiPrologProvider().parsePrologList("[X]");
-		IPrologList headTailList = new JiPrologProvider().parsePrologList("[Y|[]]");
-		IPrologTerm empty = new JiPrologProvider().prologEmpty();
+		PrologList flattenList = new JiPrologProvider().parsePrologList("[X]");
+		PrologList headTailList = new JiPrologProvider().parsePrologList("[Y|[]]");
+		PrologTerm empty = new JiPrologProvider().prologEmpty();
 		assertTrue(variable.unify(flattenList));
 		assertTrue(y.unify(headTailList));
 		assertTrue(z.unify(empty));
@@ -208,27 +208,27 @@ public class JiPrologVariableTest {
 
 		// with atom
 		IPrologVariable variable = new JiPrologVariable("X");
-		IPrologAtom atom = new JiPrologAtom("John Smith");
+		PrologAtom atom = new JiPrologAtom("John Smith");
 		assertEquals(variable.compareTo(atom), -1);
 
 		// with integer
 		variable = new JiPrologVariable("X");
-		IPrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = new JiPrologInteger(28);
 		assertEquals(variable.compareTo(iValue), -1);
 
 		// with long
 		variable = new JiPrologVariable("X");
-		IPrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = new JiPrologLong(28);
 		assertEquals(variable.compareTo(lValue), -1);
 
 		// with float
 		variable = new JiPrologVariable("X");
-		IPrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = new JiPrologFloat(36.47);
 		assertEquals(variable.compareTo(fValue), -1);
 
 		// with double
 		variable = new JiPrologVariable("X");
-		IPrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = new JiPrologDouble(36.47);
 		assertEquals(variable.compareTo(dValue), -1);
 
 		// with variable
@@ -252,9 +252,9 @@ public class JiPrologVariableTest {
 		// with list
 		variable = new JiPrologVariable("X");
 		IPrologVariable z = new JiPrologVariable("Z");
-		IPrologList flattenList = new JiPrologProvider().parsePrologList("[X]");
-		IPrologList headTailList = new JiPrologProvider().parsePrologList("[Y|[]]");
-		IPrologTerm empty = new JiPrologProvider().prologEmpty();
+		PrologList flattenList = new JiPrologProvider().parsePrologList("[X]");
+		PrologList headTailList = new JiPrologProvider().parsePrologList("[Y|[]]");
+		PrologTerm empty = new JiPrologProvider().prologEmpty();
 		assertEquals(variable.compareTo(flattenList), -1);
 		assertEquals(y.compareTo(headTailList), -1);
 		assertEquals(z.compareTo(empty), -1);

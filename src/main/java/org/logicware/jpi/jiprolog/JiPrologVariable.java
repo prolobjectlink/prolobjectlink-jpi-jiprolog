@@ -2,7 +2,7 @@ package org.logicware.jpi.jiprolog;
 
 import org.logicware.jpi.ArityError;
 import org.logicware.jpi.FunctorError;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.IPrologVariable;
 import org.logicware.jpi.IndicatorError;
 
@@ -31,7 +31,7 @@ public class JiPrologVariable extends JiPrologTerm implements IPrologVariable {
 	}
 
 	@Override
-	public IPrologTerm[] getArguments() {
+	public PrologTerm[] getArguments() {
 		return new JiPrologVariable[0];
 	}
 
@@ -56,7 +56,7 @@ public class JiPrologVariable extends JiPrologTerm implements IPrologVariable {
 	}
 
 	@Override
-	public IPrologTerm clone() {
+	public PrologTerm clone() {
 		String n = getName();
 		return new JiPrologVariable(n);
 	}

@@ -2,16 +2,16 @@ package org.logicware.jpi.jiprolog;
 
 import org.logicware.jpi.ArityError;
 import org.logicware.jpi.FunctorError;
-import org.logicware.jpi.IPrologDouble;
-import org.logicware.jpi.IPrologFloat;
-import org.logicware.jpi.IPrologInteger;
-import org.logicware.jpi.IPrologLong;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologDouble;
+import org.logicware.jpi.PrologFloat;
+import org.logicware.jpi.PrologInteger;
+import org.logicware.jpi.PrologLong;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.IndicatorError;
 
 import com.ugos.jiprolog.engine.JIPNumber;
 
-public final class JiPrologFloat extends JiPrologTerm implements IPrologFloat {
+public final class JiPrologFloat extends JiPrologTerm implements PrologFloat {
 
 	public JiPrologFloat() {
 		super(FLOAT_TYPE, JIPNumber.create(0));
@@ -21,19 +21,19 @@ public final class JiPrologFloat extends JiPrologTerm implements IPrologFloat {
 		super(FLOAT_TYPE, JIPNumber.create(value.floatValue()));
 	}
 
-	public IPrologInteger getPrologInteger() {
+	public PrologInteger getPrologInteger() {
 		return new JiPrologInteger(getIntValue());
 	}
 
-	public IPrologFloat getPrologFloat() {
+	public PrologFloat getPrologFloat() {
 		return new JiPrologFloat(getFloatValue());
 	}
 
-	public IPrologDouble getPrologDouble() {
+	public PrologDouble getPrologDouble() {
 		return new JiPrologDouble(getDoubleValue());
 	}
 
-	public IPrologLong getPrologLong() {
+	public PrologLong getPrologLong() {
 		return new JiPrologLong(getLongValue());
 	}
 
@@ -54,7 +54,7 @@ public final class JiPrologFloat extends JiPrologTerm implements IPrologFloat {
 	}
 
 	@Override
-	public IPrologTerm[] getArguments() {
+	public PrologTerm[] getArguments() {
 		return new JiPrologFloat[0];
 	}
 
@@ -79,7 +79,7 @@ public final class JiPrologFloat extends JiPrologTerm implements IPrologFloat {
 	}
 
 	@Override
-	public IPrologTerm clone() {
+	public PrologTerm clone() {
 		float f = getFloatValue();
 		return new JiPrologFloat(f);
 	}

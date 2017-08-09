@@ -3,7 +3,7 @@ package org.logicware.jpi;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.jiprolog.JiPrologAtom;
 import org.logicware.jpi.jiprolog.JiPrologInteger;
 import org.logicware.jpi.jiprolog.JiPrologTerm;
@@ -93,10 +93,10 @@ public abstract class JiPrologBaseTest {
 
 	protected JiPrologTerm[][] solution = new JiPrologTerm[7][5];
 
-	protected Map<String, IPrologTerm> solutionMap;
-	protected Map<String, IPrologTerm>[] allSolutionMap;
+	protected Map<String, PrologTerm> solutionMap;
+	protected Map<String, PrologTerm>[] allSolutionMap;
 
-	protected Map<String, IPrologTerm>[] famillyAllSolutionMap;
-	protected Map<String, IPrologTerm> famillySolutionMap = new HashMap<String, IPrologTerm>();
+	protected Map<String, PrologTerm>[] famillyAllSolutionMap;
+	protected Map<String, PrologTerm> famillySolutionMap = new HashMap<String, PrologTerm>();
 
 }

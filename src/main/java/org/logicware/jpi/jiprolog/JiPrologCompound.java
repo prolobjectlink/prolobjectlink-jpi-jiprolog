@@ -1,6 +1,6 @@
 package org.logicware.jpi.jiprolog;
 
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPList;
@@ -51,7 +51,7 @@ public abstract class JiPrologCompound extends JiPrologTerm {
 		}
 	}
 
-	protected final JIPList adaptList(IPrologTerm[] arguments) {
+	protected final JIPList adaptList(PrologTerm[] arguments) {
 		JIPList list = JIPList.NIL;
 		for (int i = arguments.length - 1; i >= 0; --i) {
 			list = JIPList.create(adapter.toNativeTerm(arguments[i]), list);
@@ -59,7 +59,7 @@ public abstract class JiPrologCompound extends JiPrologTerm {
 		return list;
 	}
 
-	protected final JIPCons adaptCons(IPrologTerm[] arguments) {
+	protected final JIPCons adaptCons(PrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
 			cons = JIPCons.create(adapter.toNativeTerm(arguments[i]), cons);

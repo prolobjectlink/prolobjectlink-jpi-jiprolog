@@ -3,15 +3,15 @@ package org.logicware.jpi.jiprolog;
 import java.util.Arrays;
 
 import org.logicware.jpi.AbstractAdapter;
-import org.logicware.jpi.IPrologAtom;
-import org.logicware.jpi.IPrologDouble;
-import org.logicware.jpi.IPrologExpression;
-import org.logicware.jpi.IPrologFloat;
-import org.logicware.jpi.IPrologInteger;
-import org.logicware.jpi.IPrologList;
-import org.logicware.jpi.IPrologLong;
+import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologDouble;
+import org.logicware.jpi.PrologExpression;
+import org.logicware.jpi.PrologFloat;
+import org.logicware.jpi.PrologInteger;
+import org.logicware.jpi.PrologList;
+import org.logicware.jpi.PrologLong;
 import org.logicware.jpi.IPrologStructure;
-import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.IPrologVariable;
 import org.logicware.jpi.PrologAdapter;
 import org.logicware.jpi.UnknownTermError;
@@ -29,7 +29,7 @@ public final class JiPrologAdapter extends AbstractAdapter<JIPTerm> implements P
 	protected static final JiPrologOperatorSet OPERATORS = new JiPrologOperatorSet();
 
 	@Override
-	public IPrologTerm toTerm(JIPTerm prologTerm) {
+	public PrologTerm toTerm(JIPTerm prologTerm) {
 		if (prologTerm instanceof JIPAtom) {
 			JIPAtom atom = (JIPAtom) prologTerm;
 			if (atom.getName().equals("!")) {
@@ -94,31 +94,31 @@ public final class JiPrologAdapter extends AbstractAdapter<JIPTerm> implements P
 	}
 
 	@Override
-	public JIPTerm toNativeTerm(IPrologTerm term) {
+	public JIPTerm toNativeTerm(PrologTerm term) {
 		switch (term.getType()) {
-		case IPrologTerm.NIL_TYPE:
+		case PrologTerm.NIL_TYPE:
 			return JIPAtom.create("nil");
-		case IPrologTerm.CUT_TYPE:
+		case PrologTerm.CUT_TYPE:
 			return JIPAtom.create("!");
-		case IPrologTerm.FAIL_TYPE:
+		case PrologTerm.FAIL_TYPE:
 			return JIPAtom.create("fail");
-		case IPrologTerm.TRUE_TYPE:
+		case PrologTerm.TRUE_TYPE:
 			return JIPAtom.create("true");
-		case IPrologTerm.FALSE_TYPE:
+		case PrologTerm.FALSE_TYPE:
 			return JIPAtom.create("false");
-		case IPrologTerm.EMPTY_TYPE:
+		case PrologTerm.EMPTY_TYPE:
 			return JIPList.create(null, null);
-		case IPrologTerm.ATOM_TYPE:
-			return JIPAtom.create(((IPrologAtom) term).getStringValue());
-		case IPrologTerm.FLOAT_TYPE:
-			return JIPNumber.create(((IPrologFloat) term).getFloatValue());
-		case IPrologTerm.INTEGER_TYPE:
-			return JIPNumber.create(((IPrologInteger) term).getIntValue());
-		case IPrologTerm.DOUBLE_TYPE:
-			return JIPNumber.create(((IPrologDouble) term).getDoubleValue());
-		case IPrologTerm.LONG_TYPE:
-			return JIPNumber.create(((IPrologLong) term).getLongValue());
-		case IPrologTerm.VARIABLE_TYPE:
+		case PrologTerm.ATOM_TYPE:
+			return JIPAtom.create(((PrologAtom) term).getStringValue());
+		case PrologTerm.FLOAT_TYPE:
+			return JIPNumber.create(((PrologFloat) term).getFloatValue());
+		case PrologTerm.INTEGER_TYPE:
+			return JIPNumber.create(((PrologInteger) term).getIntValue());
+		case PrologTerm.DOUBLE_TYPE:
+			return JIPNumber.create(((PrologDouble) term).getDoubleValue());
+		case PrologTerm.LONG_TYPE:
+			return JIPNumber.create(((PrologLong) term).getLongValue());
+		case PrologTerm.VARIABLE_TYPE:
 			String name = ((IPrologVariable) term).getName();
 			JIPTerm variable = sharedPrologVariables.get(name);
 			if (variable == null) {
@@ -126,15 +126,15 @@ public final class JiPrologAdapter extends AbstractAdapter<JIPTerm> implements P
 				sharedPrologVariables.put(name, variable);
 			}
 			return variable;
-		case IPrologTerm.LIST_TYPE:
-			IPrologTerm[] arguments = ((IPrologList) term).getArguments();
+		case PrologTerm.LIST_TYPE:
+			PrologTerm[] arguments = ((PrologList) term).getArguments();
 			return adaptList(arguments);
-		case IPrologTerm.STRUCTURE_TYPE:
+		case PrologTerm.STRUCTURE_TYPE:
 			String functor = term.getFunctor();
 			arguments = ((IPrologStructure) term).getArguments();
 			return JIPFunctor.create(removeQuoted(functor), adaptCons(arguments));
-		case IPrologTerm.EXPRESSION_TYPE:
-			IPrologExpression exp = (IPrologExpression) term;
+		case PrologTerm.EXPRESSION_TYPE:
+			PrologExpression exp = (PrologExpression) term;
 			return JIPFunctor.create(exp.getOperator(), adaptCons(exp.getArguments()));
 		default:
 			throw new UnknownTermError(term);
@@ -142,7 +142,7 @@ public final class JiPrologAdapter extends AbstractAdapter<JIPTerm> implements P
 	}
 
 	@Override
-	public JIPTerm[] toNativeTerm(IPrologTerm[] terms) {
+	public JIPTerm[] toNativeTerm(PrologTerm[] terms) {
 		JIPTerm[] prologTerms = new JIPTerm[terms.length];
 		for (int i = 0; i < terms.length; i++) {
 			prologTerms[i] = toNativeTerm(terms[i]);
@@ -151,7 +151,7 @@ public final class JiPrologAdapter extends AbstractAdapter<JIPTerm> implements P
 	}
 
 	@Override
-	public JIPTerm toNativeTerm(IPrologTerm head, IPrologTerm[] body) {
+	public JIPTerm toNativeTerm(PrologTerm head, PrologTerm[] body) {
 		JIPTerm clauseHead = toNativeTerm(head);
 		if (body != null && body.length > 0) {
 			JIPTerm clauseBody = toNativeTerm(body[body.length - 1]);
@@ -163,7 +163,7 @@ public final class JiPrologAdapter extends AbstractAdapter<JIPTerm> implements P
 		return clauseHead;
 	}
 
-	private JIPList adaptList(IPrologTerm[] arguments) {
+	private JIPList adaptList(PrologTerm[] arguments) {
 		JIPList list = JIPList.NIL;
 		for (int i = arguments.length - 1; i >= 0; --i) {
 			list = JIPList.create(toNativeTerm(arguments[i]), list);
@@ -171,7 +171,7 @@ public final class JiPrologAdapter extends AbstractAdapter<JIPTerm> implements P
 		return list;
 	}
 
-	private JIPCons adaptCons(IPrologTerm[] arguments) {
+	private JIPCons adaptCons(PrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
 			cons = JIPCons.create(toNativeTerm(arguments[i]), cons);
