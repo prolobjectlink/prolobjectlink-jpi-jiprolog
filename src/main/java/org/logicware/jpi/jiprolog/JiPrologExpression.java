@@ -7,7 +7,7 @@ import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPFunctor;
 import com.ugos.jiprolog.engine.JIPTerm;
 
-public final class JiPrologExpression extends JiPrologTerm implements IPrologExpression {
+public final class JiPrologExpression extends JiPrologCompound implements IPrologExpression {
 
 	@Deprecated
 	JiPrologExpression(IPrologTerm left, String operator, IPrologTerm right) {
@@ -25,11 +25,11 @@ public final class JiPrologExpression extends JiPrologTerm implements IPrologExp
 	}
 
 	public IPrologTerm getLeft() {
-		return adapt(((JIPFunctor) value).getTerm(1));
+		return adapter.toTerm(((JIPFunctor) value).getTerm(1));
 	}
 
 	public IPrologTerm getRight() {
-		return adapt(((JIPFunctor) value).getTerm(2));
+		return adapter.toTerm(((JIPFunctor) value).getTerm(2));
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public final class JiPrologExpression extends JiPrologTerm implements IPrologExp
 		int arity = structure.getArity();
 		IPrologTerm[] arguments = new IPrologTerm[arity];
 		for (int i = 0; i < arity; i++) {
-			arguments[i] = adapt(structure.getTerm(i + 1));
+			arguments[i] = adapter.toTerm(structure.getTerm(i + 1));
 		}
 		return arguments;
 	}

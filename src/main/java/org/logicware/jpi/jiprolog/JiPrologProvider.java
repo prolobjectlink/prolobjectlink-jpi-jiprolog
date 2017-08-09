@@ -1,10 +1,13 @@
 package org.logicware.jpi.jiprolog;
 
+import static org.logicware.jpi.PrologAdapterFactory.createPrologAdapter;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
+import org.logicware.jpi.AbstractProvider;
 import org.logicware.jpi.IPrologAtom;
 import org.logicware.jpi.IPrologDouble;
 import org.logicware.jpi.IPrologEngine;
@@ -17,13 +20,14 @@ import org.logicware.jpi.IPrologProvider;
 import org.logicware.jpi.IPrologStructure;
 import org.logicware.jpi.IPrologTerm;
 import org.logicware.jpi.IPrologVariable;
+import org.logicware.jpi.PrologAdapter;
 
 import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPTermParser;
 
-public class JiPrologProvider extends JiPrologAbstract implements IPrologProvider {
+public class JiPrologProvider extends AbstractProvider implements IPrologProvider {
 
 	// constants terms
 	static final IPrologTerm CUT = new JiPrologCut();
@@ -32,6 +36,8 @@ public class JiPrologProvider extends JiPrologAbstract implements IPrologProvide
 	static final IPrologTerm TRUE = new JiPrologTrue();
 	static final IPrologTerm FALSE = new JiPrologFalse();
 	static final IPrologTerm EMPTY = new JiPrologList();
+
+	final PrologAdapter<JIPTerm> adapter = createPrologAdapter(JiPrologAdapter.class);
 
 	public boolean isCompliant() {
 		return false;
@@ -71,13 +77,7 @@ public class JiPrologProvider extends JiPrologAbstract implements IPrologProvide
 
 	public IPrologTerm parsePrologTerm(String term) {
 		JIPTermParser parser = new JIPEngine().getTermParser();
-		return adapt(parser.parseTerm(term));
-	}
-
-	public IPrologList parsePrologList(String stringList) {
-		IPrologTerm term = parsePrologTerm(stringList);
-		checkListType(term);
-		return (IPrologList) term;
+		return adapter.toTerm(parser.parseTerm(term));
 	}
 
 	public IPrologTerm[] parsePrologTerms(String stringTerms) {
@@ -88,7 +88,7 @@ public class JiPrologProvider extends JiPrologAbstract implements IPrologProvide
 		while (e.hasMoreElements()) {
 			JIPTerm term = e.nextElement();
 			if (!(term instanceof JIPCons)) {
-				terms.add(adapt(term));
+				terms.add(adapter.toTerm(term));
 			} else {
 
 				JIPCons structure = (JIPCons) term;
@@ -99,7 +99,7 @@ public class JiPrologProvider extends JiPrologAbstract implements IPrologProvide
 
 					System.out.println(j + "[ " + j.getClass() + " ]");
 
-					IPrologTerm k = adapt(structure.getNth(i));
+					IPrologTerm k = adapter.toTerm(structure.getNth(i));
 
 					terms.add(k);
 
@@ -108,18 +108,6 @@ public class JiPrologProvider extends JiPrologAbstract implements IPrologProvide
 			}
 		}
 		return terms.toArray(new IPrologTerm[0]);
-	}
-
-	public IPrologStructure parsePrologStructure(String stringStructure) {
-		IPrologTerm term = parsePrologTerm(stringStructure);
-		checkStructureType(term);
-		return (IPrologStructure) term;
-	}
-
-	public IPrologExpression parsePrologExpression(String stringExpression) {
-		IPrologTerm term = parsePrologTerm(stringExpression);
-		checkExpressionType(term);
-		return (IPrologExpression) term;
 	}
 
 	// terms
@@ -173,7 +161,7 @@ public class JiPrologProvider extends JiPrologAbstract implements IPrologProvide
 	}
 
 	public IPrologList newPrologList(IPrologTerm[] arguments) {
-		return new JiPrologList(adapt(arguments));
+		return new JiPrologList(arguments);
 	}
 
 	public IPrologList newPrologList(IPrologTerm head, IPrologTerm tail) {
@@ -181,11 +169,11 @@ public class JiPrologProvider extends JiPrologAbstract implements IPrologProvide
 	}
 
 	public IPrologList newPrologList(IPrologTerm[] arguments, IPrologTerm tail) {
-		return new JiPrologList(adapt(arguments), adapt(tail));
+		return new JiPrologList(arguments, tail);
 	}
 
 	public IPrologStructure newPrologStructure(String functor, IPrologTerm... arguments) {
-		return new JiPrologStructure(functor, adapt(arguments));
+		return new JiPrologStructure(functor, arguments);
 	}
 
 	public IPrologExpression newPrologExpression(IPrologTerm left, String operator, IPrologTerm right) {

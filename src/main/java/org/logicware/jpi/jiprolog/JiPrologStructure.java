@@ -7,7 +7,7 @@ import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPFunctor;
 import com.ugos.jiprolog.engine.JIPTerm;
 
-public class JiPrologStructure extends JiPrologTerm implements IPrologStructure {
+public class JiPrologStructure extends JiPrologCompound implements IPrologStructure {
 
 	protected JiPrologStructure(String functor, IPrologTerm... arguments) {
 		super(STRUCTURE_TYPE);
@@ -35,7 +35,7 @@ public class JiPrologStructure extends JiPrologTerm implements IPrologStructure 
 		int arity = structure.getArity();
 		IPrologTerm[] arguments = new IPrologTerm[arity];
 		for (int i = 0; i < arity; i++) {
-			arguments[i] = adapt(structure.getTerm(i + 1));
+			arguments[i] = adapter.toTerm(structure.getTerm(i + 1));
 		}
 		return arguments;
 	}

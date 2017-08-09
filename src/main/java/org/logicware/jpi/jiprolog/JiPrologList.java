@@ -8,7 +8,7 @@ import org.logicware.jpi.IPrologTerm;
 import com.ugos.jiprolog.engine.JIPList;
 import com.ugos.jiprolog.engine.JIPTerm;
 
-public class JiPrologList extends JiPrologTerm implements IPrologList {
+public class JiPrologList extends JiPrologCompound implements IPrologList {
 
 	protected JiPrologList() {
 		super(LIST_TYPE);
@@ -37,7 +37,15 @@ public class JiPrologList extends JiPrologTerm implements IPrologList {
 
 	protected JiPrologList(IPrologTerm head, IPrologTerm tail) {
 		super(LIST_TYPE);
-		value = JIPList.create(adapt(head), adapt(tail));
+		value = JIPList.create(adapter.toNativeTerm(head), adapter.toNativeTerm(tail));
+	}
+
+	protected JiPrologList(IPrologTerm[] arguments, IPrologTerm tail) {
+		super(LIST_TYPE);
+		value = adapter.toNativeTerm(tail);
+		for (int i = arguments.length - 1; i >= 0; --i) {
+			value = JIPList.create(adapter.toNativeTerm(arguments[i]), value);
+		}
 	}
 
 	public int size() {
@@ -59,12 +67,12 @@ public class JiPrologList extends JiPrologTerm implements IPrologList {
 
 	public IPrologTerm getHead() {
 		JIPList list = (JIPList) value;
-		return adapt(list.getHead());
+		return adapter.toTerm(list.getHead());
 	}
 
 	public IPrologTerm getTail() {
 		JIPList list = (JIPList) value;
-		return adapt(list.getTail());
+		return adapter.toTerm(list.getTail());
 	}
 
 	@Override
@@ -92,7 +100,7 @@ public class JiPrologList extends JiPrologTerm implements IPrologList {
 		JIPList list = (JIPList) value;
 		IPrologTerm[] arguments = new IPrologTerm[list.length()];
 		for (int i = 0; i < arguments.length; i++) {
-			arguments[i] = adapt(list.getNth(i + 1));
+			arguments[i] = adapter.toTerm(list.getNth(i + 1));
 		}
 		return arguments;
 	}
@@ -118,7 +126,7 @@ public class JiPrologList extends JiPrologTerm implements IPrologList {
 		}
 
 		public IPrologTerm next() {
-			return adapt(list.getNth(nextIndex++));
+			return adapter.toTerm(list.getNth(nextIndex++));
 		}
 
 		public void remove() {

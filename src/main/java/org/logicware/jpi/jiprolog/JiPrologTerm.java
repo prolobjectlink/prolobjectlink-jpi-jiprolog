@@ -1,14 +1,20 @@
 package org.logicware.jpi.jiprolog;
 
+import static org.logicware.jpi.PrologAdapterFactory.createPrologAdapter;
+
+import org.logicware.jpi.AbstractTerm;
 import org.logicware.jpi.IPrologIndex;
 import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologAdapter;
 
 import com.ugos.jiprolog.engine.JIPTerm;
 
-public abstract class JiPrologTerm extends JiPrologAbstract implements IPrologTerm {
+public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
 
 	protected int type;
 	protected JIPTerm value;
+
+	final PrologAdapter<JIPTerm> adapter = createPrologAdapter(JiPrologAdapter.class);
 
 	protected JiPrologTerm(int type) {
 		this.type = type;
@@ -118,11 +124,11 @@ public abstract class JiPrologTerm extends JiPrologAbstract implements IPrologTe
 	}
 
 	public final boolean unify(IPrologTerm term) {
-		return value.unifiable(adapt(term));
+		return value.unifiable(adapter.toNativeTerm(term));
 	}
 
 	public int compareTo(IPrologTerm o) {
-		return value.compareTo(adapt(o));
+		return value.compareTo(adapter.toNativeTerm(o));
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package org.logicware.jpi.jiprolog;
 
+import static org.logicware.jpi.PrologAdapterFactory.createPrologAdapter;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,9 +10,9 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
+import org.logicware.jpi.AbstractEngine;
 import org.logicware.jpi.IPrologEngine;
 import org.logicware.jpi.IPrologIndicator;
 import org.logicware.jpi.IPrologOperator;
@@ -18,9 +20,11 @@ import org.logicware.jpi.IPrologQuery;
 import org.logicware.jpi.IPrologTerm;
 import org.logicware.jpi.OperatorEntry;
 import org.logicware.jpi.PredicateIndicator;
+import org.logicware.jpi.PrologAdapter;
 
 import com.ugos.jiprolog.engine.JIPClause;
 import com.ugos.jiprolog.engine.JIPClausesDatabase;
+import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPFunctor;
 import com.ugos.jiprolog.engine.JIPTerm;
@@ -28,10 +32,12 @@ import com.ugos.jiprolog.engine.JIPTermParser;
 import com.ugos.jiprolog.engine.Operator;
 import com.ugos.jiprolog.engine.OperatorManager;
 
-public final class JiPrologEngine extends JiPrologAbstract implements IPrologEngine {
+public final class JiPrologEngine extends AbstractEngine implements IPrologEngine {
 
 	JIPEngine engine;
 	JIPTermParser parser;
+
+	final PrologAdapter<JIPTerm> adapter = createPrologAdapter(JiPrologAdapter.class);
 
 	JiPrologEngine() {
 		this(new JIPEngine());
@@ -51,6 +57,14 @@ public final class JiPrologEngine extends JiPrologAbstract implements IPrologEng
 		retract("ver(jipxterms, '4.0.1')");
 		retract("ver(jipxxml, '3.0.0')");
 
+	}
+
+	private JIPCons adaptCons(IPrologTerm[] arguments) {
+		JIPCons cons = null;
+		for (int i = arguments.length - 1; i >= 0; --i) {
+			cons = JIPCons.create(adapter.toNativeTerm(arguments[i]), cons);
+		}
+		return cons;
 	}
 
 	public void include(String path) {
@@ -123,7 +137,7 @@ public final class JiPrologEngine extends JiPrologAbstract implements IPrologEng
 	}
 
 	public void asserta(IPrologTerm head, IPrologTerm... body) {
-		asserta(JIPClause.create((JIPFunctor) adapt(head), adaptCons(body)));
+		asserta(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
 	}
 
 	private void asserta(JIPClause clause) {
@@ -137,7 +151,7 @@ public final class JiPrologEngine extends JiPrologAbstract implements IPrologEng
 	}
 
 	public void assertz(IPrologTerm head, IPrologTerm... body) {
-		assertz(JIPClause.create((JIPFunctor) adapt(head), adaptCons(body)));
+		assertz(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
 	}
 
 	private void assertz(JIPClause clause) {
@@ -151,7 +165,7 @@ public final class JiPrologEngine extends JiPrologAbstract implements IPrologEng
 	}
 
 	public boolean clause(IPrologTerm head, IPrologTerm... body) {
-		return clause(JIPClause.create((JIPFunctor) adapt(head), adaptCons(body)));
+		return clause(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
 	}
 
 	private boolean clause(JIPClause clause) {
@@ -163,27 +177,11 @@ public final class JiPrologEngine extends JiPrologAbstract implements IPrologEng
 	}
 
 	public void retract(IPrologTerm head, IPrologTerm... body) {
-		retract(JIPClause.create((JIPFunctor) adapt(head), adaptCons(body)));
+		retract(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
 	}
 
 	private void retract(JIPClause clause) {
 		engine.retract(clause);
-	}
-
-	public Map<String, IPrologTerm> find(String goal) {
-		return createQuery(goal).oneVariablesSolution();
-	}
-
-	public Map<String, IPrologTerm> find(IPrologTerm... goal) {
-		return createQuery(goal).oneVariablesSolution();
-	}
-
-	public Map<String, IPrologTerm>[] findAll(String goal) {
-		return createQuery(goal).allVariablesSolutions();
-	}
-
-	public Map<String, IPrologTerm>[] findAll(IPrologTerm... goal) {
-		return createQuery(goal).allVariablesSolutions();
 	}
 
 	public IPrologQuery createQuery(String stringQuery) {

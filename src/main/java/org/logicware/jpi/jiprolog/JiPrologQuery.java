@@ -1,25 +1,32 @@
 package org.logicware.jpi.jiprolog;
 
+import static org.logicware.jpi.PrologAdapterFactory.createPrologAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.logicware.jpi.AbstractQuery;
 import org.logicware.jpi.IPrologEngine;
 import org.logicware.jpi.IPrologQuery;
 import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.PrologAdapter;
 
+import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 
-public class JiPrologQuery extends JiPrologAbstract implements IPrologQuery {
+public class JiPrologQuery extends AbstractQuery implements IPrologQuery {
 
 	private JIPQuery query;
 	private JIPTerm solution;
 
 	private final JIPEngine engine;
+
+	final PrologAdapter<JIPTerm> adapter = createPrologAdapter(JiPrologAdapter.class);
 
 	JiPrologQuery(JIPEngine engine, String query) {
 		this.engine = engine;
@@ -31,6 +38,14 @@ public class JiPrologQuery extends JiPrologAbstract implements IPrologQuery {
 		this.engine = engine;
 		query = engine.openSynchronousQuery(adaptCons(terms));
 		solution = query.nextSolution();
+	}
+
+	private JIPCons adaptCons(IPrologTerm[] arguments) {
+		JIPCons cons = null;
+		for (int i = arguments.length - 1; i >= 0; --i) {
+			cons = JIPCons.create(adapter.toNativeTerm(arguments[i]), cons);
+		}
+		return cons;
 	}
 
 	public IPrologEngine getEngine() {
@@ -47,16 +62,12 @@ public class JiPrologQuery extends JiPrologAbstract implements IPrologQuery {
 		return solution != null;
 	}
 
-	public boolean hasMoreElements() {
-		return hasMoreSolutions();
-	}
-
 	public IPrologTerm[] oneSolution() {
 		if (hasSolution()) {
 			JIPVariable[] variables = solution.getVariables();
 			IPrologTerm[] solutions = new IPrologTerm[variables.length];
 			for (int i = 0; i < solutions.length; i++) {
-				solutions[i] = adapt(variables[i].getValue());
+				solutions[i] = adapter.toTerm(variables[i].getValue());
 			}
 			return solutions;
 		}
@@ -68,7 +79,7 @@ public class JiPrologQuery extends JiPrologAbstract implements IPrologQuery {
 			JIPVariable[] variables = solution.getVariables();
 			Map<String, IPrologTerm> solutions = new HashMap<String, IPrologTerm>(variables.length);
 			for (int i = 0; i < variables.length; i++) {
-				solutions.put(variables[i].getName(), adapt(variables[i].getValue()));
+				solutions.put(variables[i].getName(), adapter.toTerm(variables[i].getValue()));
 			}
 			return solutions;
 		}
@@ -82,10 +93,6 @@ public class JiPrologQuery extends JiPrologAbstract implements IPrologQuery {
 			return solutions;
 		}
 		return new IPrologTerm[0];
-	}
-
-	public IPrologTerm[] nextElement() {
-		return nextSolution();
 	}
 
 	public Map<String, IPrologTerm> nextVariablesSolution() {

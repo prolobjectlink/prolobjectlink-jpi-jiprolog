@@ -22,12 +22,6 @@ import org.logicware.jpi.IPrologQuery;
 import org.logicware.jpi.IPrologTerm;
 import org.logicware.jpi.JiPrologBaseTest;
 import org.logicware.jpi.PredicateIndicator;
-import org.logicware.jpi.jiprolog.JiPrologAbstract;
-import org.logicware.jpi.jiprolog.JiPrologAtom;
-import org.logicware.jpi.jiprolog.JiPrologEngine;
-import org.logicware.jpi.jiprolog.JiPrologProvider;
-import org.logicware.jpi.jiprolog.JiPrologStructure;
-import org.logicware.jpi.jiprolog.JiPrologVariable;
 
 import com.ugos.jiprolog.engine.JIPClausesDatabase;
 import com.ugos.jiprolog.engine.JIPEngine;
@@ -1047,8 +1041,7 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testCurrentOperators() {
-		// System.out.println(engine.currentOperators());
-		assertEquals(JiPrologAbstract.OPERATORS, engine.currentOperators());
+		assertEquals(JiPrologAdapter.OPERATORS, engine.currentOperators());
 	}
 
 	@Test

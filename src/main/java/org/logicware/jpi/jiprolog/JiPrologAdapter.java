@@ -1,9 +1,8 @@
 package org.logicware.jpi.jiprolog;
 
 import java.util.Arrays;
-import java.util.HashMap;
 
-import org.logicware.jpi.IPrologAbstract;
+import org.logicware.jpi.AbstractAdapter;
 import org.logicware.jpi.IPrologAtom;
 import org.logicware.jpi.IPrologDouble;
 import org.logicware.jpi.IPrologExpression;
@@ -14,6 +13,7 @@ import org.logicware.jpi.IPrologLong;
 import org.logicware.jpi.IPrologStructure;
 import org.logicware.jpi.IPrologTerm;
 import org.logicware.jpi.IPrologVariable;
+import org.logicware.jpi.PrologAdapter;
 import org.logicware.jpi.UnknownTermError;
 
 import com.ugos.jiprolog.engine.JIPAtom;
@@ -24,19 +24,12 @@ import com.ugos.jiprolog.engine.JIPNumber;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 
-public abstract class JiPrologAbstract extends IPrologAbstract<JIPTerm> {
+public final class JiPrologAdapter extends AbstractAdapter<JIPTerm> implements PrologAdapter<JIPTerm> {
 
 	protected static final JiPrologOperatorSet OPERATORS = new JiPrologOperatorSet();
 
-	protected final HashMap<String, IPrologVariable> sharedVariables;
-	protected final HashMap<String, JIPVariable> sharedPrologVariables;
-
-	protected JiPrologAbstract() {
-		sharedPrologVariables = new HashMap<String, JIPVariable>();
-		sharedVariables = new HashMap<String, IPrologVariable>();
-	}
-
-	protected final IPrologTerm adapt(JIPTerm prologTerm) {
+	@Override
+	public IPrologTerm toTerm(JIPTerm prologTerm) {
 		if (prologTerm instanceof JIPAtom) {
 			JIPAtom atom = (JIPAtom) prologTerm;
 			if (atom.getName().equals("!")) {
@@ -100,7 +93,8 @@ public abstract class JiPrologAbstract extends IPrologAbstract<JIPTerm> {
 		throw new UnknownTermError(prologTerm);
 	}
 
-	protected final JIPTerm adapt(IPrologTerm term) {
+	@Override
+	public JIPTerm toNativeTerm(IPrologTerm term) {
 		switch (term.getType()) {
 		case IPrologTerm.NIL_TYPE:
 			return JIPAtom.create("nil");
@@ -126,7 +120,7 @@ public abstract class JiPrologAbstract extends IPrologAbstract<JIPTerm> {
 			return JIPNumber.create(((IPrologLong) term).getLongValue());
 		case IPrologTerm.VARIABLE_TYPE:
 			String name = ((IPrologVariable) term).getName();
-			JIPVariable variable = sharedPrologVariables.get(name);
+			JIPTerm variable = sharedPrologVariables.get(name);
 			if (variable == null) {
 				variable = JIPVariable.create(name);
 				sharedPrologVariables.put(name, variable);
@@ -147,38 +141,40 @@ public abstract class JiPrologAbstract extends IPrologAbstract<JIPTerm> {
 		}
 	}
 
-	protected final JIPTerm[] adapt(IPrologTerm[] terms) {
+	@Override
+	public JIPTerm[] toNativeTerm(IPrologTerm[] terms) {
 		JIPTerm[] prologTerms = new JIPTerm[terms.length];
 		for (int i = 0; i < terms.length; i++) {
-			prologTerms[i] = adapt(terms[i]);
+			prologTerms[i] = toNativeTerm(terms[i]);
 		}
 		return prologTerms;
 	}
 
-	protected final JIPList adaptList(IPrologTerm[] arguments) {
-		JIPList list = JIPList.NIL;
-		for (int i = arguments.length - 1; i >= 0; --i) {
-			list = JIPList.create(adapt(arguments[i]), list);
-		}
-		return list;
-	}
-
-	protected final JIPTerm adapt(IPrologTerm head, IPrologTerm[] body) {
-		JIPTerm clauseHead = adapt(head);
+	@Override
+	public JIPTerm toNativeTerm(IPrologTerm head, IPrologTerm[] body) {
+		JIPTerm clauseHead = toNativeTerm(head);
 		if (body != null && body.length > 0) {
-			JIPTerm clauseBody = adapt(body[body.length - 1]);
+			JIPTerm clauseBody = toNativeTerm(body[body.length - 1]);
 			for (int i = body.length - 2; i >= 0; --i) {
-				clauseBody = JIPFunctor.create(",", JIPCons.create(adapt(body[i]), clauseBody));
+				clauseBody = JIPFunctor.create(",", JIPCons.create(toNativeTerm(body[i]), clauseBody));
 			}
 			return JIPFunctor.create(":-", JIPCons.create(clauseHead, clauseBody));
 		}
 		return clauseHead;
 	}
 
-	protected final JIPCons adaptCons(IPrologTerm[] arguments) {
+	private JIPList adaptList(IPrologTerm[] arguments) {
+		JIPList list = JIPList.NIL;
+		for (int i = arguments.length - 1; i >= 0; --i) {
+			list = JIPList.create(toNativeTerm(arguments[i]), list);
+		}
+		return list;
+	}
+
+	private JIPCons adaptCons(IPrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			cons = JIPCons.create(adapt(arguments[i]), cons);
+			cons = JIPCons.create(toNativeTerm(arguments[i]), cons);
 		}
 		return cons;
 	}
