@@ -14,6 +14,10 @@ public class JiPrologList extends JiPrologCompound implements IPrologList {
 		super(LIST_TYPE);
 	}
 
+	protected JiPrologList(int type) {
+		super(type);
+	}
+
 	protected JiPrologList(IPrologTerm[] arguments) {
 		super(LIST_TYPE);
 		value = adaptList(arguments);

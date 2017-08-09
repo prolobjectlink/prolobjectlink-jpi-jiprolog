@@ -4,9 +4,12 @@ import static org.logicware.jpi.PrologAdapterFactory.createPrologAdapter;
 
 import org.logicware.jpi.AbstractTerm;
 import org.logicware.jpi.IPrologIndex;
+import org.logicware.jpi.IPrologNumber;
 import org.logicware.jpi.IPrologTerm;
+import org.logicware.jpi.NumberExpectedError;
 import org.logicware.jpi.PrologAdapter;
 
+import com.ugos.jiprolog.engine.JIPNumber;
 import com.ugos.jiprolog.engine.JIPTerm;
 
 public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
@@ -23,6 +26,12 @@ public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
 	protected JiPrologTerm(int type, JIPTerm value) {
 		this.type = type;
 		this.value = value;
+	}
+
+	protected final void checkNumberType(IPrologTerm term) {
+		if (!term.isNumber()) {
+			throw new NumberExpectedError(term);
+		}
 	}
 
 	public final int getType() {
@@ -127,8 +136,98 @@ public abstract class JiPrologTerm extends AbstractTerm implements IPrologTerm {
 		return value.unifiable(adapter.toNativeTerm(term));
 	}
 
-	public int compareTo(IPrologTerm o) {
-		return value.compareTo(adapter.toNativeTerm(o));
+	public int compareTo(IPrologTerm term) {
+
+		int termType = term.getType();
+
+		if ((type >> 8) < (termType >> 8)) {
+			return -1;
+		} else if ((type >> 8) > (termType >> 8)) {
+			return 1;
+		}
+
+		switch (type) {
+		case ATOM_TYPE:
+
+			// alphabetic functor comparison
+			int result = value.toString().compareTo(term.getFunctor());
+			if (result < 0) {
+				return -1;
+			} else if (result > 0) {
+				return 1;
+			}
+			break;
+
+		case FLOAT_TYPE:
+		case LONG_TYPE:
+		case DOUBLE_TYPE:
+		case INTEGER_TYPE:
+
+			checkNumberType(term);
+			double thisValue = ((JIPNumber) value).getDoubleValue();
+			double otherValue = ((IPrologNumber) term).getDoubleValue();
+
+			if (thisValue < otherValue) {
+				return -1;
+			} else if (thisValue > otherValue) {
+				return 1;
+			}
+
+			break;
+
+		case LIST_TYPE:
+		case EMPTY_TYPE:
+		case STRUCTURE_TYPE:
+
+			IPrologTerm thisCompound = this;
+			IPrologTerm otherCompound = term;
+
+			// comparison by arity
+			if (thisCompound.getArity() < otherCompound.getArity()) {
+				return -1;
+			} else if (thisCompound.getArity() > otherCompound.getArity()) {
+				return 1;
+			}
+
+			// alphabetic functor comparison
+			result = thisCompound.getFunctor().compareTo(otherCompound.getFunctor());
+			if (result < 0) {
+				return -1;
+			} else if (result > 0) {
+				return 1;
+			}
+
+			// arguments comparison
+			IPrologTerm[] thisArguments = thisCompound.getArguments();
+			IPrologTerm[] otherArguments = otherCompound.getArguments();
+
+			for (int i = 0; i < thisArguments.length; i++) {
+				IPrologTerm thisArgument = thisArguments[i];
+				IPrologTerm otherArgument = otherArguments[i];
+				if (thisArgument != null && otherArgument != null) {
+					result = thisArgument.compareTo(otherArgument);
+					if (result != 0) {
+						return result;
+					}
+				}
+			}
+			break;
+
+		case VARIABLE_TYPE:
+
+			IPrologTerm thisVariable = this;
+			IPrologTerm otherVariable = (IPrologTerm) term;
+			if (thisVariable.hashCode() < otherVariable.hashCode()) {
+				return -1;
+			} else if (thisVariable.hashCode() > otherVariable.hashCode()) {
+				return 1;
+			}
+			break;
+
+		}
+
+		return 0;
+
 	}
 
 	@Override

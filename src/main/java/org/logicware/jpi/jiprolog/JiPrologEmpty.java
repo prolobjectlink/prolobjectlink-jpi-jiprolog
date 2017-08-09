@@ -8,7 +8,7 @@ import com.ugos.jiprolog.engine.JIPList;
 public class JiPrologEmpty extends JiPrologList implements IPrologList {
 
 	protected JiPrologEmpty() {
-		// super(EMPTY_TYPE);
+		super(EMPTY_TYPE);
 		value = JIPList.create(null, null);
 	}
 

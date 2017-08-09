@@ -236,7 +236,7 @@ public class JiPrologVariableTest {
 		IPrologVariable y = new JiPrologVariable("Y");
 		assertEquals(variable.compareTo(variable), 0); // are
 		// equals
-		assertEquals(variable.compareTo(y), 0); // alphabetic
+		assertEquals(variable.compareTo(y), -1); // alphabetic
 		// substitution
 
 		variable = new JiPrologVariable("X");
