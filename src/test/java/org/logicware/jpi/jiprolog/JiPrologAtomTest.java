@@ -16,9 +16,9 @@ import org.logicware.jpi.PrologFloat;
 import org.logicware.jpi.PrologInteger;
 import org.logicware.jpi.PrologList;
 import org.logicware.jpi.PrologLong;
-import org.logicware.jpi.IPrologStructure;
+import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.IPrologVariable;
+import org.logicware.jpi.PrologVariable;
 import org.logicware.jpi.jiprolog.JiPrologAtom;
 import org.logicware.jpi.jiprolog.JiPrologDouble;
 import org.logicware.jpi.jiprolog.JiPrologFloat;
@@ -178,12 +178,12 @@ public class JiPrologAtomTest {
 		assertFalse(atom.unify(dValue));
 
 		// with variable
-		IPrologVariable variable = new JiPrologVariable("X");
+		PrologVariable variable = new JiPrologVariable("X");
 		// true. case atom and variable
 		assertTrue(atom.unify(variable));
 
 		// with predicate
-		IPrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
+		PrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
 		assertFalse(atom.unify(structure));
 
 		// with list
@@ -223,12 +223,12 @@ public class JiPrologAtomTest {
 		assertEquals(atom.compareTo(dValue), 1);
 
 		// with variable
-		IPrologVariable variable = new JiPrologVariable("X");
+		PrologVariable variable = new JiPrologVariable("X");
 		// true. case atom and variable
 		assertEquals(atom.compareTo(variable), 1);
 
 		// with predicate
-		IPrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
+		PrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
 		assertEquals(atom.compareTo(structure), -1);
 
 		// with list

@@ -17,9 +17,9 @@ import org.logicware.jpi.PrologFloat;
 import org.logicware.jpi.PrologInteger;
 import org.logicware.jpi.PrologList;
 import org.logicware.jpi.PrologLong;
-import org.logicware.jpi.IPrologStructure;
+import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.IPrologVariable;
+import org.logicware.jpi.PrologVariable;
 import org.logicware.jpi.JiPrologBaseTest;
 
 import com.ugos.jiprolog.engine.JIPList;
@@ -230,15 +230,15 @@ public class JiPrologListTest extends JiPrologBaseTest {
 		assertFalse(empty.unify(dValue));
 
 		// with variable
-		IPrologVariable x = new JiPrologVariable("X");
-		IPrologVariable y = new JiPrologVariable("Y");
-		IPrologVariable z = new JiPrologVariable("Z");
+		PrologVariable x = new JiPrologVariable("X");
+		PrologVariable y = new JiPrologVariable("Y");
+		PrologVariable z = new JiPrologVariable("Z");
 		assertTrue(flattened.unify(x));
 		assertTrue(headTail.unify(y));
 		assertTrue(empty.unify(z));
 
 		// with predicate
-		IPrologStructure structure = new JiPrologProvider().parsePrologStructure("somepredicate(a,b,c)");
+		PrologStructure structure = new JiPrologProvider().parsePrologStructure("somepredicate(a,b,c)");
 		assertFalse(flattened.unify(structure));
 		assertFalse(headTail.unify(structure));
 		assertFalse(empty.unify(structure));
@@ -304,15 +304,15 @@ public class JiPrologListTest extends JiPrologBaseTest {
 		assertEquals(empty.compareTo(dValue), 1);
 
 		// with variable
-		IPrologVariable x = new JiPrologVariable("X");
-		IPrologVariable y = new JiPrologVariable("Y");
-		IPrologVariable z = new JiPrologVariable("Z");
+		PrologVariable x = new JiPrologVariable("X");
+		PrologVariable y = new JiPrologVariable("Y");
+		PrologVariable z = new JiPrologVariable("Z");
 		assertEquals(flattened.compareTo(x), 1);
 		assertEquals(headTail.compareTo(y), 1);
 		assertEquals(empty.compareTo(z), 1);
 
 		// with predicate
-		IPrologStructure structure = new JiPrologProvider().parsePrologStructure("somepredicate(a,b,c)");
+		PrologStructure structure = new JiPrologProvider().parsePrologStructure("somepredicate(a,b,c)");
 		assertEquals(flattened.compareTo(structure), -1);
 		assertEquals(headTail.compareTo(structure), -1);
 		assertEquals(empty.compareTo(structure), -1);

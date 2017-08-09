@@ -3,12 +3,12 @@ package org.logicware.jpi.jiprolog;
 import org.logicware.jpi.ArityError;
 import org.logicware.jpi.FunctorError;
 import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.IPrologVariable;
+import org.logicware.jpi.PrologVariable;
 import org.logicware.jpi.IndicatorError;
 
 import com.ugos.jiprolog.engine.JIPVariable;
 
-public class JiPrologVariable extends JiPrologTerm implements IPrologVariable {
+public class JiPrologVariable extends JiPrologTerm implements PrologVariable {
 
 	public JiPrologVariable() {
 		super(VARIABLE_TYPE, JIPVariable.create());

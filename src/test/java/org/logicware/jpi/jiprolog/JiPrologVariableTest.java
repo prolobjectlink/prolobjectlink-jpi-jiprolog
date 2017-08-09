@@ -15,9 +15,9 @@ import org.logicware.jpi.PrologFloat;
 import org.logicware.jpi.PrologInteger;
 import org.logicware.jpi.PrologList;
 import org.logicware.jpi.PrologLong;
-import org.logicware.jpi.IPrologStructure;
+import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.IPrologVariable;
+import org.logicware.jpi.PrologVariable;
 import org.logicware.jpi.IndicatorError;
 import org.logicware.jpi.jiprolog.JiPrologAtom;
 import org.logicware.jpi.jiprolog.JiPrologDouble;
@@ -149,7 +149,7 @@ public class JiPrologVariableTest {
 	public final void testUnify() {
 
 		// with atom
-		IPrologVariable variable = new JiPrologVariable("X");
+		PrologVariable variable = new JiPrologVariable("X");
 		PrologAtom atom = new JiPrologAtom("John Smith");
 		assertTrue(variable.unify(atom));
 
@@ -175,7 +175,7 @@ public class JiPrologVariableTest {
 
 		// with variable
 		variable = new JiPrologVariable("X");
-		IPrologVariable y = new JiPrologVariable("Y");
+		PrologVariable y = new JiPrologVariable("Y");
 		assertTrue(variable.unify(variable)); // are
 												// equals
 		assertTrue(variable.unify(y)); // alphabetic
@@ -183,7 +183,7 @@ public class JiPrologVariableTest {
 
 		// with predicate with occurs check
 		variable = new JiPrologVariable("X");
-		IPrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
+		PrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
 		assertTrue(variable.unify(structure));
 		structure = new JiPrologProvider().parsePrologStructure("structure([X])");
 		assertTrue(variable.unify(structure));
@@ -194,7 +194,7 @@ public class JiPrologVariableTest {
 
 		// with list
 		variable = new JiPrologVariable("X");
-		IPrologVariable z = new JiPrologVariable("Z");
+		PrologVariable z = new JiPrologVariable("Z");
 		PrologList flattenList = new JiPrologProvider().parsePrologList("[X]");
 		PrologList headTailList = new JiPrologProvider().parsePrologList("[Y|[]]");
 		PrologTerm empty = new JiPrologProvider().prologEmpty();
@@ -207,7 +207,7 @@ public class JiPrologVariableTest {
 	public final void testCompareTo() {
 
 		// with atom
-		IPrologVariable variable = new JiPrologVariable("X");
+		PrologVariable variable = new JiPrologVariable("X");
 		PrologAtom atom = new JiPrologAtom("John Smith");
 		assertEquals(variable.compareTo(atom), -1);
 
@@ -233,14 +233,14 @@ public class JiPrologVariableTest {
 
 		// with variable
 		variable = new JiPrologVariable("X");
-		IPrologVariable y = new JiPrologVariable("Y");
+		PrologVariable y = new JiPrologVariable("Y");
 		assertEquals(variable.compareTo(variable), 0); // are
 		// equals
 		assertEquals(variable.compareTo(y), -1); // alphabetic
 		// substitution
 
 		variable = new JiPrologVariable("X");
-		IPrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
+		PrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
 		assertEquals(variable.compareTo(structure), -1);
 		structure = new JiPrologProvider().parsePrologStructure("structure([X])");
 		assertEquals(variable.compareTo(structure), -1);
@@ -251,7 +251,7 @@ public class JiPrologVariableTest {
 
 		// with list
 		variable = new JiPrologVariable("X");
-		IPrologVariable z = new JiPrologVariable("Z");
+		PrologVariable z = new JiPrologVariable("Z");
 		PrologList flattenList = new JiPrologProvider().parsePrologList("[X]");
 		PrologList headTailList = new JiPrologProvider().parsePrologList("[Y|[]]");
 		PrologTerm empty = new JiPrologProvider().prologEmpty();

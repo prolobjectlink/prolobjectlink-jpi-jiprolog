@@ -14,9 +14,9 @@ import org.logicware.jpi.PrologFloat;
 import org.logicware.jpi.PrologInteger;
 import org.logicware.jpi.PrologList;
 import org.logicware.jpi.PrologQuery;
-import org.logicware.jpi.IPrologStructure;
+import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.IPrologVariable;
+import org.logicware.jpi.PrologVariable;
 import org.logicware.jpi.JiPrologBaseTest;
 
 import com.ugos.jiprolog.engine.JIPCons;
@@ -115,7 +115,7 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testNewPrologVariable() {
-		IPrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newPrologVariable("X");
 		assertEquals(PrologTerm.VARIABLE_TYPE, variable.getType());
 		assertEquals(new JiPrologVariable("X"), variable);
 		assertEquals("X", variable.getName());
@@ -133,7 +133,7 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testNewPrologStructure() {
-		IPrologStructure structure = provider.newPrologStructure("digits", zero, one, two, three, four, five, six, seven, eight, nine);
+		PrologStructure structure = provider.newPrologStructure("digits", zero, one, two, three, four, five, six, seven, eight, nine);
 		assertEquals(new JiPrologStructure("digits", zero, one, two, three, four, five, six, seven, eight, nine), structure);
 		assertEquals(PrologTerm.STRUCTURE_TYPE, structure.getType());
 		assertEquals("digits", structure.getFunctor());
@@ -170,7 +170,7 @@ public class JiPrologProviderTest extends JiPrologBaseTest {
 		PrologList list = (PrologList) provider.parsePrologTerm("[0,1,2,3,4,5,6,7,8,9]");
 		assertEquals(new JiPrologList(new PrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine }), list);
 
-		IPrologStructure structure = (IPrologStructure) provider.parsePrologTerm("digits(0,1,2,3,4,5,6,7,8,9)");
+		PrologStructure structure = (PrologStructure) provider.parsePrologTerm("digits(0,1,2,3,4,5,6,7,8,9)");
 		assertEquals(new JiPrologStructure("digits", zero, one, two, three, four, five, six, seven, eight, nine), structure);
 
 		PrologExpression expression = (PrologExpression) provider.parsePrologTerm("X+Y");

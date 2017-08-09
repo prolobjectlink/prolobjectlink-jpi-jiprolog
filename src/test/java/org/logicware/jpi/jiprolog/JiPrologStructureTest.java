@@ -16,9 +16,9 @@ import org.logicware.jpi.PrologFloat;
 import org.logicware.jpi.PrologInteger;
 import org.logicware.jpi.PrologList;
 import org.logicware.jpi.PrologLong;
-import org.logicware.jpi.IPrologStructure;
+import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.IPrologVariable;
+import org.logicware.jpi.PrologVariable;
 import org.logicware.jpi.JiPrologBaseTest;
 import org.logicware.jpi.jiprolog.JiPrologAtom;
 import org.logicware.jpi.jiprolog.JiPrologDouble;
@@ -182,7 +182,7 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 
 		// with atom
 		PrologAtom atom = new JiPrologAtom("John Doe");
-		IPrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a)");
+		PrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a)");
 		assertFalse(structure.unify(atom));
 
 		// with integer
@@ -202,13 +202,13 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 		assertFalse(structure.unify(dValue));
 
 		// with variable
-		IPrologVariable variable = new JiPrologVariable("X");
+		PrologVariable variable = new JiPrologVariable("X");
 		// true. case predicate and variable
 		assertTrue(structure.unify(variable));
 
 		// with predicate
-		IPrologStructure structure1 = new JiPrologProvider().parsePrologStructure("some_predicate(X)");
-		IPrologStructure structure2 = new JiPrologProvider().parsePrologStructure("some_predicate(28)");
+		PrologStructure structure1 = new JiPrologProvider().parsePrologStructure("some_predicate(X)");
+		PrologStructure structure2 = new JiPrologProvider().parsePrologStructure("some_predicate(28)");
 		// true because are equals
 		assertTrue(structure.unify(structure));
 		// true because match and their arguments unify
@@ -235,7 +235,7 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 
 		// with atom
 		PrologAtom atom = new JiPrologAtom("John Doe");
-		IPrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a)");
+		PrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a)");
 		assertEquals(structure.compareTo(atom), 1);
 
 		// with integer
@@ -255,13 +255,13 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 		assertEquals(structure.compareTo(dValue), 1);
 
 		// with variable
-		IPrologVariable variable = new JiPrologVariable("X");
+		PrologVariable variable = new JiPrologVariable("X");
 		// true. case predicate and variable
 		assertEquals(structure.compareTo(variable), 1);
 
 		// with predicate
-		IPrologStructure structure1 = new JiPrologProvider().parsePrologStructure("some_predicate(X)");
-		IPrologStructure structure2 = new JiPrologProvider().parsePrologStructure("some_predicate(28)");
+		PrologStructure structure1 = new JiPrologProvider().parsePrologStructure("some_predicate(X)");
+		PrologStructure structure2 = new JiPrologProvider().parsePrologStructure("some_predicate(28)");
 		// true because are equals
 		assertEquals(structure.compareTo(structure), 0);
 		// true because match and their arguments compareTo

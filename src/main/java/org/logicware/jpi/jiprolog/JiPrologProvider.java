@@ -17,9 +17,9 @@ import org.logicware.jpi.PrologInteger;
 import org.logicware.jpi.PrologList;
 import org.logicware.jpi.PrologLong;
 import org.logicware.jpi.PrologProvider;
-import org.logicware.jpi.IPrologStructure;
+import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.IPrologVariable;
+import org.logicware.jpi.PrologVariable;
 import org.logicware.jpi.PrologAdapter;
 
 import com.ugos.jiprolog.engine.JIPCons;
@@ -148,11 +148,11 @@ public class JiPrologProvider extends AbstractProvider implements PrologProvider
 		return new JiPrologLong(value);
 	}
 
-	public IPrologVariable newPrologVariable() {
+	public PrologVariable newPrologVariable() {
 		return new JiPrologVariable();
 	}
 
-	public IPrologVariable newPrologVariable(String name) {
+	public PrologVariable newPrologVariable(String name) {
 		return new JiPrologVariable(name);
 	}
 
@@ -172,7 +172,7 @@ public class JiPrologProvider extends AbstractProvider implements PrologProvider
 		return new JiPrologList(arguments, tail);
 	}
 
-	public IPrologStructure newPrologStructure(String functor, PrologTerm... arguments) {
+	public PrologStructure newPrologStructure(String functor, PrologTerm... arguments) {
 		return new JiPrologStructure(functor, arguments);
 	}
 

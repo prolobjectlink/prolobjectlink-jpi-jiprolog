@@ -1,13 +1,13 @@
 package org.logicware.jpi.jiprolog;
 
-import org.logicware.jpi.IPrologStructure;
+import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPFunctor;
 import com.ugos.jiprolog.engine.JIPTerm;
 
-public class JiPrologStructure extends JiPrologCompound implements IPrologStructure {
+public class JiPrologStructure extends JiPrologCompound implements PrologStructure {
 
 	protected JiPrologStructure(String functor, PrologTerm... arguments) {
 		super(STRUCTURE_TYPE);

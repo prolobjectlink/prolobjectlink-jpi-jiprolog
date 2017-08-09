@@ -10,9 +10,9 @@ import org.logicware.jpi.PrologFloat;
 import org.logicware.jpi.PrologInteger;
 import org.logicware.jpi.PrologList;
 import org.logicware.jpi.PrologLong;
-import org.logicware.jpi.IPrologStructure;
+import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.IPrologVariable;
+import org.logicware.jpi.PrologVariable;
 import org.logicware.jpi.PrologAdapter;
 import org.logicware.jpi.UnknownTermError;
 
@@ -54,7 +54,7 @@ public final class JiPrologAdapter extends AbstractAdapter<JIPTerm> implements P
 			}
 		} else if (prologTerm instanceof JIPVariable) {
 			String name = ((JIPVariable) prologTerm).getName();
-			IPrologVariable variable = sharedVariables.get(name);
+			PrologVariable variable = sharedVariables.get(name);
 			if (variable == null) {
 				variable = new JiPrologVariable(name);
 				sharedVariables.put(variable.getName(), variable);
@@ -119,7 +119,7 @@ public final class JiPrologAdapter extends AbstractAdapter<JIPTerm> implements P
 		case PrologTerm.LONG_TYPE:
 			return JIPNumber.create(((PrologLong) term).getLongValue());
 		case PrologTerm.VARIABLE_TYPE:
-			String name = ((IPrologVariable) term).getName();
+			String name = ((PrologVariable) term).getName();
 			JIPTerm variable = sharedPrologVariables.get(name);
 			if (variable == null) {
 				variable = JIPVariable.create(name);
@@ -131,7 +131,7 @@ public final class JiPrologAdapter extends AbstractAdapter<JIPTerm> implements P
 			return adaptList(arguments);
 		case PrologTerm.STRUCTURE_TYPE:
 			String functor = term.getFunctor();
-			arguments = ((IPrologStructure) term).getArguments();
+			arguments = ((PrologStructure) term).getArguments();
 			return JIPFunctor.create(removeQuoted(functor), adaptCons(arguments));
 		case PrologTerm.EXPRESSION_TYPE:
 			PrologExpression exp = (PrologExpression) term;
