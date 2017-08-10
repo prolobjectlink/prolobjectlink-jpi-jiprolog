@@ -13,14 +13,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.logicware.jpi.AbstractEngine;
+import org.logicware.jpi.OperatorEntry;
+import org.logicware.jpi.PredicateIndicator;
+import org.logicware.jpi.PrologAdapter;
 import org.logicware.jpi.PrologEngine;
 import org.logicware.jpi.PrologIndicator;
 import org.logicware.jpi.PrologOperator;
 import org.logicware.jpi.PrologQuery;
 import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.OperatorEntry;
-import org.logicware.jpi.PredicateIndicator;
-import org.logicware.jpi.PrologAdapter;
 
 import com.ugos.jiprolog.engine.JIPClause;
 import com.ugos.jiprolog.engine.JIPClausesDatabase;
@@ -247,10 +247,6 @@ public final class JiPrologEngine extends AbstractEngine implements PrologEngine
 			}
 		}
 		return counter;
-	}
-
-	public boolean isProgramEmpty() {
-		return getProgramSize() == 0;
 	}
 
 	public String getVersion() {
