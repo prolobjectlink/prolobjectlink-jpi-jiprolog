@@ -73,7 +73,7 @@ public class JiPrologProvider extends AbstractProvider<JIPTerm> implements Prolo
 
 	// engine
 
-	public PrologEngine newPrologEngine() {
+	public PrologEngine newEngine() {
 		return new JiPrologEngine(this);
 	}
 
@@ -116,55 +116,55 @@ public class JiPrologProvider extends AbstractProvider<JIPTerm> implements Prolo
 
 	// terms
 
-	public PrologAtom newPrologAtom(String functor) {
+	public PrologAtom newAtom(String functor) {
 		return new JiPrologAtom(this, functor);
 	}
 
-	public PrologFloat newPrologFloat(Number value) {
+	public PrologFloat newFloat(Number value) {
 		return new JiPrologFloat(this, value);
 	}
 
-	public PrologDouble newPrologDouble(Number value) {
+	public PrologDouble newDouble(Number value) {
 		return new JiPrologDouble(this, value);
 	}
 
-	public PrologInteger newPrologInteger(Number value) {
+	public PrologInteger newInteger(Number value) {
 		return new JiPrologInteger(this, value);
 	}
 
-	public PrologLong newPrologLong(Number value) {
+	public PrologLong newLong(Number value) {
 		return new JiPrologLong(this, value);
 	}
 
-	public PrologVariable newPrologVariable() {
+	public PrologVariable newVariable() {
 		return new JiPrologVariable(this);
 	}
 
-	public PrologVariable newPrologVariable(String name) {
+	public PrologVariable newVariable(String name) {
 		return new JiPrologVariable(this, name);
 	}
 
-	public PrologList newPrologList() {
+	public PrologList newList() {
 		return new JiPrologList(this);
 	}
 
-	public PrologList newPrologList(PrologTerm[] arguments) {
+	public PrologList newList(PrologTerm[] arguments) {
 		return new JiPrologList(this, arguments);
 	}
 
-	public PrologList newPrologList(PrologTerm head, PrologTerm tail) {
+	public PrologList newList(PrologTerm head, PrologTerm tail) {
 		return new JiPrologList(this, head, tail);
 	}
 
-	public PrologList newPrologList(PrologTerm[] arguments, PrologTerm tail) {
+	public PrologList newList(PrologTerm[] arguments, PrologTerm tail) {
 		return new JiPrologList(this, arguments, tail);
 	}
 
-	public PrologStructure newPrologStructure(String functor, PrologTerm... arguments) {
+	public PrologStructure newStructure(String functor, PrologTerm... arguments) {
 		return new JiPrologStructure(this, functor, arguments);
 	}
 
-	public PrologExpression newPrologExpression(PrologTerm left, String operator, PrologTerm right) {
+	public PrologExpression newExpression(PrologTerm left, String operator, PrologTerm right) {
 		return new JiPrologExpression(this, left, operator, right);
 	}
 

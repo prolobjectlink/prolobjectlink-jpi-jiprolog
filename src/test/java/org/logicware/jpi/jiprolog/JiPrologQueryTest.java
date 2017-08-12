@@ -64,7 +64,7 @@ public class JiPrologQueryTest extends JiPrologBaseTest {
 		solution[6][3] = board;
 		solution[6][4] = fiveThousand;
 
-		engine = provider.newPrologEngine();
+		engine = provider.newEngine();
 
 		// employee relationship
 		engine.assertz(provider.parsePrologTerm("employee( mcardon, 1, 5 )."));
@@ -104,7 +104,7 @@ public class JiPrologQueryTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testGetEngine() {
-		assertEquals(provider.newPrologEngine(), query.getEngine());
+		assertEquals(provider.newEngine(), query.getEngine());
 	}
 
 	@Test

@@ -122,27 +122,27 @@ public class JiPrologEmptyTest extends JiPrologBaseTest {
 
 		// with atom
 		PrologTerm empty = provider.prologEmpty();
-		PrologAtom atom = provider.newPrologAtom("John Doe");
+		PrologAtom atom = provider.newAtom("John Doe");
 		assertFalse(empty.unify(atom));
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(36);
+		PrologInteger iValue = provider.newInteger(36);
 		assertFalse(empty.unify(iValue));
 
 		// with long
-		PrologLong lValue = provider.newPrologLong(28);
+		PrologLong lValue = provider.newLong(28);
 		assertFalse(empty.unify(lValue));
 
 		// with float
-		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologFloat fValue = provider.newFloat(36.47);
 		assertFalse(empty.unify(fValue));
 
 		// with double
-		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue = provider.newDouble(36.47);
 		assertFalse(empty.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case [] and variable
 		assertTrue(empty.unify(variable));
 
@@ -166,27 +166,27 @@ public class JiPrologEmptyTest extends JiPrologBaseTest {
 
 		// with atom
 		PrologTerm empty = provider.prologEmpty();
-		PrologAtom atom = provider.newPrologAtom("John Doe");
+		PrologAtom atom = provider.newAtom("John Doe");
 		assertEquals(empty.compareTo(atom), 1);
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(36);
+		PrologInteger iValue = provider.newInteger(36);
 		assertEquals(empty.compareTo(iValue), 1);
 
 		// with long
-		PrologLong lValue = provider.newPrologLong(28);
+		PrologLong lValue = provider.newLong(28);
 		assertEquals(empty.compareTo(lValue), 1);
 
 		// with float
-		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologFloat fValue = provider.newFloat(36.47);
 		assertEquals(empty.compareTo(fValue), 1);
 
 		// with double
-		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue = provider.newDouble(36.47);
 		assertEquals(empty.compareTo(dValue), 1);
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case [] and variable
 		assertEquals(empty.compareTo(variable), 1);
 

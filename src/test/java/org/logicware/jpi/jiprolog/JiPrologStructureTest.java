@@ -26,7 +26,7 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 
 	@Before
 	public void setUp() throws Exception {
-		structure = provider.newPrologStructure("digits", zero, one, two, three, four, five, six, seven, eight, nine);
+		structure = provider.newStructure("digits", zero, one, two, three, four, five, six, seven, eight, nine);
 	}
 
 	@After
@@ -130,28 +130,28 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 	public final void testUnify() {
 
 		// with atom
-		PrologAtom atom = provider.newPrologAtom("John Doe");
+		PrologAtom atom = provider.newAtom("John Doe");
 		PrologStructure structure = provider.parsePrologStructure("some_predicate(a)");
 		assertFalse(structure.unify(atom));
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(28);
+		PrologInteger iValue = provider.newInteger(28);
 		assertFalse(structure.unify(iValue));
 
 		// with long
-		PrologLong lValue = provider.newPrologLong(28);
+		PrologLong lValue = provider.newLong(28);
 		assertFalse(structure.unify(lValue));
 
 		// with float
-		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologFloat fValue = provider.newFloat(36.47);
 		assertFalse(structure.unify(fValue));
 
 		// with double
-		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue = provider.newDouble(36.47);
 		assertFalse(structure.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case predicate and variable
 		assertTrue(structure.unify(variable));
 
@@ -183,28 +183,28 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 	public final void testCompareTo() {
 
 		// with atom
-		PrologAtom atom = provider.newPrologAtom("John Doe");
+		PrologAtom atom = provider.newAtom("John Doe");
 		PrologStructure structure = provider.parsePrologStructure("some_predicate(a)");
 		assertEquals(structure.compareTo(atom), 1);
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(28);
+		PrologInteger iValue = provider.newInteger(28);
 		assertEquals(structure.compareTo(iValue), 1);
 
 		// with long
-		PrologLong lValue = provider.newPrologLong(28);
+		PrologLong lValue = provider.newLong(28);
 		assertEquals(structure.compareTo(lValue), 1);
 
 		// with float
-		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologFloat fValue = provider.newFloat(36.47);
 		assertEquals(structure.compareTo(fValue), 1);
 
 		// with double
-		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue = provider.newDouble(36.47);
 		assertEquals(structure.compareTo(dValue), 1);
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case predicate and variable
 		assertEquals(structure.compareTo(variable), 1);
 

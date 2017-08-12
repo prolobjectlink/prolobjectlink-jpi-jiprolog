@@ -27,7 +27,7 @@ import com.ugos.jiprolog.engine.JIPNumber;
 
 public class JiPrologLongTest extends JiPrologBaseTest {
 
-	private PrologLong long1 = provider.newPrologLong(100);
+	private PrologLong long1 = provider.newLong(100);
 
 	@Before
 	public void setUp() throws Exception {
@@ -49,22 +49,22 @@ public class JiPrologLongTest extends JiPrologBaseTest {
 
 	@Test
 	public void testGetPrologInteger() {
-		assertEquals(provider.newPrologInteger(100), long1.getPrologInteger());
+		assertEquals(provider.newInteger(100), long1.getPrologInteger());
 	}
 
 	@Test
 	public void testGetPrologFloat() {
-		assertEquals(provider.newPrologFloat(100.0), long1.getPrologFloat());
+		assertEquals(provider.newFloat(100.0), long1.getPrologFloat());
 	}
 
 	@Test
 	public final void testGetPrologLong() {
-		assertEquals(provider.newPrologLong(100), long1.getPrologLong());
+		assertEquals(provider.newLong(100), long1.getPrologLong());
 	}
 
 	@Test
 	public final void testGetPrologDouble() {
-		assertEquals(provider.newPrologDouble(100.0), long1.getPrologDouble());
+		assertEquals(provider.newDouble(100.0), long1.getPrologDouble());
 	}
 
 	@Test
@@ -80,7 +80,7 @@ public class JiPrologLongTest extends JiPrologBaseTest {
 
 	@Test
 	public void testEqualsObject() {
-		assertTrue(long1.equals(provider.newPrologLong(100)));
+		assertTrue(long1.equals(provider.newLong(100)));
 	}
 
 	@Test
@@ -177,32 +177,32 @@ public class JiPrologLongTest extends JiPrologBaseTest {
 	public void testUnify() {
 
 		// with atom
-		PrologLong lValue = provider.newPrologLong(28);
-		PrologAtom atom = provider.newPrologAtom("John Doe");
+		PrologLong lValue = provider.newLong(28);
+		PrologAtom atom = provider.newAtom("John Doe");
 		assertFalse(lValue.unify(atom));
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(36);
+		PrologInteger iValue = provider.newInteger(36);
 		// false because they are different
 		assertFalse(lValue.unify(iValue));
 
 		// with long
-		PrologLong lValue1 = provider.newPrologLong(36);
+		PrologLong lValue1 = provider.newLong(36);
 		// true because are equals
 		assertTrue(lValue.unify(lValue));
 		// false because they are different
 		assertFalse(lValue.unify(lValue1));
 
 		// with float
-		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologFloat fValue = provider.newFloat(36.47);
 		assertFalse(lValue.unify(fValue));
 
 		// with double
-		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue = provider.newDouble(36.47);
 		assertFalse(lValue.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case atom and variable
 		assertTrue(lValue.unify(variable));
 
@@ -223,32 +223,32 @@ public class JiPrologLongTest extends JiPrologBaseTest {
 	public void testCompareTo() {
 
 		// with atom
-		PrologLong lValue = provider.newPrologLong(28);
-		PrologAtom atom = provider.newPrologAtom("John Doe");
+		PrologLong lValue = provider.newLong(28);
+		PrologAtom atom = provider.newAtom("John Doe");
 		assertEquals(lValue.compareTo(atom), -1);
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(36);
+		PrologInteger iValue = provider.newInteger(36);
 		// false because they are different
 		assertEquals(lValue.compareTo(iValue), -1);
 
 		// with long
-		PrologLong lValue1 = provider.newPrologLong(36);
+		PrologLong lValue1 = provider.newLong(36);
 		// true because are equals
 		assertEquals(lValue.compareTo(lValue), 0);
 		// false because they are different
 		assertEquals(lValue.compareTo(lValue1), -1);
 
 		// with float
-		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologFloat fValue = provider.newFloat(36.47);
 		assertEquals(lValue.compareTo(fValue), -1);
 
 		// with double
-		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue = provider.newDouble(36.47);
 		assertEquals(lValue.compareTo(dValue), -1);
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case atom and variable
 		assertEquals(lValue.compareTo(variable), 1);
 

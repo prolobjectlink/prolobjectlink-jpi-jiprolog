@@ -25,7 +25,7 @@ import org.logicware.jpi.PrologVariable;
 
 public class JiPrologDoubleTest extends JiPrologBaseTest {
 
-	private PrologDouble double1 = provider.newPrologDouble(1.6180339887);
+	private PrologDouble double1 = provider.newDouble(1.6180339887);
 
 	@Before
 	public void setUp() throws Exception {
@@ -37,22 +37,22 @@ public class JiPrologDoubleTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testGetPrologInteger() {
-		assertEquals(provider.newPrologInteger(1), double1.getPrologInteger());
+		assertEquals(provider.newInteger(1), double1.getPrologInteger());
 	}
 
 	@Test
 	public final void testGetPrologFloat() {
-		assertEquals(provider.newPrologFloat(1.618034), double1.getPrologFloat());
+		assertEquals(provider.newFloat(1.618034), double1.getPrologFloat());
 	}
 
 	@Test
 	public final void testGetPrologLong() {
-		assertEquals(provider.newPrologLong(1), double1.getPrologLong());
+		assertEquals(provider.newLong(1), double1.getPrologLong());
 	}
 
 	@Test
 	public final void testGetPrologDouble() {
-		assertEquals(provider.newPrologDouble(1.6180339887), double1.getPrologDouble());
+		assertEquals(provider.newDouble(1.6180339887), double1.getPrologDouble());
 	}
 
 	@Test
@@ -77,7 +77,7 @@ public class JiPrologDoubleTest extends JiPrologBaseTest {
 
 	@Test
 	public void testEqualsObject() {
-		assertTrue(double1.equals(provider.newPrologDouble(1.6180339887)));
+		assertTrue(double1.equals(provider.newDouble(1.6180339887)));
 	}
 
 	@Test
@@ -174,32 +174,32 @@ public class JiPrologDoubleTest extends JiPrologBaseTest {
 	public void testUntify() {
 
 		// with atom
-		PrologDouble dValue = provider.newPrologDouble(36.47);
-		PrologAtom atom = provider.newPrologAtom("doe");
+		PrologDouble dValue = provider.newDouble(36.47);
+		PrologAtom atom = provider.newAtom("doe");
 		assertFalse(dValue.unify(atom));
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(28);
+		PrologInteger iValue = provider.newInteger(28);
 		assertFalse(dValue.unify(iValue));
 
 		// with long
-		PrologLong lValue = provider.newPrologLong(28);
+		PrologLong lValue = provider.newLong(28);
 		assertFalse(dValue.unify(lValue));
 
 		// with float
-		PrologFloat fValue1 = provider.newPrologFloat(100.98);
+		PrologFloat fValue1 = provider.newFloat(100.98);
 		// false because are different
 		assertFalse(dValue.unify(fValue1));
 
 		// with float
-		PrologDouble dValue1 = provider.newPrologDouble(100.98);
+		PrologDouble dValue1 = provider.newDouble(100.98);
 		// true because are equals
 		assertTrue(dValue.unify(dValue));
 		// false because are different
 		assertFalse(dValue.unify(dValue1));
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case float and variable
 		assertTrue(dValue.unify(variable));
 
@@ -221,32 +221,32 @@ public class JiPrologDoubleTest extends JiPrologBaseTest {
 	public void testCompareTo() {
 
 		// with atom
-		PrologDouble dValue = provider.newPrologDouble(36.47);
-		PrologAtom atom = provider.newPrologAtom("doe");
+		PrologDouble dValue = provider.newDouble(36.47);
+		PrologAtom atom = provider.newAtom("doe");
 		assertEquals(dValue.compareTo(atom), -1);
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(28);
+		PrologInteger iValue = provider.newInteger(28);
 		assertEquals(dValue.compareTo(iValue), 1);
 
 		// with long
-		PrologLong lValue = provider.newPrologLong(28);
+		PrologLong lValue = provider.newLong(28);
 		assertEquals(dValue.compareTo(lValue), 1);
 
 		// with float
-		PrologFloat fValue1 = provider.newPrologFloat(100.98);
+		PrologFloat fValue1 = provider.newFloat(100.98);
 		// false because are different
 		assertEquals(dValue.compareTo(fValue1), -1);
 
 		// with float
-		PrologDouble dValue1 = provider.newPrologDouble(100.98);
+		PrologDouble dValue1 = provider.newDouble(100.98);
 		// true because are equals
 		assertEquals(dValue.compareTo(dValue), 0);
 		// false because are different
 		assertEquals(dValue.compareTo(dValue1), -1);
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case float and variable
 		assertEquals(dValue.compareTo(variable), 1);
 

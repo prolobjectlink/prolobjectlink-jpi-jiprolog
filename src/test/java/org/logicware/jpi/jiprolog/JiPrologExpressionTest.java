@@ -26,7 +26,7 @@ public class JiPrologExpressionTest extends JiPrologBaseTest {
 
 	@Before
 	public void setUp() throws Exception {
-		expression = provider.newPrologExpression(x, "+", y);
+		expression = provider.newExpression(x, "+", y);
 	}
 
 	@After
@@ -45,12 +45,12 @@ public class JiPrologExpressionTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testGetLeft() {
-		assertEquals(provider.newPrologVariable("X"), expression.getLeft());
+		assertEquals(provider.newVariable("X"), expression.getLeft());
 	}
 
 	@Test
 	public final void testGetRight() {
-		assertEquals(provider.newPrologVariable("Y"), expression.getRight());
+		assertEquals(provider.newVariable("Y"), expression.getRight());
 	}
 
 	@Test
@@ -129,27 +129,27 @@ public class JiPrologExpressionTest extends JiPrologBaseTest {
 		PrologExpression expression = provider.parsePrologExpression("58+93*10");
 
 		// with atom
-		PrologAtom atom = provider.newPrologAtom("John Doe");
+		PrologAtom atom = provider.newAtom("John Doe");
 		assertFalse(expression.unify(atom));
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(28);
+		PrologInteger iValue = provider.newInteger(28);
 		assertFalse(expression.unify(iValue));
 
 		// with long
-		PrologLong lValue = provider.newPrologLong(28);
+		PrologLong lValue = provider.newLong(28);
 		assertFalse(expression.unify(lValue));
 
 		// with float
-		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologFloat fValue = provider.newFloat(36.47);
 		assertFalse(expression.unify(fValue));
 
 		// with double
-		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue = provider.newDouble(36.47);
 		assertFalse(expression.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case expression and variable
 		assertTrue(expression.unify(variable));
 
@@ -184,27 +184,27 @@ public class JiPrologExpressionTest extends JiPrologBaseTest {
 		PrologExpression expression = provider.parsePrologExpression("58+93*10");
 
 		// with atom
-		PrologAtom atom = provider.newPrologAtom("John Doe");
+		PrologAtom atom = provider.newAtom("John Doe");
 		assertEquals(expression.compareTo(atom), 1);
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(28);
+		PrologInteger iValue = provider.newInteger(28);
 		assertEquals(expression.compareTo(iValue), 1);
 
 		// with long
-		PrologLong lValue = provider.newPrologLong(28);
+		PrologLong lValue = provider.newLong(28);
 		assertEquals(expression.compareTo(lValue), 1);
 
 		// with float
-		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologFloat fValue = provider.newFloat(36.47);
 		assertEquals(expression.compareTo(fValue), 1);
 
 		// with double
-		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue = provider.newDouble(36.47);
 		assertEquals(expression.compareTo(dValue), 1);
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case expression and variable
 		assertEquals(expression.compareTo(variable), 1);
 

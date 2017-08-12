@@ -26,7 +26,7 @@ public class JiPrologAtomTest extends JiPrologBaseTest {
 
 	@Before
 	public void setUp() throws Exception {
-		atom = provider.newPrologAtom("an_atom");
+		atom = provider.newAtom("an_atom");
 	}
 
 	@After
@@ -35,7 +35,7 @@ public class JiPrologAtomTest extends JiPrologBaseTest {
 
 	@Test
 	public void testClone() {
-		assertEquals(provider.newPrologAtom("an_atom"), atom.clone());
+		assertEquals(provider.newAtom("an_atom"), atom.clone());
 	}
 
 	@Test
@@ -138,31 +138,31 @@ public class JiPrologAtomTest extends JiPrologBaseTest {
 	@Test
 	public final void testUnify() {
 		// with atom
-		PrologAtom atom = provider.newPrologAtom("smith");
-		PrologAtom atom1 = provider.newPrologAtom("doe");
+		PrologAtom atom = provider.newAtom("smith");
+		PrologAtom atom1 = provider.newAtom("doe");
 		// true because the atoms are equals
 		assertTrue(atom.unify(atom));
 		// false because the atoms are different
 		assertFalse(atom.unify(atom1));
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(28);
+		PrologInteger iValue = provider.newInteger(28);
 		assertFalse(atom.unify(iValue));
 
 		// with long
-		PrologLong lValue = provider.newPrologLong(28);
+		PrologLong lValue = provider.newLong(28);
 		assertFalse(atom.unify(lValue));
 
 		// with float
-		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologFloat fValue = provider.newFloat(36.47);
 		assertFalse(atom.unify(fValue));
 
 		// with double
-		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue = provider.newDouble(36.47);
 		assertFalse(atom.unify(dValue));
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case atom and variable
 		assertTrue(atom.unify(variable));
 
@@ -183,31 +183,31 @@ public class JiPrologAtomTest extends JiPrologBaseTest {
 	public final void testCompareTo() {
 
 		// with atom
-		PrologAtom atom = provider.newPrologAtom("smith");
-		PrologAtom atom1 = provider.newPrologAtom("doe");
+		PrologAtom atom = provider.newAtom("smith");
+		PrologAtom atom1 = provider.newAtom("doe");
 		// true because the atoms are equals
 		assertEquals(atom.compareTo(atom), 0);
 		// false because the atoms are different
 		assertEquals(atom.compareTo(atom1), 1);
 
 		// with integer
-		PrologInteger iValue = provider.newPrologInteger(28);
+		PrologInteger iValue = provider.newInteger(28);
 		assertEquals(atom.compareTo(iValue), 1);
 
 		// with long
-		PrologLong lValue = provider.newPrologLong(28);
+		PrologLong lValue = provider.newLong(28);
 		assertEquals(atom.compareTo(lValue), 1);
 
 		// with float
-		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologFloat fValue = provider.newFloat(36.47);
 		assertEquals(atom.compareTo(fValue), 1);
 
 		// with double
-		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue = provider.newDouble(36.47);
 		assertEquals(atom.compareTo(dValue), 1);
 
 		// with variable
-		PrologVariable variable = provider.newPrologVariable("X");
+		PrologVariable variable = provider.newVariable("X");
 		// true. case atom and variable
 		assertEquals(atom.compareTo(variable), 1);
 
