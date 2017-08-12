@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Set;
 
 import org.logicware.jpi.AbstractProvider;
 import org.logicware.jpi.PrologAtom;
@@ -14,11 +13,9 @@ import org.logicware.jpi.PrologDouble;
 import org.logicware.jpi.PrologEngine;
 import org.logicware.jpi.PrologExpression;
 import org.logicware.jpi.PrologFloat;
-import org.logicware.jpi.PrologIndicator;
 import org.logicware.jpi.PrologInteger;
 import org.logicware.jpi.PrologList;
 import org.logicware.jpi.PrologLong;
-import org.logicware.jpi.PrologOperator;
 import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
@@ -169,26 +166,6 @@ public class JiPrologProvider extends AbstractProvider<JIPTerm> implements Prolo
 
 	public PrologExpression newPrologExpression(PrologTerm left, String operator, PrologTerm right) {
 		return new JiPrologExpression(this, left, operator, right);
-	}
-
-	public boolean currentPredicate(String functor, int arity) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean currentOperator(int priority, String specifier, String operator) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public Set<PrologIndicator> currentPredicates() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Set<PrologOperator> currentOperators() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
