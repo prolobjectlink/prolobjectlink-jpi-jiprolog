@@ -1,7 +1,5 @@
 package org.logicware.jpi.jiprolog;
 
-import static org.logicware.jpi.PrologAdapterFactory.createPrologAdapter;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,10 +13,10 @@ import java.util.Set;
 import org.logicware.jpi.AbstractEngine;
 import org.logicware.jpi.OperatorEntry;
 import org.logicware.jpi.PredicateIndicator;
-import org.logicware.jpi.PrologAdapter;
 import org.logicware.jpi.PrologEngine;
 import org.logicware.jpi.PrologIndicator;
 import org.logicware.jpi.PrologOperator;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologQuery;
 import org.logicware.jpi.PrologTerm;
 
@@ -32,18 +30,18 @@ import com.ugos.jiprolog.engine.JIPTermParser;
 import com.ugos.jiprolog.engine.Operator;
 import com.ugos.jiprolog.engine.OperatorManager;
 
-public final class JiPrologEngine extends AbstractEngine implements PrologEngine {
+public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements PrologEngine {
 
 	JIPEngine engine;
 	JIPTermParser parser;
 
-	final PrologAdapter<JIPTerm> adapter = createPrologAdapter(JiPrologAdapter.class);
-
-	JiPrologEngine() {
-		this(new JIPEngine());
+	JiPrologEngine(PrologProvider<JIPTerm> provider) {
+		this(provider, new JIPEngine());
 	}
 
-	JiPrologEngine(JIPEngine engine) {
+	JiPrologEngine(PrologProvider<JIPTerm> provider, JIPEngine engine) {
+		super(provider);
+
 		this.engine = engine;
 		this.parser = engine.getTermParser();
 
@@ -62,7 +60,7 @@ public final class JiPrologEngine extends AbstractEngine implements PrologEngine
 	private JIPCons adaptCons(PrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			cons = JIPCons.create(adapter.toNativeTerm(arguments[i]), cons);
+			cons = JIPCons.create(provider.fromTerm(arguments[i]), cons);
 		}
 		return cons;
 	}
@@ -137,7 +135,7 @@ public final class JiPrologEngine extends AbstractEngine implements PrologEngine
 	}
 
 	public void asserta(PrologTerm head, PrologTerm... body) {
-		asserta(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
+		asserta(JIPClause.create((JIPFunctor) provider.fromTerm(head), adaptCons(body)));
 	}
 
 	private void asserta(JIPClause clause) {
@@ -151,7 +149,7 @@ public final class JiPrologEngine extends AbstractEngine implements PrologEngine
 	}
 
 	public void assertz(PrologTerm head, PrologTerm... body) {
-		assertz(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
+		assertz(JIPClause.create((JIPFunctor) provider.fromTerm(head), adaptCons(body)));
 	}
 
 	private void assertz(JIPClause clause) {
@@ -165,7 +163,7 @@ public final class JiPrologEngine extends AbstractEngine implements PrologEngine
 	}
 
 	public boolean clause(PrologTerm head, PrologTerm... body) {
-		return clause(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
+		return clause(JIPClause.create((JIPFunctor) provider.fromTerm(head), adaptCons(body)));
 	}
 
 	private boolean clause(JIPClause clause) {
@@ -177,7 +175,7 @@ public final class JiPrologEngine extends AbstractEngine implements PrologEngine
 	}
 
 	public void retract(PrologTerm head, PrologTerm... body) {
-		retract(JIPClause.create((JIPFunctor) adapter.toNativeTerm(head), adaptCons(body)));
+		retract(JIPClause.create((JIPFunctor) provider.fromTerm(head), adaptCons(body)));
 	}
 
 	private void retract(JIPClause clause) {
@@ -185,11 +183,11 @@ public final class JiPrologEngine extends AbstractEngine implements PrologEngine
 	}
 
 	public PrologQuery createQuery(String stringQuery) {
-		return new JiPrologQuery(engine, stringQuery);
+		return new JiPrologQuery(provider, engine, stringQuery);
 	}
 
 	public PrologQuery createQuery(PrologTerm... terms) {
-		return new JiPrologQuery(engine, terms);
+		return new JiPrologQuery(provider, engine, terms);
 	}
 
 	public void operator(int priority, String specifier, String operator) {

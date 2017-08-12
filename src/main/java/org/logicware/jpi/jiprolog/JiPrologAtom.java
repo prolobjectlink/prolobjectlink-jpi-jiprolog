@@ -1,14 +1,16 @@
 package org.logicware.jpi.jiprolog;
 
 import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
+import com.ugos.jiprolog.engine.JIPTerm;
 
 public final class JiPrologAtom extends JiPrologTerm implements PrologAtom {
 
-	public JiPrologAtom(String value) {
-		super(ATOM_TYPE, JIPAtom.create(value));
+	public JiPrologAtom(PrologProvider<JIPTerm> provider, String value) {
+		super(ATOM_TYPE, provider, JIPAtom.create(value));
 	}
 
 	public String getStringValue() {
@@ -47,7 +49,7 @@ public final class JiPrologAtom extends JiPrologTerm implements PrologAtom {
 	@Override
 	public PrologTerm clone() {
 		String s = getFunctor();
-		return new JiPrologAtom(s);
+		return new JiPrologAtom(provider, s);
 	}
 
 }

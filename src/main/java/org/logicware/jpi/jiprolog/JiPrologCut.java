@@ -1,13 +1,15 @@
 package org.logicware.jpi.jiprolog;
 
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
+import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologCut extends JiPrologTerm implements PrologTerm {
 
-	protected JiPrologCut() {
-		super(CUT_TYPE, JIPAtom.create("!"));
+	protected JiPrologCut(PrologProvider<JIPTerm> provider) {
+		super(CUT_TYPE, provider, JIPAtom.create("!"));
 	}
 
 	@Override
@@ -37,7 +39,7 @@ public class JiPrologCut extends JiPrologTerm implements PrologTerm {
 
 	@Override
 	public PrologTerm clone() {
-		return new JiPrologCut();
+		return new JiPrologCut(provider);
 	}
 
 }

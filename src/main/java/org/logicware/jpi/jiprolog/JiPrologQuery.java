@@ -1,7 +1,5 @@
 package org.logicware.jpi.jiprolog;
 
-import static org.logicware.jpi.PrologAdapterFactory.createPrologAdapter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,9 +7,9 @@ import java.util.Map;
 
 import org.logicware.jpi.AbstractQuery;
 import org.logicware.jpi.PrologEngine;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologQuery;
 import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.PrologAdapter;
 
 import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPEngine;
@@ -19,22 +17,22 @@ import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 
-public class JiPrologQuery extends AbstractQuery implements PrologQuery {
+public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery {
 
 	private JIPQuery query;
 	private JIPTerm solution;
 
 	private final JIPEngine engine;
 
-	final PrologAdapter<JIPTerm> adapter = createPrologAdapter(JiPrologAdapter.class);
-
-	JiPrologQuery(JIPEngine engine, String query) {
+	JiPrologQuery(PrologProvider<JIPTerm> provider, JIPEngine engine, String query) {
+		super(provider);
 		this.engine = engine;
 		this.query = engine.openSynchronousQuery(query);
 		this.solution = this.query.nextSolution();
 	}
 
-	JiPrologQuery(JIPEngine engine, PrologTerm[] terms) {
+	JiPrologQuery(PrologProvider<JIPTerm> provider, JIPEngine engine, PrologTerm[] terms) {
+		super(provider);
 		this.engine = engine;
 		query = engine.openSynchronousQuery(adaptCons(terms));
 		solution = query.nextSolution();
@@ -43,13 +41,13 @@ public class JiPrologQuery extends AbstractQuery implements PrologQuery {
 	private JIPCons adaptCons(PrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			cons = JIPCons.create(adapter.toNativeTerm(arguments[i]), cons);
+			cons = JIPCons.create(provider.fromTerm(arguments[i]), cons);
 		}
 		return cons;
 	}
 
 	public PrologEngine getEngine() {
-		return new JiPrologEngine(engine);
+		return new JiPrologEngine(provider, engine);
 	}
 
 	public boolean hasSolution() {
@@ -67,7 +65,7 @@ public class JiPrologQuery extends AbstractQuery implements PrologQuery {
 			JIPVariable[] variables = solution.getVariables();
 			PrologTerm[] solutions = new PrologTerm[variables.length];
 			for (int i = 0; i < solutions.length; i++) {
-				solutions[i] = adapter.toTerm(variables[i].getValue());
+				solutions[i] = provider.toTerm(variables[i].getValue());
 			}
 			return solutions;
 		}
@@ -79,7 +77,7 @@ public class JiPrologQuery extends AbstractQuery implements PrologQuery {
 			JIPVariable[] variables = solution.getVariables();
 			Map<String, PrologTerm> solutions = new HashMap<String, PrologTerm>(variables.length);
 			for (int i = 0; i < variables.length; i++) {
-				solutions.put(variables[i].getName(), adapter.toTerm(variables[i].getValue()));
+				solutions.put(variables[i].getName(), provider.toTerm(variables[i].getValue()));
 			}
 			return solutions;
 		}

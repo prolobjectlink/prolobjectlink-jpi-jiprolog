@@ -1,14 +1,16 @@
 package org.logicware.jpi.jiprolog;
 
 import org.logicware.jpi.PrologList;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPList;
+import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologEmpty extends JiPrologList implements PrologList {
 
-	protected JiPrologEmpty() {
-		super(EMPTY_TYPE);
+	protected JiPrologEmpty(PrologProvider<JIPTerm> provider) {
+		super(EMPTY_TYPE, provider);
 		value = JIPList.create(null, null);
 	}
 
@@ -39,7 +41,7 @@ public class JiPrologEmpty extends JiPrologList implements PrologList {
 
 	@Override
 	public PrologTerm clone() {
-		return new JiPrologEmpty();
+		return new JiPrologEmpty(provider);
 	}
 
 }

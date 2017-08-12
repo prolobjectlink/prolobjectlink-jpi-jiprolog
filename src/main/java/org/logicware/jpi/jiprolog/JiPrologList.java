@@ -3,6 +3,7 @@ package org.logicware.jpi.jiprolog;
 import java.util.Iterator;
 
 import org.logicware.jpi.PrologList;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPList;
@@ -10,45 +11,45 @@ import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologList extends JiPrologCompound implements PrologList {
 
-	protected JiPrologList() {
-		super(LIST_TYPE);
+	protected JiPrologList(PrologProvider<JIPTerm> provider) {
+		super(LIST_TYPE, provider);
 	}
 
-	protected JiPrologList(int type) {
-		super(type);
+	protected JiPrologList(int type, PrologProvider<JIPTerm> provider) {
+		super(type, provider);
 	}
 
-	protected JiPrologList(PrologTerm[] arguments) {
-		super(LIST_TYPE);
+	protected JiPrologList(PrologProvider<JIPTerm> provider, PrologTerm[] arguments) {
+		super(LIST_TYPE, provider);
 		value = adaptList(arguments);
 	}
 
-	protected JiPrologList(JIPTerm[] arguments) {
-		super(LIST_TYPE);
+	protected JiPrologList(PrologProvider<JIPTerm> provider, JIPTerm[] arguments) {
+		super(LIST_TYPE, provider);
 		value = JIPList.NIL;
 		for (int i = arguments.length - 1; i >= 0; --i) {
 			value = JIPList.create(arguments[i], value);
 		}
 	}
 
-	protected JiPrologList(JIPTerm[] arguments, JIPTerm tail) {
-		super(LIST_TYPE);
+	protected JiPrologList(PrologProvider<JIPTerm> provider, JIPTerm[] arguments, JIPTerm tail) {
+		super(LIST_TYPE, provider);
 		value = tail;
 		for (int i = arguments.length - 1; i >= 0; --i) {
 			value = JIPList.create(arguments[i], value);
 		}
 	}
 
-	protected JiPrologList(PrologTerm head, PrologTerm tail) {
-		super(LIST_TYPE);
-		value = JIPList.create(adapter.toNativeTerm(head), adapter.toNativeTerm(tail));
+	protected JiPrologList(PrologProvider<JIPTerm> provider, PrologTerm head, PrologTerm tail) {
+		super(LIST_TYPE, provider);
+		value = JIPList.create(provider.fromTerm(head), provider.fromTerm(tail));
 	}
 
-	protected JiPrologList(PrologTerm[] arguments, PrologTerm tail) {
-		super(LIST_TYPE);
-		value = adapter.toNativeTerm(tail);
+	protected JiPrologList(PrologProvider<JIPTerm> provider, PrologTerm[] arguments, PrologTerm tail) {
+		super(LIST_TYPE, provider);
+		value = provider.fromTerm(tail);
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			value = JIPList.create(adapter.toNativeTerm(arguments[i]), value);
+			value = JIPList.create(provider.fromTerm(arguments[i]), value);
 		}
 	}
 
@@ -71,12 +72,12 @@ public class JiPrologList extends JiPrologCompound implements PrologList {
 
 	public PrologTerm getHead() {
 		JIPList list = (JIPList) value;
-		return adapter.toTerm(list.getHead());
+		return provider.toTerm(list.getHead());
 	}
 
 	public PrologTerm getTail() {
 		JIPList list = (JIPList) value;
-		return adapter.toTerm(list.getTail());
+		return provider.toTerm(list.getTail());
 	}
 
 	@Override
@@ -104,7 +105,7 @@ public class JiPrologList extends JiPrologCompound implements PrologList {
 		JIPList list = (JIPList) value;
 		PrologTerm[] arguments = new PrologTerm[list.length()];
 		for (int i = 0; i < arguments.length; i++) {
-			arguments[i] = adapter.toTerm(list.getNth(i + 1));
+			arguments[i] = provider.toTerm(list.getNth(i + 1));
 		}
 		return arguments;
 	}
@@ -112,7 +113,7 @@ public class JiPrologList extends JiPrologCompound implements PrologList {
 	@Override
 	public PrologTerm clone() {
 		PrologTerm[] array = getArguments();
-		return new JiPrologList(array);
+		return new JiPrologList(provider, array);
 	}
 
 	private class JIPrologListIter implements Iterator<PrologTerm> {
@@ -130,7 +131,7 @@ public class JiPrologList extends JiPrologCompound implements PrologList {
 		}
 
 		public PrologTerm next() {
-			return adapter.toTerm(list.getNth(nextIndex++));
+			return provider.toTerm(list.getNth(nextIndex++));
 		}
 
 		public void remove() {

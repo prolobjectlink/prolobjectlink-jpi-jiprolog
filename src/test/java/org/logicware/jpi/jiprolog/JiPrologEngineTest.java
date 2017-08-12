@@ -1041,7 +1041,7 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testCurrentOperators() {
-		assertEquals(JiPrologAdapter.OPERATORS, engine.currentOperators());
+		assertEquals(JiPrologConverter.OPERATORS, engine.currentOperators());
 	}
 
 	@Test

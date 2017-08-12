@@ -128,7 +128,7 @@ public class JiPrologAtomTest {
 
 	@Test
 	public final void testIsExpression() {
-		assertFalse(atom.isExpression());
+		assertFalse(atom.isEvaluable());
 	}
 
 	@Test

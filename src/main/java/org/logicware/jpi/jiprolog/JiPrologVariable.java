@@ -2,20 +2,22 @@ package org.logicware.jpi.jiprolog;
 
 import org.logicware.jpi.ArityError;
 import org.logicware.jpi.FunctorError;
+import org.logicware.jpi.IndicatorError;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.PrologVariable;
-import org.logicware.jpi.IndicatorError;
 
+import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 
 public class JiPrologVariable extends JiPrologTerm implements PrologVariable {
 
-	public JiPrologVariable() {
-		super(VARIABLE_TYPE, JIPVariable.create());
+	public JiPrologVariable(PrologProvider<JIPTerm> provider) {
+		super(VARIABLE_TYPE, provider, JIPVariable.create());
 	}
 
-	public JiPrologVariable(String name) {
-		super(VARIABLE_TYPE, JIPVariable.create(name));
+	public JiPrologVariable(PrologProvider<JIPTerm> provider, String name) {
+		super(VARIABLE_TYPE, provider, JIPVariable.create(name));
 	}
 
 	public boolean isAnonim() {
@@ -58,7 +60,7 @@ public class JiPrologVariable extends JiPrologTerm implements PrologVariable {
 	@Override
 	public PrologTerm clone() {
 		String n = getName();
-		return new JiPrologVariable(n);
+		return new JiPrologVariable(provider, n);
 	}
 
 }

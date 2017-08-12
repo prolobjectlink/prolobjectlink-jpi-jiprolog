@@ -1,5 +1,6 @@
 package org.logicware.jpi.jiprolog;
 
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
 
@@ -9,13 +10,13 @@ import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologStructure extends JiPrologCompound implements PrologStructure {
 
-	protected JiPrologStructure(String functor, PrologTerm... arguments) {
-		super(STRUCTURE_TYPE);
+	protected JiPrologStructure(PrologProvider<JIPTerm> provider, String functor, PrologTerm... arguments) {
+		super(STRUCTURE_TYPE, provider);
 		value = JIPFunctor.create(removeQuoted(functor), adaptCons(arguments));
 	}
 
-	protected JiPrologStructure(String functor, JIPTerm... arguments) {
-		super(STRUCTURE_TYPE);
+	protected JiPrologStructure(PrologProvider<JIPTerm> provider, String functor, JIPTerm... arguments) {
+		super(STRUCTURE_TYPE, provider);
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
 			cons = JIPCons.create(arguments[i], cons);
@@ -35,7 +36,7 @@ public class JiPrologStructure extends JiPrologCompound implements PrologStructu
 		int arity = structure.getArity();
 		PrologTerm[] arguments = new PrologTerm[arity];
 		for (int i = 0; i < arity; i++) {
-			arguments[i] = adapter.toTerm(structure.getTerm(i + 1));
+			arguments[i] = provider.toTerm(structure.getTerm(i + 1));
 		}
 		return arguments;
 	}
@@ -66,7 +67,7 @@ public class JiPrologStructure extends JiPrologCompound implements PrologStructu
 	public PrologTerm clone() {
 		String f = getFunctor();
 		PrologTerm[] a = getArguments();
-		return new JiPrologStructure(f, a);
+		return new JiPrologStructure(provider, f, a);
 	}
 
 }

@@ -154,7 +154,7 @@ public class JiPrologFloatTest {
 
 	@Test
 	public final void testIsExpression() {
-		assertFalse(f.isExpression());
+		assertFalse(f.isEvaluable());
 	}
 
 	@Test(expected = ArityError.class)

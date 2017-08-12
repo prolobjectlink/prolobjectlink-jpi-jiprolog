@@ -178,7 +178,7 @@ public class JiPrologDoubleTest {
 
 	@Test
 	public void testIsExpression() {
-		assertFalse(double1.isExpression());
+		assertFalse(double1.isEvaluable());
 	}
 
 	@Test(expected = IndicatorError.class)

@@ -1,14 +1,16 @@
 package org.logicware.jpi.jiprolog;
 
 import org.logicware.jpi.PrologIndex;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
+import com.ugos.jiprolog.engine.JIPTerm;
 
 public final class JiPrologTrue extends JiPrologTerm implements PrologTerm {
 
-	protected JiPrologTrue() {
-		super(TRUE_TYPE, JIPAtom.create("true"));
+	protected JiPrologTrue(PrologProvider<JIPTerm> provider) {
+		super(TRUE_TYPE, provider, JIPAtom.create("true"));
 	}
 
 	@Override
@@ -38,7 +40,7 @@ public final class JiPrologTrue extends JiPrologTerm implements PrologTerm {
 
 	@Override
 	public PrologTerm clone() {
-		return new JiPrologTrue();
+		return new JiPrologTrue(provider);
 	}
 
 	public PrologIndex getIndex() {

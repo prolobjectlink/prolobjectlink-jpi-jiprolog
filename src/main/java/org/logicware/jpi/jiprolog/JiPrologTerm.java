@@ -1,30 +1,25 @@
 package org.logicware.jpi.jiprolog;
 
-import static org.logicware.jpi.PrologAdapterFactory.createPrologAdapter;
-
 import org.logicware.jpi.AbstractTerm;
+import org.logicware.jpi.NumberExpectedError;
 import org.logicware.jpi.PrologIndex;
 import org.logicware.jpi.PrologNumber;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.NumberExpectedError;
-import org.logicware.jpi.PrologAdapter;
 
 import com.ugos.jiprolog.engine.JIPNumber;
 import com.ugos.jiprolog.engine.JIPTerm;
 
-public abstract class JiPrologTerm extends AbstractTerm implements PrologTerm {
+public abstract class JiPrologTerm extends AbstractTerm<JIPTerm> implements PrologTerm {
 
-	protected int type;
 	protected JIPTerm value;
 
-	final PrologAdapter<JIPTerm> adapter = createPrologAdapter(JiPrologAdapter.class);
-
-	protected JiPrologTerm(int type) {
-		this.type = type;
+	protected JiPrologTerm(int type, PrologProvider<JIPTerm> provider) {
+		super(type, provider);
 	}
 
-	protected JiPrologTerm(int type, JIPTerm value) {
-		this.type = type;
+	protected JiPrologTerm(int type, PrologProvider<JIPTerm> provider, JIPTerm value) {
+		super(type, provider);
 		this.value = value;
 	}
 
@@ -86,7 +81,7 @@ public abstract class JiPrologTerm extends AbstractTerm implements PrologTerm {
 		return this instanceof JiPrologEmpty;
 	}
 
-	public final boolean isExpression() {
+	public final boolean isEvaluable() {
 		return this instanceof JiPrologExpression;
 	}
 
@@ -133,7 +128,7 @@ public abstract class JiPrologTerm extends AbstractTerm implements PrologTerm {
 	}
 
 	public final boolean unify(PrologTerm term) {
-		return value.unifiable(adapter.toNativeTerm(term));
+		return value.unifiable(provider.fromTerm(term));
 	}
 
 	public int compareTo(PrologTerm term) {

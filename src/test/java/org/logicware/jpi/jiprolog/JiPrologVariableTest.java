@@ -134,7 +134,7 @@ public class JiPrologVariableTest {
 
 	@Test
 	public final void testIsExpression() {
-		assertFalse(variable.isExpression());
+		assertFalse(variable.isEvaluable());
 	}
 
 	public final void testGetArity() {

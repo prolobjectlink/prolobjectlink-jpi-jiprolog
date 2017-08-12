@@ -1,14 +1,16 @@
 package org.logicware.jpi.jiprolog;
 
 import org.logicware.jpi.PrologIndex;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
+import com.ugos.jiprolog.engine.JIPTerm;
 
 public final class JiPrologFalse extends JiPrologTerm implements PrologTerm {
 
-	protected JiPrologFalse() {
-		super(FALSE_TYPE, JIPAtom.create("false"));
+	protected JiPrologFalse(PrologProvider<JIPTerm> provider) {
+		super(FALSE_TYPE, provider, JIPAtom.create("false"));
 	}
 
 	@Override
@@ -38,7 +40,7 @@ public final class JiPrologFalse extends JiPrologTerm implements PrologTerm {
 
 	@Override
 	public PrologTerm clone() {
-		return new JiPrologFalse();
+		return new JiPrologFalse(provider);
 	}
 
 	public PrologIndex getIndex() {

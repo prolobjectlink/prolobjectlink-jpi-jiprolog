@@ -1,43 +1,50 @@
 package org.logicware.jpi.jiprolog;
 
-import static org.logicware.jpi.PrologAdapterFactory.createPrologAdapter;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Set;
 
 import org.logicware.jpi.AbstractProvider;
 import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologConverter;
+import org.logicware.jpi.PrologConverterFactory;
 import org.logicware.jpi.PrologDouble;
 import org.logicware.jpi.PrologEngine;
 import org.logicware.jpi.PrologExpression;
 import org.logicware.jpi.PrologFloat;
+import org.logicware.jpi.PrologIndicator;
 import org.logicware.jpi.PrologInteger;
 import org.logicware.jpi.PrologList;
 import org.logicware.jpi.PrologLong;
+import org.logicware.jpi.PrologOperator;
 import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.PrologVariable;
-import org.logicware.jpi.PrologAdapter;
 
 import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPTermParser;
 
-public class JiPrologProvider extends AbstractProvider implements PrologProvider {
+public class JiPrologProvider extends AbstractProvider<JIPTerm> implements PrologProvider<JIPTerm> {
+
+	static final PrologConverter<JIPTerm> converter = PrologConverterFactory.createPrologAdapter(JiPrologConverter.class);
+	static final PrologProvider<JIPTerm> provider = converter.createProvider();
 
 	// constants terms
-	static final PrologTerm CUT = new JiPrologCut();
-	static final PrologTerm NIL = new JiPrologNil();
-	static final PrologTerm FAIL = new JiPrologFail();
-	static final PrologTerm TRUE = new JiPrologTrue();
-	static final PrologTerm FALSE = new JiPrologFalse();
-	static final PrologTerm EMPTY = new JiPrologList();
+	static final PrologTerm CUT = new JiPrologCut(provider);
+	static final PrologTerm NIL = new JiPrologNil(provider);
+	static final PrologTerm FAIL = new JiPrologFail(provider);
+	static final PrologTerm TRUE = new JiPrologTrue(provider);
+	static final PrologTerm FALSE = new JiPrologFalse(provider);
+	static final PrologTerm EMPTY = new JiPrologList(provider);
 
-	final PrologAdapter<JIPTerm> adapter = createPrologAdapter(JiPrologAdapter.class);
+	JiPrologProvider(PrologConverter<JIPTerm> adapter) {
+		super(adapter);
+	}
 
 	public boolean isCompliant() {
 		return false;
@@ -70,14 +77,14 @@ public class JiPrologProvider extends AbstractProvider implements PrologProvider
 	// engine
 
 	public PrologEngine newPrologEngine() {
-		return new JiPrologEngine();
+		return new JiPrologEngine(this);
 	}
 
 	// parser helpers
 
 	public PrologTerm parsePrologTerm(String term) {
 		JIPTermParser parser = new JIPEngine().getTermParser();
-		return adapter.toTerm(parser.parseTerm(term));
+		return converter.toTerm(parser.parseTerm(term));
 	}
 
 	public PrologTerm[] parsePrologTerms(String stringTerms) {
@@ -88,7 +95,7 @@ public class JiPrologProvider extends AbstractProvider implements PrologProvider
 		while (e.hasMoreElements()) {
 			JIPTerm term = e.nextElement();
 			if (!(term instanceof JIPCons)) {
-				terms.add(adapter.toTerm(term));
+				terms.add(converter.toTerm(term));
 			} else {
 
 				JIPCons structure = (JIPCons) term;
@@ -99,7 +106,7 @@ public class JiPrologProvider extends AbstractProvider implements PrologProvider
 
 					System.out.println(j + "[ " + j.getClass() + " ]");
 
-					PrologTerm k = adapter.toTerm(structure.getNth(i));
+					PrologTerm k = converter.toTerm(structure.getNth(i));
 
 					terms.add(k);
 
@@ -113,71 +120,75 @@ public class JiPrologProvider extends AbstractProvider implements PrologProvider
 	// terms
 
 	public PrologAtom newPrologAtom(String functor) {
-		return new JiPrologAtom(functor);
-	}
-
-	public PrologFloat newPrologFloat() {
-		return new JiPrologFloat();
+		return new JiPrologAtom(this, functor);
 	}
 
 	public PrologFloat newPrologFloat(Number value) {
-		return new JiPrologFloat(value);
-	}
-
-	public PrologDouble newPrologDouble() {
-		return new JiPrologDouble();
+		return new JiPrologFloat(this, value);
 	}
 
 	public PrologDouble newPrologDouble(Number value) {
-		return new JiPrologDouble(value);
-	}
-
-	public PrologInteger newPrologInteger() {
-		return new JiPrologInteger();
+		return new JiPrologDouble(this, value);
 	}
 
 	public PrologInteger newPrologInteger(Number value) {
-		return new JiPrologInteger(value);
-	}
-
-	public PrologLong newPrologLong() {
-		return new JiPrologLong();
+		return new JiPrologInteger(this, value);
 	}
 
 	public PrologLong newPrologLong(Number value) {
-		return new JiPrologLong(value);
+		return new JiPrologLong(this, value);
 	}
 
 	public PrologVariable newPrologVariable() {
-		return new JiPrologVariable();
+		return new JiPrologVariable(this);
 	}
 
 	public PrologVariable newPrologVariable(String name) {
-		return new JiPrologVariable(name);
+		return new JiPrologVariable(this, name);
 	}
 
 	public PrologList newPrologList() {
-		return new JiPrologList();
+		return new JiPrologList(this);
 	}
 
 	public PrologList newPrologList(PrologTerm[] arguments) {
-		return new JiPrologList(arguments);
+		return new JiPrologList(this, arguments);
 	}
 
 	public PrologList newPrologList(PrologTerm head, PrologTerm tail) {
-		return new JiPrologList(head, tail);
+		return new JiPrologList(this, head, tail);
 	}
 
 	public PrologList newPrologList(PrologTerm[] arguments, PrologTerm tail) {
-		return new JiPrologList(arguments, tail);
+		return new JiPrologList(this, arguments, tail);
 	}
 
 	public PrologStructure newPrologStructure(String functor, PrologTerm... arguments) {
-		return new JiPrologStructure(functor, arguments);
+		return new JiPrologStructure(this, functor, arguments);
 	}
 
 	public PrologExpression newPrologExpression(PrologTerm left, String operator, PrologTerm right) {
-		return new JiPrologExpression(left, operator, right);
+		return new JiPrologExpression(this, left, operator, right);
+	}
+
+	public boolean currentPredicate(String functor, int arity) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean currentOperator(int priority, String specifier, String operator) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Set<PrologIndicator> currentPredicates() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Set<PrologOperator> currentOperators() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

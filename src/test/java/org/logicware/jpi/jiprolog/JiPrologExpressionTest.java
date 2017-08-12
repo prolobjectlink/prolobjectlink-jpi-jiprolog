@@ -126,7 +126,7 @@ public class JiPrologExpressionTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testIsExpression() {
-		assertTrue(expression.isExpression());
+		assertTrue(expression.isEvaluable());
 	}
 
 	@Test

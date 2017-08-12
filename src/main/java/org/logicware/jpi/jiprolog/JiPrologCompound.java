@@ -1,5 +1,6 @@
 package org.logicware.jpi.jiprolog;
 
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPCons;
@@ -10,12 +11,12 @@ public abstract class JiPrologCompound extends JiPrologTerm {
 
 	protected static final String SIMPLE_ATOM_REGEX = ".|[a-z][A-Za-z0-9_]*";
 
-	protected JiPrologCompound(int type) {
-		super(type);
+	protected JiPrologCompound(int type, PrologProvider<JIPTerm> provider) {
+		super(type, provider);
 	}
 
-	protected JiPrologCompound(int type, JIPTerm value) {
-		super(type, value);
+	protected JiPrologCompound(int type, PrologProvider<JIPTerm> provider, JIPTerm value) {
+		super(type, provider, value);
 	}
 
 	protected static final JiPrologOperatorSet OPERATORS = new JiPrologOperatorSet();
@@ -54,7 +55,7 @@ public abstract class JiPrologCompound extends JiPrologTerm {
 	protected final JIPList adaptList(PrologTerm[] arguments) {
 		JIPList list = JIPList.NIL;
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			list = JIPList.create(adapter.toNativeTerm(arguments[i]), list);
+			list = JIPList.create(provider.fromTerm(arguments[i]), list);
 		}
 		return list;
 	}
@@ -62,7 +63,7 @@ public abstract class JiPrologCompound extends JiPrologTerm {
 	protected final JIPCons adaptCons(PrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			cons = JIPCons.create(adapter.toNativeTerm(arguments[i]), cons);
+			cons = JIPCons.create(provider.fromTerm(arguments[i]), cons);
 		}
 		return cons;
 	}

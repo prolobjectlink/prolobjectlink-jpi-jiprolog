@@ -1,14 +1,16 @@
 package org.logicware.jpi.jiprolog;
 
 import org.logicware.jpi.PrologIndex;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
+import com.ugos.jiprolog.engine.JIPTerm;
 
 public final class JiPrologNil extends JiPrologTerm implements PrologTerm {
 
-	protected JiPrologNil() {
-		super(NIL_TYPE, JIPAtom.create("nil"));
+	protected JiPrologNil(PrologProvider<JIPTerm> provider) {
+		super(NIL_TYPE, provider, JIPAtom.create("nil"));
 	}
 
 	@Override
@@ -38,7 +40,7 @@ public final class JiPrologNil extends JiPrologTerm implements PrologTerm {
 
 	@Override
 	public PrologTerm clone() {
-		return new JiPrologNil();
+		return new JiPrologNil(provider);
 	}
 
 	public PrologIndex getIndex() {

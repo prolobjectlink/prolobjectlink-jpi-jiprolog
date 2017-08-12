@@ -179,7 +179,7 @@ public class JiPrologListTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testIsExpression() {
-		assertFalse(list.isExpression());
+		assertFalse(list.isEvaluable());
 	}
 
 	@Test

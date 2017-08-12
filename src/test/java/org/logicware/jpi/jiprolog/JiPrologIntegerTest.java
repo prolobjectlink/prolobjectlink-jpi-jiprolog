@@ -154,7 +154,7 @@ public class JiPrologIntegerTest {
 
 	@Test
 	public final void testIsExpression() {
-		assertFalse(integer.isExpression());
+		assertFalse(integer.isEvaluable());
 	}
 
 	@Test(expected = ArityError.class)

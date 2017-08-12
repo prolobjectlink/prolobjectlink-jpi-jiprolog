@@ -154,7 +154,7 @@ public class JiPrologStructureTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testIsExpression() {
-		assertFalse(structure.isExpression());
+		assertFalse(structure.isEvaluable());
 	}
 
 	@Test

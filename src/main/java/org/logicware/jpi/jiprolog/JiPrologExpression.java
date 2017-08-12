@@ -1,6 +1,7 @@
 package org.logicware.jpi.jiprolog;
 
 import org.logicware.jpi.PrologExpression;
+import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPCons;
@@ -10,14 +11,14 @@ import com.ugos.jiprolog.engine.JIPTerm;
 public final class JiPrologExpression extends JiPrologCompound implements PrologExpression {
 
 	@Deprecated
-	JiPrologExpression(PrologTerm left, String operator, PrologTerm right) {
-		super(EXPRESSION_TYPE);
+	JiPrologExpression(PrologProvider<JIPTerm> provider, PrologTerm left, String operator, PrologTerm right) {
+		super(EXPRESSION_TYPE, provider);
 		value = JIPFunctor.create(operator, adaptCons(new PrologTerm[] { left, right }));
 	}
 
 	@Deprecated
-	JiPrologExpression(JIPTerm left, String functor, JIPTerm right) {
-		super(EXPRESSION_TYPE, JIPFunctor.create(functor, JIPCons.create(left, JIPCons.create(right, null))));
+	JiPrologExpression(PrologProvider<JIPTerm> provider, JIPTerm left, String functor, JIPTerm right) {
+		super(EXPRESSION_TYPE, provider, JIPFunctor.create(functor, JIPCons.create(left, JIPCons.create(right, null))));
 	}
 
 	public String getOperator() {
@@ -25,11 +26,11 @@ public final class JiPrologExpression extends JiPrologCompound implements Prolog
 	}
 
 	public PrologTerm getLeft() {
-		return adapter.toTerm(((JIPFunctor) value).getTerm(1));
+		return provider.toTerm(((JIPFunctor) value).getTerm(1));
 	}
 
 	public PrologTerm getRight() {
-		return adapter.toTerm(((JIPFunctor) value).getTerm(2));
+		return provider.toTerm(((JIPFunctor) value).getTerm(2));
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public final class JiPrologExpression extends JiPrologCompound implements Prolog
 		int arity = structure.getArity();
 		PrologTerm[] arguments = new PrologTerm[arity];
 		for (int i = 0; i < arity; i++) {
-			arguments[i] = adapter.toTerm(structure.getTerm(i + 1));
+			arguments[i] = provider.toTerm(structure.getTerm(i + 1));
 		}
 		return arguments;
 	}
@@ -70,7 +71,7 @@ public final class JiPrologExpression extends JiPrologCompound implements Prolog
 		PrologTerm l = getLeft();
 		String o = getOperator();
 		PrologTerm r = getRight();
-		return new JiPrologExpression(l, o, r);
+		return new JiPrologExpression(provider, l, o, r);
 	}
 
 }

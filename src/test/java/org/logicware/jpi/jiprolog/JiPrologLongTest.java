@@ -179,7 +179,7 @@ public class JiPrologLongTest {
 
 	@Test
 	public void testIsExpression() {
-		assertFalse(long1.isExpression());
+		assertFalse(long1.isEvaluable());
 	}
 
 	@Test(expected = IndicatorError.class)

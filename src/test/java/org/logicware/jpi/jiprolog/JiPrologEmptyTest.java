@@ -121,7 +121,7 @@ public class JiPrologEmptyTest {
 
 	@Test
 	public final void testIsExpression() {
-		assertFalse(empty.isExpression());
+		assertFalse(empty.isEvaluable());
 	}
 
 	@Test
