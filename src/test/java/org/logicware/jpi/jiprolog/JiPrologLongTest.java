@@ -3,7 +3,6 @@ package org.logicware.jpi.jiprolog;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -11,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.logicware.jpi.ArityError;
 import org.logicware.jpi.FunctorError;
+import org.logicware.jpi.IndicatorError;
+import org.logicware.jpi.JiPrologBaseTest;
 import org.logicware.jpi.PrologAtom;
 import org.logicware.jpi.PrologDouble;
 import org.logicware.jpi.PrologExpression;
@@ -21,20 +22,12 @@ import org.logicware.jpi.PrologLong;
 import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.PrologVariable;
-import org.logicware.jpi.IndicatorError;
-import org.logicware.jpi.jiprolog.JiPrologAtom;
-import org.logicware.jpi.jiprolog.JiPrologDouble;
-import org.logicware.jpi.jiprolog.JiPrologFloat;
-import org.logicware.jpi.jiprolog.JiPrologInteger;
-import org.logicware.jpi.jiprolog.JiPrologLong;
-import org.logicware.jpi.jiprolog.JiPrologProvider;
-import org.logicware.jpi.jiprolog.JiPrologVariable;
 
 import com.ugos.jiprolog.engine.JIPNumber;
 
-public class JiPrologLongTest {
+public class JiPrologLongTest extends JiPrologBaseTest {
 
-	private JiPrologLong long1 = new JiPrologLong(100);
+	private PrologLong long1 = provider.newPrologLong(100);
 
 	@Before
 	public void setUp() throws Exception {
@@ -42,13 +35,6 @@ public class JiPrologLongTest {
 
 	@After
 	public void tearDown() throws Exception {
-	}
-
-	@Test
-	public final void testLongAdapter() {
-		assertNotNull(long1.value);
-		assertEquals(PrologTerm.LONG_TYPE, long1.type);
-		assertEquals(JIPNumber.create(100), long1.value);
 	}
 
 	@Test
@@ -63,22 +49,22 @@ public class JiPrologLongTest {
 
 	@Test
 	public void testGetPrologInteger() {
-		assertEquals(new JiPrologInteger(100), long1.getPrologInteger());
+		assertEquals(provider.newPrologInteger(100), long1.getPrologInteger());
 	}
 
 	@Test
 	public void testGetPrologFloat() {
-		assertEquals(new JiPrologFloat(100.0), long1.getPrologFloat());
+		assertEquals(provider.newPrologFloat(100.0), long1.getPrologFloat());
 	}
 
 	@Test
 	public final void testGetPrologLong() {
-		assertEquals(new JiPrologLong(100), long1.getPrologLong());
+		assertEquals(provider.newPrologLong(100), long1.getPrologLong());
 	}
 
 	@Test
 	public final void testGetPrologDouble() {
-		assertEquals(new JiPrologDouble(100.0), long1.getPrologDouble());
+		assertEquals(provider.newPrologDouble(100.0), long1.getPrologDouble());
 	}
 
 	@Test
@@ -94,7 +80,7 @@ public class JiPrologLongTest {
 
 	@Test
 	public void testEqualsObject() {
-		assertTrue(long1.equals(new JiPrologLong(100)));
+		assertTrue(long1.equals(provider.newPrologLong(100)));
 	}
 
 	@Test
@@ -191,45 +177,45 @@ public class JiPrologLongTest {
 	public void testUnify() {
 
 		// with atom
-		PrologLong lValue = new JiPrologLong(28);
-		PrologAtom atom = new JiPrologAtom("John Doe");
+		PrologLong lValue = provider.newPrologLong(28);
+		PrologAtom atom = provider.newPrologAtom("John Doe");
 		assertFalse(lValue.unify(atom));
 
 		// with integer
-		PrologInteger iValue = new JiPrologInteger(36);
+		PrologInteger iValue = provider.newPrologInteger(36);
 		// false because they are different
 		assertFalse(lValue.unify(iValue));
 
 		// with long
-		PrologLong lValue1 = new JiPrologLong(36);
+		PrologLong lValue1 = provider.newPrologLong(36);
 		// true because are equals
 		assertTrue(lValue.unify(lValue));
 		// false because they are different
 		assertFalse(lValue.unify(lValue1));
 
 		// with float
-		PrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = provider.newPrologFloat(36.47);
 		assertFalse(lValue.unify(fValue));
 
 		// with double
-		PrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = provider.newPrologDouble(36.47);
 		assertFalse(lValue.unify(dValue));
 
 		// with variable
-		PrologVariable variable = new JiPrologVariable("X");
+		PrologVariable variable = provider.newPrologVariable("X");
 		// true. case atom and variable
 		assertTrue(lValue.unify(variable));
 
 		// with predicate
-		PrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
+		PrologStructure structure = provider.parsePrologStructure("some_predicate(a,b,c)");
 		assertFalse(lValue.unify(structure));
 
 		// with list
-		PrologList list = new JiPrologProvider().parsePrologList("[a,b,c]");
+		PrologList list = provider.parsePrologList("[a,b,c]");
 		assertFalse(lValue.unify(list));
 
 		// with expression
-		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = provider.parsePrologExpression("58+93*10");
 		assertFalse(lValue.unify(expression));
 	}
 
@@ -237,45 +223,45 @@ public class JiPrologLongTest {
 	public void testCompareTo() {
 
 		// with atom
-		PrologLong lValue = new JiPrologLong(28);
-		PrologAtom atom = new JiPrologAtom("John Doe");
+		PrologLong lValue = provider.newPrologLong(28);
+		PrologAtom atom = provider.newPrologAtom("John Doe");
 		assertEquals(lValue.compareTo(atom), -1);
 
 		// with integer
-		PrologInteger iValue = new JiPrologInteger(36);
+		PrologInteger iValue = provider.newPrologInteger(36);
 		// false because they are different
 		assertEquals(lValue.compareTo(iValue), -1);
 
 		// with long
-		PrologLong lValue1 = new JiPrologLong(36);
+		PrologLong lValue1 = provider.newPrologLong(36);
 		// true because are equals
 		assertEquals(lValue.compareTo(lValue), 0);
 		// false because they are different
 		assertEquals(lValue.compareTo(lValue1), -1);
 
 		// with float
-		PrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = provider.newPrologFloat(36.47);
 		assertEquals(lValue.compareTo(fValue), -1);
 
 		// with double
-		PrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = provider.newPrologDouble(36.47);
 		assertEquals(lValue.compareTo(dValue), -1);
 
 		// with variable
-		PrologVariable variable = new JiPrologVariable("X");
+		PrologVariable variable = provider.newPrologVariable("X");
 		// true. case atom and variable
 		assertEquals(lValue.compareTo(variable), 1);
 
 		// with predicate
-		PrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
+		PrologStructure structure = provider.parsePrologStructure("some_predicate(a,b,c)");
 		assertEquals(lValue.compareTo(structure), -1);
 
 		// with list
-		PrologList list = new JiPrologProvider().parsePrologList("[a,b,c]");
+		PrologList list = provider.parsePrologList("[a,b,c]");
 		assertEquals(lValue.compareTo(list), -1);
 
 		// with expression
-		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = provider.parsePrologExpression("58+93*10");
 		assertEquals(lValue.compareTo(expression), -1);
 	}
 

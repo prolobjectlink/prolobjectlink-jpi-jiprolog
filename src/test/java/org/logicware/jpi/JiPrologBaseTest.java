@@ -3,11 +3,9 @@ package org.logicware.jpi;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.logicware.jpi.PrologTerm;
-import org.logicware.jpi.jiprolog.JiPrologAtom;
-import org.logicware.jpi.jiprolog.JiPrologInteger;
-import org.logicware.jpi.jiprolog.JiPrologTerm;
-import org.logicware.jpi.jiprolog.JiPrologVariable;
+import org.logicware.jpi.jiprolog.JiPrologConverter;
+
+import com.ugos.jiprolog.engine.JIPTerm;
 
 public abstract class JiPrologBaseTest {
 
@@ -25,73 +23,76 @@ public abstract class JiPrologBaseTest {
 	protected String employee = "employee";
 	protected String department = "department";
 
-	protected JiPrologVariable x = new JiPrologVariable("X");
-	protected JiPrologVariable y = new JiPrologVariable("Y");
-	protected JiPrologVariable z = new JiPrologVariable("Z");
+	protected static final PrologConverter<JIPTerm> converter = PrologConverterFactory.createPrologAdapter(JiPrologConverter.class);
+	protected static final PrologProvider<JIPTerm> provider = converter.createProvider();
 
-	protected JiPrologVariable name = new JiPrologVariable("Name");
-	protected JiPrologVariable dpto = new JiPrologVariable("Dpto");
-	protected JiPrologVariable scale = new JiPrologVariable("Scale");
-	protected JiPrologVariable dptoName = new JiPrologVariable("DepartmentName");
-	protected JiPrologVariable money = new JiPrologVariable("Money");
+	protected PrologVariable x = provider.newPrologVariable("X");
+	protected PrologVariable y = provider.newPrologVariable("Y");
+	protected PrologVariable z = provider.newPrologVariable("Z");
 
-	protected JiPrologAtom pam = new JiPrologAtom("pam");
-	protected JiPrologAtom bob = new JiPrologAtom("bob");
-	protected JiPrologAtom tom = new JiPrologAtom("tom");
-	protected JiPrologAtom liz = new JiPrologAtom("liz");
-	protected JiPrologAtom ann = new JiPrologAtom("ann");
-	protected JiPrologAtom pat = new JiPrologAtom("pat");
-	protected JiPrologAtom jim = new JiPrologAtom("jim");
+	protected PrologVariable name = provider.newPrologVariable("Name");
+	protected PrologVariable dpto = provider.newPrologVariable("Dpto");
+	protected PrologVariable scale = provider.newPrologVariable("Scale");
+	protected PrologVariable dptoName = provider.newPrologVariable("DepartmentName");
+	protected PrologVariable money = provider.newPrologVariable("Money");
 
-	protected JiPrologInteger zero = new JiPrologInteger();
-	protected JiPrologInteger one = new JiPrologInteger(1);
-	protected JiPrologInteger two = new JiPrologInteger(2);
-	protected JiPrologInteger three = new JiPrologInteger(3);
-	protected JiPrologInteger four = new JiPrologInteger(4);
-	protected JiPrologInteger five = new JiPrologInteger(5);
-	protected JiPrologInteger six = new JiPrologInteger(6);
-	protected JiPrologInteger seven = new JiPrologInteger(7);
-	protected JiPrologInteger eight = new JiPrologInteger(8);
-	protected JiPrologInteger nine = new JiPrologInteger(9);
-	protected JiPrologInteger ten = new JiPrologInteger(10);
+	protected PrologAtom pam = provider.newPrologAtom("pam");
+	protected PrologAtom bob = provider.newPrologAtom("bob");
+	protected PrologAtom tom = provider.newPrologAtom("tom");
+	protected PrologAtom liz = provider.newPrologAtom("liz");
+	protected PrologAtom ann = provider.newPrologAtom("ann");
+	protected PrologAtom pat = provider.newPrologAtom("pat");
+	protected PrologAtom jim = provider.newPrologAtom("m");
 
-	protected JiPrologAtom cat = new JiPrologAtom("cat");
-	protected JiPrologAtom bear = new JiPrologAtom("bear");
-	protected JiPrologAtom elephant = new JiPrologAtom("elephant");
+	protected PrologInteger zero = provider.newPrologInteger();
+	protected PrologInteger one = provider.newPrologInteger(1);
+	protected PrologInteger two = provider.newPrologInteger(2);
+	protected PrologInteger three = provider.newPrologInteger(3);
+	protected PrologInteger four = provider.newPrologInteger(4);
+	protected PrologInteger five = provider.newPrologInteger(5);
+	protected PrologInteger six = provider.newPrologInteger(6);
+	protected PrologInteger seven = provider.newPrologInteger(7);
+	protected PrologInteger eight = provider.newPrologInteger(8);
+	protected PrologInteger nine = provider.newPrologInteger(9);
+	protected PrologInteger ten = provider.newPrologInteger(10);
 
-	protected JiPrologAtom mcardon = new JiPrologAtom("mcardon");
-	protected JiPrologAtom treeman = new JiPrologAtom("treeman");
-	protected JiPrologAtom chapman = new JiPrologAtom("chapman");
-	protected JiPrologAtom claessen = new JiPrologAtom("claessen");
-	protected JiPrologAtom petersen = new JiPrologAtom("petersen");
-	protected JiPrologAtom cohn = new JiPrologAtom("cohn");
-	protected JiPrologAtom duffy = new JiPrologAtom("duffy");
+	protected PrologAtom cat = provider.newPrologAtom("cat");
+	protected PrologAtom bear = provider.newPrologAtom("bear");
+	protected PrologAtom elephant = provider.newPrologAtom("elephant");
 
-	protected JiPrologAtom board = new JiPrologAtom("board");
-	protected JiPrologAtom human_resources = new JiPrologAtom("human_resources");
-	protected JiPrologAtom production = new JiPrologAtom("production");
-	protected JiPrologAtom technical_services = new JiPrologAtom("technical_services");
-	protected JiPrologAtom administration = new JiPrologAtom("administration");
+	protected PrologAtom mcardon = provider.newPrologAtom("mcardon");
+	protected PrologAtom treeman = provider.newPrologAtom("treeman");
+	protected PrologAtom chapman = provider.newPrologAtom("chapman");
+	protected PrologAtom claessen = provider.newPrologAtom("claessen");
+	protected PrologAtom petersen = provider.newPrologAtom("petersen");
+	protected PrologAtom cohn = provider.newPrologAtom("cohn");
+	protected PrologAtom duffy = provider.newPrologAtom("duffy");
 
-	protected JiPrologInteger thousand = new JiPrologInteger(1000);
-	protected JiPrologInteger thousandFiveHundred = new JiPrologInteger(1500);
-	protected JiPrologInteger twoThousand = new JiPrologInteger(2000);
-	protected JiPrologInteger twoThousandFiveHundred = new JiPrologInteger(2500);
-	protected JiPrologInteger threeThousand = new JiPrologInteger(3000);
-	protected JiPrologInteger threeThousandFiveHundred = new JiPrologInteger(3500);
-	protected JiPrologTerm fourThousand = new JiPrologInteger(4000);
-	protected JiPrologTerm fourThousandFiveHundred = new JiPrologInteger(4500);
-	protected JiPrologTerm fiveThousand = new JiPrologInteger(5000);
+	protected PrologAtom board = provider.newPrologAtom("board");
+	protected PrologAtom human_resources = provider.newPrologAtom("human_resources");
+	protected PrologAtom production = provider.newPrologAtom("production");
+	protected PrologAtom technical_services = provider.newPrologAtom("technical_services");
+	protected PrologAtom administration = provider.newPrologAtom("administration");
 
-	protected JiPrologTerm[] expecteds0 = new JiPrologTerm[] { mcardon, one, five, board, threeThousand };
-	protected JiPrologTerm[] expecteds1 = new JiPrologTerm[] { treeman, two, three, human_resources, twoThousand };
-	protected JiPrologTerm[] expecteds2 = new JiPrologTerm[] { chapman, one, two, board, thousandFiveHundred };
-	protected JiPrologTerm[] expecteds3 = new JiPrologTerm[] { claessen, four, one, technical_services, thousand };
-	protected JiPrologTerm[] expecteds4 = new JiPrologTerm[] { petersen, five, eight, administration, fourThousandFiveHundred };
-	protected JiPrologTerm[] expecteds5 = new JiPrologTerm[] { cohn, one, seven, board, fourThousand };
-	protected JiPrologTerm[] expecteds6 = new JiPrologTerm[] { duffy, one, nine, board, fiveThousand };
+	protected PrologInteger thousand = provider.newPrologInteger(1000);
+	protected PrologInteger thousandFiveHundred = provider.newPrologInteger(1500);
+	protected PrologInteger twoThousand = provider.newPrologInteger(2000);
+	protected PrologInteger twoThousandFiveHundred = provider.newPrologInteger(2500);
+	protected PrologInteger threeThousand = provider.newPrologInteger(3000);
+	protected PrologInteger threeThousandFiveHundred = provider.newPrologInteger(3500);
+	protected PrologTerm fourThousand = provider.newPrologInteger(4000);
+	protected PrologTerm fourThousandFiveHundred = provider.newPrologInteger(4500);
+	protected PrologTerm fiveThousand = provider.newPrologInteger(5000);
 
-	protected JiPrologTerm[][] solution = new JiPrologTerm[7][5];
+	protected PrologTerm[] expecteds0 = new PrologTerm[] { mcardon, one, five, board, threeThousand };
+	protected PrologTerm[] expecteds1 = new PrologTerm[] { treeman, two, three, human_resources, twoThousand };
+	protected PrologTerm[] expecteds2 = new PrologTerm[] { chapman, one, two, board, thousandFiveHundred };
+	protected PrologTerm[] expecteds3 = new PrologTerm[] { claessen, four, one, technical_services, thousand };
+	protected PrologTerm[] expecteds4 = new PrologTerm[] { petersen, five, eight, administration, fourThousandFiveHundred };
+	protected PrologTerm[] expecteds5 = new PrologTerm[] { cohn, one, seven, board, fourThousand };
+	protected PrologTerm[] expecteds6 = new PrologTerm[] { duffy, one, nine, board, fiveThousand };
+
+	protected PrologTerm[][] solution = new PrologTerm[7][5];
 
 	protected Map<String, PrologTerm> solutionMap;
 	protected Map<String, PrologTerm>[] allSolutionMap;

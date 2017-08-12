@@ -3,8 +3,6 @@ package org.logicware.jpi.jiprolog;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -17,27 +15,27 @@ import java.util.Set;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.logicware.jpi.PrologProvider;
-import org.logicware.jpi.PrologQuery;
-import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.JiPrologBaseTest;
 import org.logicware.jpi.PredicateIndicator;
+import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologEngine;
+import org.logicware.jpi.PrologQuery;
+import org.logicware.jpi.PrologStructure;
+import org.logicware.jpi.PrologTerm;
+import org.logicware.jpi.PrologVariable;
 
 import com.ugos.jiprolog.engine.JIPClausesDatabase;
 import com.ugos.jiprolog.engine.JIPEngine;
-import com.ugos.jiprolog.engine.JIPTermParser;
 
 public class JiPrologEngineTest extends JiPrologBaseTest {
 
-	private JiPrologEngine engine;
-	private PrologProvider adapter;
+	private PrologEngine engine;
 	private PrologQuery query;
 
 	@Before
 	public void setUp() throws Exception {
 
-		engine = new JiPrologEngine();
-		adapter = new JiPrologProvider();
+		engine = provider.newPrologEngine();
 
 		solution[0][0] = mcardon;
 		solution[0][1] = one;
@@ -89,53 +87,6 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 	}
 
 	@Test
-	public final void testEngineAdapter() {
-		assertNotNull(engine.engine);
-	}
-
-	@Test
-	public final void testEngineAdapterPrologEngine() {
-
-		JIPEngine engine = new JIPEngine();
-		JIPTermParser parser = engine.getTermParser();
-
-		try {
-
-			engine.assertz(parser.parseTerm("parent( pam, bob)."));
-			engine.assertz(parser.parseTerm("parent( tom, bob)."));
-			engine.assertz(parser.parseTerm("parent( tom, liz)."));
-			engine.assertz(parser.parseTerm("parent( bob, ann)."));
-			engine.assertz(parser.parseTerm("parent( bob, pat)."));
-			engine.assertz(parser.parseTerm("parent( pat, jim)."));
-			engine.assertz(parser.parseTerm("female( pam)."));
-			engine.assertz(parser.parseTerm("male( tom)."));
-			engine.assertz(parser.parseTerm("male( bob)."));
-			engine.assertz(parser.parseTerm("female( liz)."));
-			engine.assertz(parser.parseTerm("female( ann)."));
-			engine.assertz(parser.parseTerm("female( pat)."));
-			engine.assertz(parser.parseTerm("male( jim)."));
-			engine.assertz(parser.parseTerm("offspring( Y, X):-parent( X, Y)."));
-			engine.assertz(parser.parseTerm("mother( X, Y):-parent( X, Y),female( X)."));
-			engine.assertz(parser.parseTerm("grandparent( X, Z):-parent( X, Y),parent( Y, Z)."));
-			engine.assertz(parser.parseTerm("sister( X, Y):-parent( Z, X),parent( Z, Y),female( X),different( X, Y)."));
-			engine.assertz(parser.parseTerm("predecessor( X, Z):-parent( X, Z)."));
-			engine.assertz(parser.parseTerm("predecessor( X, Z):-parent( X, Y),predecessor( Y, Z)."));
-			engine.assertz(parser.parseTerm("different( X, X) :- !, fail. "));
-			engine.assertz(parser.parseTerm("different( X, Y)."));
-
-		} catch (Exception e) {
-
-		}
-
-		this.engine = new JiPrologEngine(engine);
-
-		assertNotNull(this.engine.engine);
-		assertEquals(engine, this.engine.engine);
-		assertSame(engine, this.engine.engine);
-		assertEquals(21, this.engine.getProgramSize());
-	}
-
-	@Test
 	public final void testInclude() {
 
 		engine.include("family.pl");
@@ -149,19 +100,19 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 	@Test
 	public final void testConsult() {
 
-		engine = new JiPrologEngine();
+		engine = provider.newPrologEngine();
 		engine.consult("family.pl");
 		assertFalse(engine.isProgramEmpty());
 		assertEquals(21, engine.getProgramSize());
 		engine.dispose();
 
-		engine = new JiPrologEngine();
+		engine = provider.newPrologEngine();
 		engine.consult("company.pl");
 		assertFalse(engine.isProgramEmpty());
 		assertEquals(21, engine.getProgramSize());
 		engine.dispose();
 
-		engine = new JiPrologEngine();
+		engine = provider.newPrologEngine();
 		engine.consult("zoo.pl");
 		assertFalse(engine.isProgramEmpty());
 		assertEquals(8, engine.getProgramSize());
@@ -172,60 +123,60 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 	@Test
 	public final void testSave() {
 		// Family save test case
-		engine = new JiPrologEngine();
+		engine = provider.newPrologEngine();
 
-		engine.assertz(new JiPrologStructure(parent, pam, bob));
-		engine.assertz(new JiPrologStructure(parent, tom, bob));
-		engine.assertz(new JiPrologStructure(parent, tom, liz));
-		engine.assertz(new JiPrologStructure(parent, bob, ann));
-		engine.assertz(new JiPrologStructure(parent, bob, pat));
-		engine.assertz(new JiPrologStructure(parent, pat, jim));
+		engine.assertz(provider.newPrologStructure(parent, pam, bob));
+		engine.assertz(provider.newPrologStructure(parent, tom, bob));
+		engine.assertz(provider.newPrologStructure(parent, tom, liz));
+		engine.assertz(provider.newPrologStructure(parent, bob, ann));
+		engine.assertz(provider.newPrologStructure(parent, bob, pat));
+		engine.assertz(provider.newPrologStructure(parent, pat, jim));
 
-		engine.assertz(new JiPrologStructure(female, pam));
-		engine.assertz(new JiPrologStructure(male, tom));
-		engine.assertz(new JiPrologStructure(male, bob));
-		engine.assertz(new JiPrologStructure(female, liz));
-		engine.assertz(new JiPrologStructure(female, ann));
-		engine.assertz(new JiPrologStructure(female, pat));
-		engine.assertz(new JiPrologStructure(male, jim));
+		engine.assertz(provider.newPrologStructure(female, pam));
+		engine.assertz(provider.newPrologStructure(male, tom));
+		engine.assertz(provider.newPrologStructure(male, bob));
+		engine.assertz(provider.newPrologStructure(female, liz));
+		engine.assertz(provider.newPrologStructure(female, ann));
+		engine.assertz(provider.newPrologStructure(female, pat));
+		engine.assertz(provider.newPrologStructure(male, jim));
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		z = new JiPrologVariable("Z");
-		engine.assertz(new JiPrologStructure(offspring, x, y), new JiPrologStructure(parent, x, y));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		z = provider.newPrologVariable("Z");
+		engine.assertz(provider.newPrologStructure(offspring, x, y), provider.newPrologStructure(parent, x, y));
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		engine.assertz(new JiPrologStructure(mother, x, y), new JiPrologStructure(parent, x, y), new JiPrologStructure(female, x));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		engine.assertz(provider.newPrologStructure(mother, x, y), provider.newPrologStructure(parent, x, y), provider.newPrologStructure(female, x));
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		z = new JiPrologVariable("Z");
-		engine.assertz(new JiPrologStructure(grandparent, x, z), new JiPrologStructure(parent, x, y), new JiPrologStructure(parent, y, z));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		z = provider.newPrologVariable("Z");
+		engine.assertz(provider.newPrologStructure(grandparent, x, z), provider.newPrologStructure(parent, x, y), provider.newPrologStructure(parent, y, z));
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		z = new JiPrologVariable("Z");
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		z = provider.newPrologVariable("Z");
 
-		engine.assertz(new JiPrologStructure(sister, x, y), new JiPrologStructure(parent, z, x), new JiPrologStructure(parent, z, y), new JiPrologStructure(female, x), new JiPrologStructure(
-				different, x, y));
+		engine.assertz(provider.newPrologStructure(sister, x, y), provider.newPrologStructure(parent, z, x), provider.newPrologStructure(parent, z, y), provider.newPrologStructure(female, x),
+				provider.newPrologStructure(different, x, y));
 
-		x = new JiPrologVariable("X");
-		engine.assertz(new JiPrologStructure(different, x, x), adapter.prologCut(), adapter.prologFail());
+		x = provider.newPrologVariable("X");
+		engine.assertz(provider.newPrologStructure(different, x, x), provider.prologCut(), provider.prologFail());
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		engine.assertz(new JiPrologStructure(different, x, y));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		engine.assertz(provider.newPrologStructure(different, x, y));
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		z = new JiPrologVariable("Z");
-		engine.assertz(new JiPrologStructure(predecessor, x, z), new JiPrologStructure(parent, x, z));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		z = provider.newPrologVariable("Z");
+		engine.assertz(provider.newPrologStructure(predecessor, x, z), provider.newPrologStructure(parent, x, z));
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		z = new JiPrologVariable("Z");
-		engine.assertz(new JiPrologStructure(predecessor, x, z), new JiPrologStructure(parent, x, y), new JiPrologStructure(predecessor, y, z));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		z = provider.newPrologVariable("Z");
+		engine.assertz(provider.newPrologStructure(predecessor, x, z), provider.newPrologStructure(parent, x, y), provider.newPrologStructure(predecessor, y, z));
 
 		engine.persist("family.pl");
 
@@ -241,34 +192,34 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.dispose();
 
 		// Company save test case
-		engine = new JiPrologEngine();
+		engine = provider.newPrologEngine();
 
 		// employee relationship
-		engine.assertz(new JiPrologStructure(employee, mcardon, one, five));
-		engine.assertz(new JiPrologStructure(employee, treeman, two, three));
-		engine.assertz(new JiPrologStructure(employee, chapman, one, two));
-		engine.assertz(new JiPrologStructure(employee, claessen, four, one));
-		engine.assertz(new JiPrologStructure(employee, petersen, five, eight));
-		engine.assertz(new JiPrologStructure(employee, cohn, one, seven));
-		engine.assertz(new JiPrologStructure(employee, duffy, one, nine));
+		engine.assertz(provider.newPrologStructure(employee, mcardon, one, five));
+		engine.assertz(provider.newPrologStructure(employee, treeman, two, three));
+		engine.assertz(provider.newPrologStructure(employee, chapman, one, two));
+		engine.assertz(provider.newPrologStructure(employee, claessen, four, one));
+		engine.assertz(provider.newPrologStructure(employee, petersen, five, eight));
+		engine.assertz(provider.newPrologStructure(employee, cohn, one, seven));
+		engine.assertz(provider.newPrologStructure(employee, duffy, one, nine));
 
 		// department relationship
-		engine.assertz(new JiPrologStructure(department, one, board));
-		engine.assertz(new JiPrologStructure(department, two, human_resources));
-		engine.assertz(new JiPrologStructure(department, three, production));
-		engine.assertz(new JiPrologStructure(department, four, technical_services));
-		engine.assertz(new JiPrologStructure(department, five, administration));
+		engine.assertz(provider.newPrologStructure(department, one, board));
+		engine.assertz(provider.newPrologStructure(department, two, human_resources));
+		engine.assertz(provider.newPrologStructure(department, three, production));
+		engine.assertz(provider.newPrologStructure(department, four, technical_services));
+		engine.assertz(provider.newPrologStructure(department, five, administration));
 
 		// salary relationship
-		engine.assertz(new JiPrologStructure(salary, one, thousand));
-		engine.assertz(new JiPrologStructure(salary, two, thousandFiveHundred));
-		engine.assertz(new JiPrologStructure(salary, three, twoThousand));
-		engine.assertz(new JiPrologStructure(salary, four, twoThousandFiveHundred));
-		engine.assertz(new JiPrologStructure(salary, five, threeThousand));
-		engine.assertz(new JiPrologStructure(salary, six, threeThousandFiveHundred));
-		engine.assertz(new JiPrologStructure(salary, seven, fourThousand));
-		engine.assertz(new JiPrologStructure(salary, eight, fourThousandFiveHundred));
-		engine.assertz(new JiPrologStructure(salary, nine, fiveThousand));
+		engine.assertz(provider.newPrologStructure(salary, one, thousand));
+		engine.assertz(provider.newPrologStructure(salary, two, thousandFiveHundred));
+		engine.assertz(provider.newPrologStructure(salary, three, twoThousand));
+		engine.assertz(provider.newPrologStructure(salary, four, twoThousandFiveHundred));
+		engine.assertz(provider.newPrologStructure(salary, five, threeThousand));
+		engine.assertz(provider.newPrologStructure(salary, six, threeThousandFiveHundred));
+		engine.assertz(provider.newPrologStructure(salary, seven, fourThousand));
+		engine.assertz(provider.newPrologStructure(salary, eight, fourThousandFiveHundred));
+		engine.assertz(provider.newPrologStructure(salary, nine, fiveThousand));
 
 		engine.persist("company.pl");
 
@@ -284,21 +235,21 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.dispose();
 
 		// Zoo save test case
-		engine = new JiPrologEngine();
+		engine = provider.newPrologEngine();
 
-		engine.assertz(new JiPrologStructure("big", bear));
-		engine.assertz(new JiPrologStructure("big", elephant));
-		engine.assertz(new JiPrologStructure("small", cat));
-		engine.assertz(new JiPrologStructure("brown", bear));
-		engine.assertz(new JiPrologStructure("black", cat));
-		engine.assertz(new JiPrologStructure("gray", elephant));
+		engine.assertz(provider.newPrologStructure("big", bear));
+		engine.assertz(provider.newPrologStructure("big", elephant));
+		engine.assertz(provider.newPrologStructure("small", cat));
+		engine.assertz(provider.newPrologStructure("brown", bear));
+		engine.assertz(provider.newPrologStructure("black", cat));
+		engine.assertz(provider.newPrologStructure("gray", elephant));
 
 		// dark rules
-		z = new JiPrologVariable("Z");
-		engine.assertz(new JiPrologStructure("dark", z), new JiPrologStructure("black", z));
+		z = provider.newPrologVariable("Z");
+		engine.assertz(provider.newPrologStructure("dark", z), provider.newPrologStructure("black", z));
 
-		z = new JiPrologVariable("Z");
-		engine.assertz(new JiPrologStructure("dark", z), new JiPrologStructure("brown", z));
+		z = provider.newPrologVariable("Z");
+		engine.assertz(provider.newPrologStructure("dark", z), provider.newPrologStructure("brown", z));
 
 		engine.persist("zoo.pl");
 
@@ -355,24 +306,24 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testAssertaIPrologTerm() {
-		engine.asserta(new JiPrologStructure(parent, pam, bob));
+		engine.asserta(provider.newPrologStructure(parent, pam, bob));
 		assertEquals(1, engine.getProgramSize());
 
-		engine.asserta(new JiPrologStructure(parent, pam, bob));
+		engine.asserta(provider.newPrologStructure(parent, pam, bob));
 		// the engine size is one because the added clause is already defined
 		assertEquals(1, engine.getProgramSize());
 
-		engine.asserta(new JiPrologStructure(parent, tom, bob));
+		engine.asserta(provider.newPrologStructure(parent, tom, bob));
 		assertEquals(2, engine.getProgramSize());
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		engine.asserta(new JiPrologStructure(mother, x, y), new JiPrologStructure(parent, x, y), new JiPrologStructure(female, x));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		engine.asserta(provider.newPrologStructure(mother, x, y), provider.newPrologStructure(parent, x, y), provider.newPrologStructure(female, x));
 		assertEquals(3, engine.getProgramSize());
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		engine.asserta(new JiPrologStructure(mother, x, y), new JiPrologStructure(parent, x, y), new JiPrologStructure(female, x));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		engine.asserta(provider.newPrologStructure(mother, x, y), provider.newPrologStructure(parent, x, y), provider.newPrologStructure(female, x));
 		// the program size is three because the added clause is already defined
 		assertEquals(3, engine.getProgramSize());
 
@@ -380,9 +331,9 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testAssertaIPrologTermIPrologTermArray() {
-		JiPrologVariable x = new JiPrologVariable("X");
-		JiPrologVariable y = new JiPrologVariable("Y");
-		engine.asserta(new JiPrologStructure(mother, x, y), new JiPrologStructure(parent, x, y), new JiPrologStructure(female, x));
+		PrologVariable x = provider.newPrologVariable("X");
+		PrologVariable y = provider.newPrologVariable("Y");
+		engine.asserta(provider.newPrologStructure(mother, x, y), provider.newPrologStructure(parent, x, y), provider.newPrologStructure(female, x));
 		assertEquals(1, engine.getProgramSize());
 	}
 
@@ -408,24 +359,24 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testAssertzIPrologTerm() {
-		engine.assertz(new JiPrologStructure(parent, pam, bob));
+		engine.assertz(provider.newPrologStructure(parent, pam, bob));
 		assertEquals(1, engine.getProgramSize());
 
-		engine.assertz(new JiPrologStructure(parent, pam, bob));
+		engine.assertz(provider.newPrologStructure(parent, pam, bob));
 		// the engine size is one because the added clause is already defined
 		assertEquals(1, engine.getProgramSize());
 
-		engine.assertz(new JiPrologStructure(parent, tom, bob));
+		engine.assertz(provider.newPrologStructure(parent, tom, bob));
 		assertEquals(2, engine.getProgramSize());
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		engine.assertz(new JiPrologStructure(mother, x, y), new JiPrologStructure(parent, x, y), new JiPrologStructure(female, x));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		engine.assertz(provider.newPrologStructure(mother, x, y), provider.newPrologStructure(parent, x, y), provider.newPrologStructure(female, x));
 		assertEquals(3, engine.getProgramSize());
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		engine.assertz(new JiPrologStructure(mother, x, y), new JiPrologStructure(parent, x, y), new JiPrologStructure(female, x));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		engine.assertz(provider.newPrologStructure(mother, x, y), provider.newPrologStructure(parent, x, y), provider.newPrologStructure(female, x));
 		// the program size is three because the added clause is already defined
 		assertEquals(3, engine.getProgramSize());
 
@@ -433,9 +384,9 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testAssertzIPrologTermIPrologTermArray() {
-		JiPrologVariable x = new JiPrologVariable("X");
-		JiPrologVariable y = new JiPrologVariable("Y");
-		engine.assertz(new JiPrologStructure(mother, x, y), new JiPrologStructure(parent, x, y), new JiPrologStructure(female, x));
+		PrologVariable x = provider.newPrologVariable("X");
+		PrologVariable y = provider.newPrologVariable("Y");
+		engine.assertz(provider.newPrologStructure(mother, x, y), provider.newPrologStructure(parent, x, y), provider.newPrologStructure(female, x));
 		assertEquals(1, engine.getProgramSize());
 	}
 
@@ -470,17 +421,17 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.assertz("predecessor( X, Z):-parent( X, Z)");
 		engine.assertz("predecessor( X, Z):-parent( X, Y),predecessor( Y, Z)");
 
-		JiPrologAtom pam = new JiPrologAtom("pam");
-		JiPrologAtom bob = new JiPrologAtom("bob");
-		assertTrue(engine.clause(new JiPrologStructure("parent", pam, bob)));
+		PrologAtom pam = provider.newPrologAtom("pam");
+		PrologAtom bob = provider.newPrologAtom("bob");
+		assertTrue(engine.clause(provider.newPrologStructure("parent", pam, bob)));
 
-		JiPrologAtom pat = new JiPrologAtom("pat");
-		JiPrologAtom jim = new JiPrologAtom("jim");
-		assertTrue(engine.clause(new JiPrologStructure("parent", pat, jim)));
+		PrologAtom pat = provider.newPrologAtom("pat");
+		PrologAtom jim = provider.newPrologAtom("jim");
+		assertTrue(engine.clause(provider.newPrologStructure("parent", pat, jim)));
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		assertTrue(engine.clause(new JiPrologStructure("parent", x, y)));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		assertTrue(engine.clause(provider.newPrologStructure("parent", x, y)));
 	}
 
 	@Test
@@ -494,15 +445,15 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.assertz("predecessor( X, Z):-parent( X, Z)");
 		engine.assertz("predecessor( X, Z):-parent( X, Y),predecessor( Y, Z)");
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		z = new JiPrologVariable("Z");
-		assertTrue(engine.clause(new JiPrologStructure("predecessor", x, z), new JiPrologStructure("parent", x, z)));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		z = provider.newPrologVariable("Z");
+		assertTrue(engine.clause(provider.newPrologStructure("predecessor", x, z), provider.newPrologStructure("parent", x, z)));
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		z = new JiPrologVariable("Z");
-		assertTrue(engine.clause(new JiPrologStructure("predecessor", x, z), new JiPrologStructure("parent", x, y), new JiPrologStructure("predecessor", y, z)));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		z = provider.newPrologVariable("Z");
+		assertTrue(engine.clause(provider.newPrologStructure("predecessor", x, z), provider.newPrologStructure("parent", x, y), provider.newPrologStructure("predecessor", y, z)));
 
 	}
 
@@ -545,22 +496,22 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.assertz("parent( bob, pat)");
 		engine.assertz("parent( pat, jim)");
 
-		engine.retract(new JiPrologStructure(parent, tom, bob));
+		engine.retract(provider.newPrologStructure(parent, tom, bob));
 		assertEquals(5, engine.getProgramSize());
 
-		engine.retract(new JiPrologStructure(parent, bob, pat));
+		engine.retract(provider.newPrologStructure(parent, bob, pat));
 		assertEquals(4, engine.getProgramSize());
 
-		engine.retract(new JiPrologStructure(parent, pat, jim));
+		engine.retract(provider.newPrologStructure(parent, pat, jim));
 		assertEquals(3, engine.getProgramSize());
 
-		engine.retract(new JiPrologStructure(parent, pam, bob));
+		engine.retract(provider.newPrologStructure(parent, pam, bob));
 		assertEquals(2, engine.getProgramSize());
 
-		engine.retract(new JiPrologStructure(parent, tom, liz));
+		engine.retract(provider.newPrologStructure(parent, tom, liz));
 		assertEquals(1, engine.getProgramSize());
 
-		engine.retract(new JiPrologStructure(parent, bob, ann));
+		engine.retract(provider.newPrologStructure(parent, bob, ann));
 		assertEquals(0, engine.getProgramSize());
 	}
 
@@ -569,9 +520,9 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.assertz("mother( X, Y):-parent( X, Y),female( X)");
 		assertEquals(1, engine.getProgramSize());
 
-		JiPrologVariable x = new JiPrologVariable("X");
-		JiPrologVariable y = new JiPrologVariable("Y");
-		engine.retract(new JiPrologStructure(mother, x, y), new JiPrologStructure(parent, x, y), new JiPrologStructure(female, x));
+		PrologVariable x = provider.newPrologVariable("X");
+		PrologVariable y = provider.newPrologVariable("Y");
+		engine.retract(provider.newPrologStructure(mother, x, y), provider.newPrologStructure(parent, x, y), provider.newPrologStructure(female, x));
 		assertEquals(0, engine.getProgramSize());
 	}
 
@@ -636,9 +587,9 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		famillySolutionMap.put("X", pam);
 		famillySolutionMap.put("Y", bob);
 
-		JiPrologVariable x = new JiPrologVariable("X");
-		JiPrologVariable y = new JiPrologVariable("Y");
-		solutionMap = engine.find(new JiPrologStructure(mother, x, y));
+		PrologVariable x = provider.newPrologVariable("X");
+		PrologVariable y = provider.newPrologVariable("Y");
+		solutionMap = engine.find(provider.newPrologStructure(mother, x, y));
 		assertEquals(famillySolutionMap, solutionMap);
 	}
 
@@ -671,11 +622,11 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		famillySolutionMap.put("Y", bob);
 		famillySolutionMap.put("Z", ann);
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		z = new JiPrologVariable("Z");
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		z = provider.newPrologVariable("Z");
 
-		solutionMap = engine.find(new JiPrologStructure(mother, x, y), new JiPrologStructure(grandparent, x, z));
+		solutionMap = engine.find(provider.newPrologStructure(mother, x, y), provider.newPrologStructure(grandparent, x, z));
 
 		assertEquals(famillySolutionMap, solutionMap);
 	}
@@ -793,9 +744,9 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		solutionMap.put("Y", jim);
 		famillyAllSolutionMap[5] = solutionMap;
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		Map<String, PrologTerm>[] allSolutionMap = engine.findAll(new JiPrologStructure(parent, x, y));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		Map<String, PrologTerm>[] allSolutionMap = engine.findAll(provider.newPrologStructure(parent, x, y));
 		assertArrayEquals(famillyAllSolutionMap, allSolutionMap);
 	}
 
@@ -837,10 +788,10 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		solutionMap.put("Z", pat);
 		famillyAllSolutionMap[1] = solutionMap;
 
-		x = new JiPrologVariable("X");
-		y = new JiPrologVariable("Y");
-		z = new JiPrologVariable("Z");
-		Map<String, PrologTerm>[] allSolutionMap = engine.findAll(new JiPrologStructure(mother, x, y), new JiPrologStructure(grandparent, x, z));
+		x = provider.newPrologVariable("X");
+		y = provider.newPrologVariable("Y");
+		z = provider.newPrologVariable("Z");
+		Map<String, PrologTerm>[] allSolutionMap = engine.findAll(provider.newPrologStructure(mother, x, y), provider.newPrologStructure(grandparent, x, z));
 
 		assertArrayEquals(famillyAllSolutionMap, allSolutionMap);
 	}
@@ -875,7 +826,7 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.assertz("salary( 8, 4500 )");
 		engine.assertz("salary( 9, 5000 )");
 
-		query = engine.createQuery("employee(Name,Dpto,Scale),department(Dpto,DepartmentName),salary(Scale,Money)");
+		query = engine.query("employee(Name,Dpto,Scale),department(Dpto,DepartmentName),salary(Scale,Money)");
 		Map<String, PrologTerm>[] allSolutionMap = query.allVariablesSolutions();
 
 		Map<String, PrologTerm> solutionMap = allSolutionMap[0];
@@ -959,11 +910,11 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 		engine.assertz("salary( 8, 4500 )");
 		engine.assertz("salary( 9, 5000 )");
 
-		JiPrologStructure employee = new JiPrologStructure("employee", name, dpto, scale);
-		JiPrologStructure department = new JiPrologStructure("department", dpto, dptoName);
-		JiPrologStructure salary = new JiPrologStructure("salary", scale, money);
+		PrologStructure employee = provider.newPrologStructure("employee", name, dpto, scale);
+		PrologStructure department = provider.newPrologStructure("department", dpto, dptoName);
+		PrologStructure salary = provider.newPrologStructure("salary", scale, money);
 
-		query = engine.createQuery(employee, department, salary);
+		query = engine.query(employee, department, salary);
 		Map<String, PrologTerm>[] allSolutionMap = query.allVariablesSolutions();
 
 		Map<String, PrologTerm> solutionMap = allSolutionMap[0];
@@ -1027,9 +978,8 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testCurrentPredicates() {
-		// System.out.println(engine.currentPredicates());
 		Set<PredicateIndicator> builtins = new HashSet<PredicateIndicator>();
-		Collection<JIPClausesDatabase> collection = engine.engine.getGlobalDataBase();
+		Collection<JIPClausesDatabase> collection = new JIPEngine().getGlobalDataBase();
 		for (JIPClausesDatabase jipClausesDatabase : collection) {
 			String functor = jipClausesDatabase.getFunctorName();
 			int arity = jipClausesDatabase.getArity();
@@ -1511,7 +1461,8 @@ public class JiPrologEngineTest extends JiPrologBaseTest {
 	@Test
 	public final void testDispose() {
 		engine.dispose();
-		assertTrue(engine.engine.getDataBase().isEmpty());
+		assertTrue(engine.isProgramEmpty());
+		assertEquals(0, engine.getProgramSize());
 	}
 
 }

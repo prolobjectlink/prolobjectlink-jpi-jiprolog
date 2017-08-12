@@ -3,7 +3,6 @@ package org.logicware.jpi.jiprolog;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -11,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.logicware.jpi.ArityError;
 import org.logicware.jpi.FunctorError;
+import org.logicware.jpi.IndicatorError;
+import org.logicware.jpi.JiPrologBaseTest;
 import org.logicware.jpi.PrologAtom;
 import org.logicware.jpi.PrologDouble;
 import org.logicware.jpi.PrologExpression;
@@ -21,24 +22,14 @@ import org.logicware.jpi.PrologLong;
 import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.PrologVariable;
-import org.logicware.jpi.IndicatorError;
-import org.logicware.jpi.jiprolog.JiPrologAtom;
-import org.logicware.jpi.jiprolog.JiPrologDouble;
-import org.logicware.jpi.jiprolog.JiPrologFloat;
-import org.logicware.jpi.jiprolog.JiPrologInteger;
-import org.logicware.jpi.jiprolog.JiPrologLong;
-import org.logicware.jpi.jiprolog.JiPrologProvider;
-import org.logicware.jpi.jiprolog.JiPrologVariable;
 
-import com.ugos.jiprolog.engine.JIPNumber;
+public class JiPrologFloatTest extends JiPrologBaseTest {
 
-public class JiPrologFloatTest {
-
-	private JiPrologFloat f;
+	private PrologFloat f;
 
 	@Before
 	public void setUp() throws Exception {
-		f = new JiPrologFloat(3.14);
+		f = provider.newPrologFloat(3.14);
 	}
 
 	@After
@@ -46,35 +37,28 @@ public class JiPrologFloatTest {
 	}
 
 	@Test
-	public final void testFloatAdapter() {
-		assertNotNull(f.value);
-		assertEquals(PrologTerm.FLOAT_TYPE, f.type);
-		assertEquals(JIPNumber.create(3.14F), f.value);
-	}
-
-	@Test
 	public final void testGetArguments() {
-		assertArrayEquals(new JiPrologInteger[0], f.getArguments());
+		assertArrayEquals(new PrologTerm[0], f.getArguments());
 	}
 
 	@Test
 	public final void testGetPrologInteger() {
-		assertEquals(new JiPrologInteger(3), f.getPrologInteger());
+		assertEquals(provider.newPrologInteger(3), f.getPrologInteger());
 	}
 
 	@Test
 	public final void testGetPrologFloat() {
-		assertEquals(new JiPrologFloat(3.14), f.getPrologFloat());
+		assertEquals(provider.newPrologFloat(3.14), f.getPrologFloat());
 	}
 
 	@Test
 	public final void testGetPrologLong() {
-		assertEquals(new JiPrologLong(3), f.getPrologLong());
+		assertEquals(provider.newPrologLong(3), f.getPrologLong());
 	}
 
 	@Test
 	public final void testGetPrologDouble() {
-		assertEquals(new JiPrologDouble(3.14F), f.getPrologDouble());
+		assertEquals(provider.newPrologDouble(3.14F), f.getPrologDouble());
 	}
 
 	@Test
@@ -171,48 +155,48 @@ public class JiPrologFloatTest {
 	public final void testUntify() {
 
 		// with atom
-		PrologFloat fValue = new JiPrologFloat(36.47);
-		PrologAtom atom = new JiPrologAtom("doe");
+		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologAtom atom = provider.newPrologAtom("doe");
 		assertFalse(fValue.unify(atom));
 
 		// with integer
-		PrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = provider.newPrologInteger(28);
 		assertFalse(fValue.unify(iValue));
 
 		// with long
-		PrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = provider.newPrologLong(28);
 		assertFalse(fValue.unify(lValue));
 
 		// with float
-		PrologFloat fValue1 = new JiPrologFloat(100.98);
+		PrologFloat fValue1 = provider.newPrologFloat(100.98);
 		// true because are equals
 		assertTrue(fValue.unify(fValue));
 		// false because are different
 		assertFalse(fValue.unify(fValue1));
 
 		// with double
-		PrologDouble dValue = new JiPrologDouble(36.47);
-		PrologDouble dValue1 = new JiPrologDouble(100.98);
+		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue1 = provider.newPrologDouble(100.98);
 		// true because are equals
 		assertFalse(fValue.unify(dValue));
 		// false because are different
 		assertFalse(fValue.unify(dValue1));
 
 		// with variable
-		PrologVariable variable = new JiPrologVariable("X");
+		PrologVariable variable = provider.newPrologVariable("X");
 		// true. case float and variable
 		assertTrue(fValue.unify(variable));
 
 		// with predicate
-		PrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
+		PrologStructure structure = provider.parsePrologStructure("some_predicate(a,b,c)");
 		assertFalse(fValue.unify(structure));
 
 		// with list
-		PrologList flattenedList = new JiPrologProvider().parsePrologList("[a,b,c]");
+		PrologList flattenedList = provider.parsePrologList("[a,b,c]");
 		assertFalse(fValue.unify(flattenedList));
 
 		// with expression
-		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = provider.parsePrologExpression("58+93*10");
 		assertFalse(fValue.unify(expression));
 
 	}
@@ -221,48 +205,48 @@ public class JiPrologFloatTest {
 	public final void testCompareTo() {
 
 		// with atom
-		PrologFloat fValue = new JiPrologFloat(36.47);
-		PrologAtom atom = new JiPrologAtom("doe");
+		PrologFloat fValue = provider.newPrologFloat(36.47);
+		PrologAtom atom = provider.newPrologAtom("doe");
 		assertEquals(fValue.compareTo(atom), -1);
 
 		// with integer
-		PrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = provider.newPrologInteger(28);
 		assertEquals(fValue.compareTo(iValue), 1);
 
 		// with long
-		PrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = provider.newPrologLong(28);
 		assertEquals(fValue.compareTo(lValue), 1);
 
 		// with float
-		PrologFloat fValue1 = new JiPrologFloat(100.98);
+		PrologFloat fValue1 = provider.newPrologFloat(100.98);
 		// true because are equals
 		assertEquals(fValue.compareTo(fValue), 0);
 		// false because are different
 		assertEquals(fValue.compareTo(fValue1), -1);
 
 		// with double
-		PrologDouble dValue = new JiPrologDouble(36.47);
-		PrologDouble dValue1 = new JiPrologDouble(100.98);
+		PrologDouble dValue = provider.newPrologDouble(36.47);
+		PrologDouble dValue1 = provider.newPrologDouble(100.98);
 		// true because are equals
 		assertEquals(fValue.compareTo(dValue), 0);
 		// false because are different
 		assertEquals(fValue.compareTo(dValue1), -1);
 
 		// with variable
-		PrologVariable variable = new JiPrologVariable("X");
+		PrologVariable variable = provider.newPrologVariable("X");
 		// true. case float and variable
 		assertEquals(fValue.compareTo(variable), 1);
 
 		// with predicate
-		PrologStructure structure = new JiPrologProvider().parsePrologStructure("some_predicate(a,b,c)");
+		PrologStructure structure = provider.parsePrologStructure("some_predicate(a,b,c)");
 		assertEquals(fValue.compareTo(structure), -1);
 
 		// with list
-		PrologList flattenedList = new JiPrologProvider().parsePrologList("[a,b,c]");
+		PrologList flattenedList = provider.parsePrologList("[a,b,c]");
 		assertEquals(fValue.compareTo(flattenedList), -1);
 
 		// with expression
-		PrologExpression expression = new JiPrologProvider().parsePrologExpression("58+93*10");
+		PrologExpression expression = provider.parsePrologExpression("58+93*10");
 		assertEquals(fValue.compareTo(expression), -1);
 
 	}

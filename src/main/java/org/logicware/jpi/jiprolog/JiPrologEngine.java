@@ -182,11 +182,11 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 		engine.retract(clause);
 	}
 
-	public PrologQuery createQuery(String stringQuery) {
+	public PrologQuery query(String stringQuery) {
 		return new JiPrologQuery(provider, engine, stringQuery);
 	}
 
-	public PrologQuery createQuery(PrologTerm... terms) {
+	public PrologQuery query(PrologTerm... terms) {
 		return new JiPrologQuery(provider, engine, terms);
 	}
 

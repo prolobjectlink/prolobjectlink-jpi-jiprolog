@@ -9,19 +9,15 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.JiPrologBaseTest;
-import org.logicware.jpi.jiprolog.JiPrologEngine;
-import org.logicware.jpi.jiprolog.JiPrologQuery;
-
-import com.ugos.jiprolog.engine.JIPEngine;
-import com.ugos.jiprolog.engine.JIPTermParser;
+import org.logicware.jpi.PrologEngine;
+import org.logicware.jpi.PrologQuery;
+import org.logicware.jpi.PrologTerm;
 
 public class JiPrologQueryTest extends JiPrologBaseTest {
 
-	private JIPEngine engine;
-	private JIPTermParser parser;
-	private JiPrologQuery query;
+	private PrologEngine engine;
+	private PrologQuery query;
 
 	@Before
 	public final void setUp() throws Exception {
@@ -68,37 +64,36 @@ public class JiPrologQueryTest extends JiPrologBaseTest {
 		solution[6][3] = board;
 		solution[6][4] = fiveThousand;
 
-		engine = new JIPEngine();
-		parser = engine.getTermParser();
+		engine = provider.newPrologEngine();
 
 		// employee relationship
-		engine.assertz(parser.parseTerm("employee( mcardon, 1, 5 )."));
-		engine.assertz(parser.parseTerm("employee( treeman, 2, 3 )."));
-		engine.assertz(parser.parseTerm("employee( chapman, 1, 2 )."));
-		engine.assertz(parser.parseTerm("employee( claessen, 4, 1 )."));
-		engine.assertz(parser.parseTerm("employee( petersen, 5, 8 )."));
-		engine.assertz(parser.parseTerm("employee( cohn, 1, 7 )."));
-		engine.assertz(parser.parseTerm("employee( duffy, 1, 9 )."));
+		engine.assertz(provider.parsePrologTerm("employee( mcardon, 1, 5 )."));
+		engine.assertz(provider.parsePrologTerm("employee( treeman, 2, 3 )."));
+		engine.assertz(provider.parsePrologTerm("employee( chapman, 1, 2 )."));
+		engine.assertz(provider.parsePrologTerm("employee( claessen, 4, 1 )."));
+		engine.assertz(provider.parsePrologTerm("employee( petersen, 5, 8 )."));
+		engine.assertz(provider.parsePrologTerm("employee( cohn, 1, 7 )."));
+		engine.assertz(provider.parsePrologTerm("employee( duffy, 1, 9 )."));
 
 		// department relationship
-		engine.assertz(parser.parseTerm("department( 1, board )."));
-		engine.assertz(parser.parseTerm("department( 2, human_resources )."));
-		engine.assertz(parser.parseTerm("department( 3, production )."));
-		engine.assertz(parser.parseTerm("department( 4, technical_services )."));
-		engine.assertz(parser.parseTerm("department( 5, administration )."));
+		engine.assertz(provider.parsePrologTerm("department( 1, board )."));
+		engine.assertz(provider.parsePrologTerm("department( 2, human_resources )."));
+		engine.assertz(provider.parsePrologTerm("department( 3, production )."));
+		engine.assertz(provider.parsePrologTerm("department( 4, technical_services )."));
+		engine.assertz(provider.parsePrologTerm("department( 5, administration )."));
 
 		// salary relationship
-		engine.assertz(parser.parseTerm("salary( 1, 1000 )."));
-		engine.assertz(parser.parseTerm("salary( 2, 1500 )."));
-		engine.assertz(parser.parseTerm("salary( 3, 2000 )."));
-		engine.assertz(parser.parseTerm("salary( 4, 2500 )."));
-		engine.assertz(parser.parseTerm("salary( 5, 3000 )."));
-		engine.assertz(parser.parseTerm("salary( 6, 3500 )."));
-		engine.assertz(parser.parseTerm("salary( 7, 4000 )."));
-		engine.assertz(parser.parseTerm("salary( 8, 4500 )."));
-		engine.assertz(parser.parseTerm("salary( 9, 5000 )."));
+		engine.assertz(provider.parsePrologTerm("salary( 1, 1000 )."));
+		engine.assertz(provider.parsePrologTerm("salary( 2, 1500 )."));
+		engine.assertz(provider.parsePrologTerm("salary( 3, 2000 )."));
+		engine.assertz(provider.parsePrologTerm("salary( 4, 2500 )."));
+		engine.assertz(provider.parsePrologTerm("salary( 5, 3000 )."));
+		engine.assertz(provider.parsePrologTerm("salary( 6, 3500 )."));
+		engine.assertz(provider.parsePrologTerm("salary( 7, 4000 )."));
+		engine.assertz(provider.parsePrologTerm("salary( 8, 4500 )."));
+		engine.assertz(provider.parsePrologTerm("salary( 9, 5000 )."));
 
-		query = new JiPrologQuery(engine, "employee(Name,Dpto,Scale),department(Dpto,DepartmentName),salary(Scale,Money)");
+		query = engine.query("employee(Name,Dpto,Scale),department(Dpto,DepartmentName),salary(Scale,Money)");
 
 	}
 
@@ -109,7 +104,7 @@ public class JiPrologQueryTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testGetEngine() {
-		assertEquals(new JiPrologEngine(engine), query.getEngine());
+		assertEquals(provider.newPrologEngine(), query.getEngine());
 	}
 
 	@Test

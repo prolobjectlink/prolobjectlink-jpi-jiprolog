@@ -3,7 +3,6 @@ package org.logicware.jpi.jiprolog;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
@@ -11,6 +10,7 @@ import java.util.Iterator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.logicware.jpi.JiPrologBaseTest;
 import org.logicware.jpi.PrologAtom;
 import org.logicware.jpi.PrologDouble;
 import org.logicware.jpi.PrologFloat;
@@ -20,19 +20,14 @@ import org.logicware.jpi.PrologLong;
 import org.logicware.jpi.PrologStructure;
 import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.PrologVariable;
-import org.logicware.jpi.JiPrologBaseTest;
-
-import com.ugos.jiprolog.engine.JIPList;
-import com.ugos.jiprolog.engine.JIPNumber;
-import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologListTest extends JiPrologBaseTest {
 
-	private JiPrologList list;
+	private PrologList list;
 
 	@Before
 	public void setUp() throws Exception {
-		list = new JiPrologList(new PrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine });
+		list = provider.newPrologList(new PrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine });
 	}
 
 	@After
@@ -40,45 +35,8 @@ public class JiPrologListTest extends JiPrologBaseTest {
 	}
 
 	@Test
-	public final void testListAdapter() {
-
-		assertNotNull(list.value);
-		assertEquals(PrologTerm.LIST_TYPE, list.type);
-
-		JIPTerm[] arguments = new JIPTerm[] {
-
-		JIPNumber.create(0),
-
-		JIPNumber.create(1),
-
-		JIPNumber.create(2),
-
-		JIPNumber.create(3),
-
-		JIPNumber.create(4),
-
-		JIPNumber.create(5),
-
-		JIPNumber.create(6),
-
-		JIPNumber.create(7),
-
-		JIPNumber.create(8),
-
-		JIPNumber.create(9) };
-
-		JIPList jipList = JIPList.NIL;
-		for (int i = arguments.length - 1; i >= 0; --i) {
-			jipList = JIPList.create(arguments[i], jipList);
-		}
-
-		assertEquals(jipList, list.value);
-
-	}
-
-	@Test
 	public final void testGetArguments() {
-		JiPrologTerm[] terms = { zero, one, two, three, four, five, six, seven, eight, nine };
+		PrologTerm[] terms = { zero, one, two, three, four, five, six, seven, eight, nine };
 		assertArrayEquals(terms, list.getArguments());
 	}
 
@@ -91,15 +49,12 @@ public class JiPrologListTest extends JiPrologBaseTest {
 	public final void testClear() {
 		list.clear();
 		assertTrue(list.isEmpty());
-		assertEquals(JIPList.NIL, list.value);
 	}
 
 	@Test
 	public final void testIsEmpty() {
 		assertFalse(list.isEmpty());
 		list.clear();
-		System.out.println(list.size());
-		System.out.println(((JIPList) list.value).length());
 		assertTrue(list.isEmpty());
 	}
 
@@ -108,18 +63,18 @@ public class JiPrologListTest extends JiPrologBaseTest {
 		int number = 0;
 		for (Iterator<PrologTerm> iterator = list.iterator(); iterator.hasNext();) {
 			PrologTerm prologTerm = (PrologTerm) iterator.next();
-			assertEquals(new JiPrologInteger(number++), prologTerm);
+			assertEquals(provider.newPrologInteger(number++), prologTerm);
 		}
 	}
 
 	@Test
 	public final void testGetHead() {
-		assertEquals(new JiPrologInteger(0), list.getHead());
+		assertEquals(provider.newPrologInteger(0), list.getHead());
 	}
 
 	@Test
 	public final void testGetTail() {
-		assertEquals(new JiPrologList(new PrologTerm[] { one, two, three, four, five, six, seven, eight, nine }), list.getTail());
+		assertEquals(provider.newPrologList(new PrologTerm[] { one, two, three, four, five, six, seven, eight, nine }), list.getTail());
 	}
 
 	@Test
@@ -195,59 +150,59 @@ public class JiPrologListTest extends JiPrologBaseTest {
 	@Test
 	public final void testUnify() {
 
-		PrologTerm empty = new JiPrologProvider().prologEmpty();
-		PrologList flattened = new JiPrologProvider().parsePrologList("[a,b,c]");
-		PrologList headTail = new JiPrologProvider().parsePrologList("[a|[b|[c|[]]]]");
+		PrologTerm empty = provider.prologEmpty();
+		PrologList flattened = provider.parsePrologList("[a,b,c]");
+		PrologList headTail = provider.parsePrologList("[a|[b|[c|[]]]]");
 
 		// with atom
-		PrologAtom atom = new JiPrologAtom("John Doe");
+		PrologAtom atom = provider.newPrologAtom("John Doe");
 		assertFalse(flattened.unify(atom));
 		assertFalse(headTail.unify(atom));
 		assertFalse(empty.unify(atom));
 
 		// with integer
-		PrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = provider.newPrologInteger(28);
 		assertFalse(flattened.unify(iValue));
 		assertFalse(headTail.unify(iValue));
 		assertFalse(empty.unify(iValue));
 
 		// with long
-		PrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = provider.newPrologLong(28);
 		assertFalse(flattened.unify(lValue));
 		assertFalse(headTail.unify(lValue));
 		assertFalse(empty.unify(lValue));
 
 		// with float
-		PrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = provider.newPrologFloat(36.47);
 		assertFalse(flattened.unify(fValue));
 		assertFalse(headTail.unify(fValue));
 		assertFalse(empty.unify(fValue));
 
 		// with double
-		PrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = provider.newPrologDouble(36.47);
 		assertFalse(flattened.unify(dValue));
 		assertFalse(headTail.unify(dValue));
 		assertFalse(empty.unify(dValue));
 
 		// with variable
-		PrologVariable x = new JiPrologVariable("X");
-		PrologVariable y = new JiPrologVariable("Y");
-		PrologVariable z = new JiPrologVariable("Z");
+		PrologVariable x = provider.newPrologVariable("X");
+		PrologVariable y = provider.newPrologVariable("Y");
+		PrologVariable z = provider.newPrologVariable("Z");
 		assertTrue(flattened.unify(x));
 		assertTrue(headTail.unify(y));
 		assertTrue(empty.unify(z));
 
 		// with predicate
-		PrologStructure structure = new JiPrologProvider().parsePrologStructure("somepredicate(a,b,c)");
+		PrologStructure structure = provider.parsePrologStructure("somepredicate(a,b,c)");
 		assertFalse(flattened.unify(structure));
 		assertFalse(headTail.unify(structure));
 		assertFalse(empty.unify(structure));
 
 		// with list
-		x = new JiPrologVariable("X");
+		x = provider.newPrologVariable("X");
 
-		PrologList flattenList1 = new JiPrologProvider().parsePrologList("[X,Y,Z]");
-		PrologList headTailList1 = new JiPrologProvider().parsePrologList("[X|[Y|[Z]]]");
+		PrologList flattenList1 = provider.parsePrologList("[X,Y,Z]");
+		PrologList headTailList1 = provider.parsePrologList("[X|[Y|[Z]]]");
 
 		// true because are equals
 		assertTrue(flattened.unify(flattened));
@@ -269,59 +224,59 @@ public class JiPrologListTest extends JiPrologBaseTest {
 	@Test
 	public final void testCompareTo() {
 
-		PrologTerm empty = new JiPrologProvider().prologEmpty();
-		PrologList flattened = new JiPrologProvider().parsePrologList("[a,b,c]");
-		PrologList headTail = new JiPrologProvider().parsePrologList("[a|[b|[c|[]]]]");
+		PrologTerm empty = provider.prologEmpty();
+		PrologList flattened = provider.parsePrologList("[a,b,c]");
+		PrologList headTail = provider.parsePrologList("[a|[b|[c|[]]]]");
 
 		// with atom
-		PrologAtom atom = new JiPrologAtom("John Doe");
+		PrologAtom atom = provider.newPrologAtom("John Doe");
 		assertEquals(flattened.compareTo(atom), 1);
 		assertEquals(headTail.compareTo(atom), 1);
 		assertEquals(empty.compareTo(atom), 1);
 
 		// with integer
-		PrologInteger iValue = new JiPrologInteger(28);
+		PrologInteger iValue = provider.newPrologInteger(28);
 		assertEquals(flattened.compareTo(iValue), 1);
 		assertEquals(headTail.compareTo(iValue), 1);
 		assertEquals(empty.compareTo(iValue), 1);
 
 		// with long
-		PrologLong lValue = new JiPrologLong(28);
+		PrologLong lValue = provider.newPrologLong(28);
 		assertEquals(flattened.compareTo(lValue), 1);
 		assertEquals(headTail.compareTo(lValue), 1);
 		assertEquals(empty.compareTo(lValue), 1);
 
 		// with float
-		PrologFloat fValue = new JiPrologFloat(36.47);
+		PrologFloat fValue = provider.newPrologFloat(36.47);
 		assertEquals(flattened.compareTo(fValue), 1);
 		assertEquals(headTail.compareTo(fValue), 1);
 		assertEquals(empty.compareTo(fValue), 1);
 
 		// with double
-		PrologDouble dValue = new JiPrologDouble(36.47);
+		PrologDouble dValue = provider.newPrologDouble(36.47);
 		assertEquals(flattened.compareTo(dValue), 1);
 		assertEquals(headTail.compareTo(dValue), 1);
 		assertEquals(empty.compareTo(dValue), 1);
 
 		// with variable
-		PrologVariable x = new JiPrologVariable("X");
-		PrologVariable y = new JiPrologVariable("Y");
-		PrologVariable z = new JiPrologVariable("Z");
+		PrologVariable x = provider.newPrologVariable("X");
+		PrologVariable y = provider.newPrologVariable("Y");
+		PrologVariable z = provider.newPrologVariable("Z");
 		assertEquals(flattened.compareTo(x), 1);
 		assertEquals(headTail.compareTo(y), 1);
 		assertEquals(empty.compareTo(z), 1);
 
 		// with predicate
-		PrologStructure structure = new JiPrologProvider().parsePrologStructure("somepredicate(a,b,c)");
+		PrologStructure structure = provider.parsePrologStructure("somepredicate(a,b,c)");
 		assertEquals(flattened.compareTo(structure), -1);
 		assertEquals(headTail.compareTo(structure), -1);
 		assertEquals(empty.compareTo(structure), -1);
 
 		// with list
-		x = new JiPrologVariable("X");
+		x = provider.newPrologVariable("X");
 
-		PrologList flattenList1 = new JiPrologProvider().parsePrologList("[X,Y,Z]");
-		PrologList headTailList1 = new JiPrologProvider().parsePrologList("[X|[Y|[Z]]]");
+		PrologList flattenList1 = provider.parsePrologList("[X,Y,Z]");
+		PrologList headTailList1 = provider.parsePrologList("[X|[Y|[Z]]]");
 
 		// true because are equals
 		assertEquals(flattened.compareTo(flattened), 0);
