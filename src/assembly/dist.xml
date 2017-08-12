@@ -8,31 +8,46 @@
 		<format>zip</format>
 	</formats>
 	<fileSets>
+
+		<!-- root distribution folder -->
 		<fileSet>
 			<directory>${project.basedir}</directory>
 			<outputDirectory>/</outputDirectory>
 			<includes>
-				<include>company.pl</include>
-				<include>family.pl</include>
 				<include>LICENSE*</include>
 				<include>NOTICE*</include>
-				<include>pom.xml</include>
 				<include>README*</include>
-				<include>zoo.pl</include>
 			</includes>
 		</fileSet>
+
+		<!-- documentation and api documentation -->
 		<fileSet>
 			<directory>${project.build.directory}/apidocs</directory>
-			<outputDirectory>doc</outputDirectory>
+			<outputDirectory>doc/apidocs</outputDirectory>
 		</fileSet>
+
+		<!-- configuration properties folder -->
 		<fileSet>
 			<directory>${project.basedir}/etc</directory>
 			<outputDirectory>etc</outputDirectory>
 		</fileSet>
+
+		<!-- source code folder -->
 		<fileSet>
 			<directory>${project.basedir}/src</directory>
-			<outputDirectory>src</outputDirectory>
+			<outputDirectory>src/src</outputDirectory>
 		</fileSet>
+		<fileSet>
+			<directory>${project.basedir}</directory>
+			<outputDirectory>/src</outputDirectory>
+			<includes>
+				<include>company.pl</include>
+				<include>family.pl</include>
+				<include>pom.xml</include>
+				<include>zoo.pl</include>
+			</includes>
+		</fileSet>
+
 	</fileSets>
 	<dependencySets>
 		<dependencySet>
