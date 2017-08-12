@@ -51,7 +51,7 @@
 			</excludes>
 		</dependencySet>
 		<dependencySet>
-			<outputDirectory>deps</outputDirectory>
+			<outputDirectory>share</outputDirectory>
 			<scope>system</scope>
 			<excludes>
 				<exclude>${project.groupId}:${project.artifactId}</exclude>
