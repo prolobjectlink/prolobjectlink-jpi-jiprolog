@@ -14,10 +14,12 @@ import org.logicware.jpi.PrologEngine;
 import org.logicware.jpi.PrologQuery;
 import org.logicware.jpi.PrologTerm;
 
+import com.ugos.jiprolog.engine.JIPTerm;
+
 public class JiPrologQueryTest extends JiPrologBaseTest {
 
-	private PrologEngine engine;
-	private PrologQuery query;
+	private PrologEngine<JIPTerm> engine;
+	private PrologQuery<JIPTerm> query;
 
 	@Before
 	public final void setUp() throws Exception {
@@ -104,7 +106,7 @@ public class JiPrologQueryTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testGetEngine() {
-		assertEquals(provider.newEngine(), query.getEngine());
+		assertEquals(engine, query.getEngine());
 	}
 
 	@Test

@@ -7,47 +7,39 @@ import java.util.Map;
 
 import org.logicware.jpi.AbstractQuery;
 import org.logicware.jpi.PrologEngine;
-import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologQuery;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPCons;
-import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 
-public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery {
+public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery<JIPTerm> {
 
 	private JIPQuery query;
 	private JIPTerm solution;
 
-	private final JIPEngine engine;
-
-	JiPrologQuery(PrologProvider<JIPTerm> provider, JIPEngine engine, String query) {
-		super(provider);
-		this.engine = engine;
-		this.query = engine.openSynchronousQuery(query);
-		this.solution = this.query.nextSolution();
+	JiPrologQuery(PrologEngine<JIPTerm> engine, String stringQuery) {
+		super(engine);
+		JiPrologEngine pe = engine.unwrap(JiPrologEngine.class);
+		query = pe.engine.openSynchronousQuery(stringQuery);
+		solution = query.nextSolution();
 	}
 
-	JiPrologQuery(PrologProvider<JIPTerm> provider, JIPEngine engine, PrologTerm[] terms) {
-		super(provider);
-		this.engine = engine;
-		query = engine.openSynchronousQuery(adaptCons(terms));
+	JiPrologQuery(PrologEngine<JIPTerm> engine, PrologTerm[] terms) {
+		super(engine);
+		JiPrologEngine pe = engine.unwrap(JiPrologEngine.class);
+		query = pe.engine.openSynchronousQuery(adaptCons(terms));
 		solution = query.nextSolution();
 	}
 
 	private JIPCons adaptCons(PrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			cons = JIPCons.create(provider.fromTerm(arguments[i]), cons);
+			cons = JIPCons.create(fromTerm(arguments[i]), cons);
 		}
 		return cons;
-	}
-
-	public PrologEngine<JIPTerm> getEngine() {
-		return new JiPrologEngine(provider, engine);
 	}
 
 	public boolean hasSolution() {
@@ -65,7 +57,7 @@ public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery
 			JIPVariable[] variables = solution.getVariables();
 			PrologTerm[] solutions = new PrologTerm[variables.length];
 			for (int i = 0; i < solutions.length; i++) {
-				solutions[i] = provider.toTerm(variables[i].getValue());
+				solutions[i] = toTerm(variables[i].getValue());
 			}
 			return solutions;
 		}
@@ -77,7 +69,7 @@ public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery
 			JIPVariable[] variables = solution.getVariables();
 			Map<String, PrologTerm> solutions = new HashMap<String, PrologTerm>(variables.length);
 			for (int i = 0; i < variables.length; i++) {
-				solutions.put(variables[i].getName(), provider.toTerm(variables[i].getValue()));
+				solutions.put(variables[i].getName(), toTerm(variables[i].getValue()));
 			}
 			return solutions;
 		}

@@ -19,6 +19,7 @@ import org.logicware.jpi.PrologOperator;
 import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologQuery;
 import org.logicware.jpi.PrologTerm;
+import org.logicware.jpi.RuntimeError;
 
 import com.ugos.jiprolog.engine.JIPClause;
 import com.ugos.jiprolog.engine.JIPClausesDatabase;
@@ -182,12 +183,12 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 		engine.retract(clause);
 	}
 
-	public PrologQuery query(String stringQuery) {
-		return new JiPrologQuery(provider, engine, stringQuery);
+	public PrologQuery<JIPTerm> query(String stringQuery) {
+		return new JiPrologQuery(this, stringQuery);
 	}
 
-	public PrologQuery query(PrologTerm... terms) {
-		return new JiPrologQuery(provider, engine, terms);
+	public PrologQuery<JIPTerm> query(PrologTerm... terms) {
+		return new JiPrologQuery(this, terms);
 	}
 
 	public void operator(int priority, String specifier, String operator) {
@@ -232,6 +233,13 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 			}
 		}
 		return operators;
+	}
+
+	public <T> T unwrap(Class<T> cls) {
+		if (cls.equals(JiPrologEngine.class)) {
+			return (T) this;
+		}
+		throw new RuntimeError("Impossible unwrap to " + cls.getName());
 	}
 
 	public int getProgramSize() {
