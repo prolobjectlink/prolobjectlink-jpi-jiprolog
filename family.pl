@@ -4,7 +4,7 @@ parent(tom, bob).
 parent(tom, liz).
 parent(bob, ann).
 parent(bob, pat).
-parent(pat, jim).
+parent(pat, m).
 female(pam).
 female(liz).
 female(ann).
@@ -13,7 +13,7 @@ predecessor(X, Z):-parent(X, Z).
 predecessor(X, Z):-','(parent(X, Y), predecessor(Y, Z)).
 male(tom).
 male(bob).
-male(jim).
+male(m).
 sister(X, Y):-','(parent(Z, X), ','(parent(Z, Y), ','(female(X), different(X, Y)))).
 different(X, X):-','(!, fail).
 different(X, Y).
