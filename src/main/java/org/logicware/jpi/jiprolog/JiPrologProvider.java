@@ -73,7 +73,7 @@ public class JiPrologProvider extends AbstractProvider<JIPTerm> implements Prolo
 
 	// engine
 
-	public PrologEngine newEngine() {
+	public PrologEngine<JIPTerm> newEngine() {
 		return new JiPrologEngine(this);
 	}
 

@@ -30,7 +30,7 @@ import com.ugos.jiprolog.engine.JIPTermParser;
 import com.ugos.jiprolog.engine.Operator;
 import com.ugos.jiprolog.engine.OperatorManager;
 
-public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements PrologEngine {
+public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements PrologEngine<JIPTerm> {
 
 	JIPEngine engine;
 	JIPTermParser parser;

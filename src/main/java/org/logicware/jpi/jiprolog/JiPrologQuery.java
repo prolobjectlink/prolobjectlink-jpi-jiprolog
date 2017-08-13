@@ -46,7 +46,7 @@ public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery
 		return cons;
 	}
 
-	public PrologEngine getEngine() {
+	public PrologEngine<JIPTerm> getEngine() {
 		return new JiPrologEngine(provider, engine);
 	}
 

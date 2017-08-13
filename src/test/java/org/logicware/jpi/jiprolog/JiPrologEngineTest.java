@@ -26,10 +26,11 @@ import org.logicware.jpi.PrologVariable;
 
 import com.ugos.jiprolog.engine.JIPClausesDatabase;
 import com.ugos.jiprolog.engine.JIPEngine;
+import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologEngineTest extends JiPrologBaseTest {
 
-	private PrologEngine engine;
+	private PrologEngine<JIPTerm> engine;
 	private PrologQuery query;
 
 	@Before
