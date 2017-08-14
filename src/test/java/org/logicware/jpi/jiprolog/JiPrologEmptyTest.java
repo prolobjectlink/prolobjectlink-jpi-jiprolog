@@ -54,7 +54,7 @@ public class JiPrologEmptyTest extends JiPrologBaseTest {
 
 	@Test
 	public final void testGetType() {
-		assertEquals(PrologTerm.EMPTY_TYPE, empty.getType());
+		assertEquals(PrologTerm.LIST_TYPE, empty.getType());
 	}
 
 	@Test

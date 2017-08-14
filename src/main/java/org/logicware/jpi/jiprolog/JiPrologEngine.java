@@ -75,7 +75,6 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 				engine.assertz(jipTerm);
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -104,7 +103,6 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 				engine.assertz(jipTerm);
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -122,7 +120,6 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -292,8 +289,20 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 
 	public void dispose() {
 		if (engine != null) {
-			engine.releaseAllResources();
-			engine = new JIPEngine();
+
+			// clear database
+			engine.reset();
+
+			// retract versions predicates
+			retract("ver(jipxsets, '4.0.1')");
+			retract("ver(jipxio, '4.0.2')");
+			retract("ver(jipxdb, '3.0.0')");
+			retract("ver(jipxexception, '3.0.2')");
+			retract("ver(jipxreflect, '3.0.0')");
+			retract("ver(jipxsystem, '3.0.1')");
+			retract("ver(jipxterms, '4.0.1')");
+			retract("ver(jipxxml, '3.0.0')");
+
 		}
 	}
 

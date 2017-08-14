@@ -128,7 +128,7 @@ public abstract class JiPrologTerm extends AbstractTerm<JIPTerm> implements Prol
 	}
 
 	public final boolean unify(PrologTerm term) {
-		return value.unifiable(provider.fromTerm(term));
+		return value != null && value.unifiable(provider.fromTerm(term));
 	}
 
 	public int compareTo(PrologTerm term) {

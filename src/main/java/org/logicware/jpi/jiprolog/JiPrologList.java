@@ -103,11 +103,14 @@ public class JiPrologList extends JiPrologCompound implements PrologList {
 	@Override
 	public PrologTerm[] getArguments() {
 		JIPList list = (JIPList) value;
-		PrologTerm[] arguments = new PrologTerm[list.length()];
-		for (int i = 0; i < arguments.length; i++) {
-			arguments[i] = provider.toTerm(list.getNth(i + 1));
+		if (list != null) {
+			PrologTerm[] arguments = new PrologTerm[list.length()];
+			for (int i = 0; i < arguments.length; i++) {
+				arguments[i] = provider.toTerm(list.getNth(i + 1));
+			}
+			return arguments;
 		}
-		return arguments;
+		return new PrologTerm[0];
 	}
 
 	@Override
