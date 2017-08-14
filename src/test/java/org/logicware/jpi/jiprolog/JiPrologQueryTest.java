@@ -19,7 +19,7 @@ import com.ugos.jiprolog.engine.JIPTerm;
 public class JiPrologQueryTest extends JiPrologBaseTest {
 
 	private PrologEngine<JIPTerm> engine;
-	private PrologQuery<JIPTerm> query;
+	private PrologQuery query;
 
 	@Before
 	public final void setUp() throws Exception {

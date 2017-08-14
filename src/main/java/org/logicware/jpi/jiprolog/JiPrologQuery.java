@@ -15,7 +15,7 @@ import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 
-public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery<JIPTerm> {
+public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery {
 
 	private JIPQuery query;
 	private JIPTerm solution;
