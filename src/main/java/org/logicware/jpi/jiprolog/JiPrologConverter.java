@@ -3,8 +3,8 @@ package org.logicware.jpi.jiprolog;
 import java.util.Arrays;
 
 import org.logicware.jpi.AbstractConverter;
-import org.logicware.jpi.PrologConverter;
 import org.logicware.jpi.PrologAtom;
+import org.logicware.jpi.PrologConverter;
 import org.logicware.jpi.PrologDouble;
 import org.logicware.jpi.PrologExpression;
 import org.logicware.jpi.PrologFloat;
@@ -26,6 +26,10 @@ import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 
 public final class JiPrologConverter extends AbstractConverter<JIPTerm> implements PrologConverter<JIPTerm> {
+
+	protected JiPrologConverter(Class<JIPTerm> termClass) {
+		super(termClass);
+	}
 
 	protected static final JiPrologOperatorSet OPERATORS = new JiPrologOperatorSet();
 

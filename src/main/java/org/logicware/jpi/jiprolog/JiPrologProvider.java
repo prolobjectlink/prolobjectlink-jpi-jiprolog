@@ -168,4 +168,9 @@ public class JiPrologProvider extends AbstractProvider<JIPTerm> implements Prolo
 		return new JiPrologExpression(this, left, operator, right);
 	}
 
+	@Override
+	public String toString() {
+		return "JiPrologProvider [converter=" + converter + "]";
+	}
+
 }
