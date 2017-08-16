@@ -152,7 +152,7 @@ public final class JiPrologConverter extends AbstractConverter<JIPTerm> implemen
 	}
 
 	@Override
-	public JIPTerm[] fromTerm(PrologTerm[] terms) {
+	public JIPTerm[] fromTermArray(PrologTerm[] terms) {
 		JIPTerm[] prologTerms = new JIPTerm[terms.length];
 		for (int i = 0; i < terms.length; i++) {
 			prologTerms[i] = fromTerm(terms[i]);
