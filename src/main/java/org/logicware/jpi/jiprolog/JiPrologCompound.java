@@ -11,11 +11,11 @@ public abstract class JiPrologCompound extends JiPrologTerm {
 
 	protected static final String SIMPLE_ATOM_REGEX = ".|[a-z][A-Za-z0-9_]*";
 
-	protected JiPrologCompound(int type, PrologProvider<JIPTerm> provider) {
+	protected JiPrologCompound(int type, PrologProvider provider) {
 		super(type, provider);
 	}
 
-	protected JiPrologCompound(int type, PrologProvider<JIPTerm> provider, JIPTerm value) {
+	protected JiPrologCompound(int type, PrologProvider provider, JIPTerm value) {
 		super(type, provider, value);
 	}
 
@@ -55,7 +55,7 @@ public abstract class JiPrologCompound extends JiPrologTerm {
 	protected final JIPList adaptList(PrologTerm[] arguments) {
 		JIPList list = JIPList.NIL;
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			list = JIPList.create(provider.fromTerm(arguments[i]), list);
+			list = JIPList.create(fromTerm(arguments[i], JIPTerm.class), list);
 		}
 		return list;
 	}
@@ -63,7 +63,7 @@ public abstract class JiPrologCompound extends JiPrologTerm {
 	protected final JIPCons adaptCons(PrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			cons = JIPCons.create(provider.fromTerm(arguments[i]), cons);
+			cons = JIPCons.create(fromTerm(arguments[i], JIPTerm.class), cons);
 		}
 		return cons;
 	}

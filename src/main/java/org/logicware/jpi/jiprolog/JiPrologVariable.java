@@ -7,16 +7,15 @@ import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 import org.logicware.jpi.PrologVariable;
 
-import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 
 public class JiPrologVariable extends JiPrologTerm implements PrologVariable {
 
-	public JiPrologVariable(PrologProvider<JIPTerm> provider) {
+	public JiPrologVariable(PrologProvider provider) {
 		super(VARIABLE_TYPE, provider, JIPVariable.create());
 	}
 
-	public JiPrologVariable(PrologProvider<JIPTerm> provider, String name) {
+	public JiPrologVariable(PrologProvider provider, String name) {
 		super(VARIABLE_TYPE, provider, JIPVariable.create(name));
 	}
 

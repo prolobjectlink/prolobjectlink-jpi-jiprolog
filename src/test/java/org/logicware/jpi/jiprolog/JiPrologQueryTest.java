@@ -14,11 +14,9 @@ import org.logicware.jpi.PrologEngine;
 import org.logicware.jpi.PrologQuery;
 import org.logicware.jpi.PrologTerm;
 
-import com.ugos.jiprolog.engine.JIPTerm;
-
 public class JiPrologQueryTest extends JiPrologBaseTest {
 
-	private PrologEngine<JIPTerm> engine;
+	private PrologEngine engine;
 	private PrologQuery query;
 
 	@Before

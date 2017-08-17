@@ -5,11 +5,10 @@ import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
-import com.ugos.jiprolog.engine.JIPTerm;
 
 public final class JiPrologNil extends JiPrologTerm implements PrologTerm {
 
-	protected JiPrologNil(PrologProvider<JIPTerm> provider) {
+	protected JiPrologNil(PrologProvider provider) {
 		super(NIL_TYPE, provider, JIPAtom.create("nil"));
 	}
 

@@ -11,15 +11,14 @@ import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPNumber;
-import com.ugos.jiprolog.engine.JIPTerm;
 
 public final class JiPrologDouble extends JiPrologTerm implements PrologDouble {
 
-	public JiPrologDouble(PrologProvider<JIPTerm> provider) {
+	public JiPrologDouble(PrologProvider provider) {
 		super(DOUBLE_TYPE, provider, JIPNumber.create(0));
 	}
 
-	public JiPrologDouble(PrologProvider<JIPTerm> provider, Number value) {
+	public JiPrologDouble(PrologProvider provider, Number value) {
 		super(DOUBLE_TYPE, provider, JIPNumber.create(value.doubleValue()));
 	}
 

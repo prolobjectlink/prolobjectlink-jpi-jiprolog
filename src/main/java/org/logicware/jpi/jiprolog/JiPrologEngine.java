@@ -31,16 +31,16 @@ import com.ugos.jiprolog.engine.JIPTermParser;
 import com.ugos.jiprolog.engine.Operator;
 import com.ugos.jiprolog.engine.OperatorManager;
 
-public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements PrologEngine<JIPTerm> {
+public final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 
 	JIPEngine engine;
 	JIPTermParser parser;
 
-	JiPrologEngine(PrologProvider<JIPTerm> provider) {
+	JiPrologEngine(PrologProvider provider) {
 		this(provider, new JIPEngine());
 	}
 
-	JiPrologEngine(PrologProvider<JIPTerm> provider, JIPEngine engine) {
+	JiPrologEngine(PrologProvider provider, JIPEngine engine) {
 		super(provider);
 
 		this.engine = engine;
@@ -61,7 +61,7 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 	private JIPCons adaptCons(PrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			cons = JIPCons.create(provider.fromTerm(arguments[i]), cons);
+			cons = JIPCons.create(fromTerm(arguments[i], JIPTerm.class), cons);
 		}
 		return cons;
 	}
@@ -69,7 +69,7 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 	public void include(String path) {
 		try {
 			FileInputStream fins = new FileInputStream(path);
-			Enumeration<JIPTerm> loadEnumeration = parser.parseStream(fins, path);
+			Enumeration loadEnumeration = parser.parseStream(fins, path);
 			while (loadEnumeration.hasMoreElements()) {
 				JIPTerm jipTerm = (JIPTerm) loadEnumeration.nextElement();
 				engine.assertz(jipTerm);
@@ -97,7 +97,7 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 
 			// load and assert
 			FileInputStream fins = new FileInputStream(path);
-			Enumeration<JIPTerm> loadEnumeration = parser.parseStream(fins, path);
+			Enumeration loadEnumeration = parser.parseStream(fins, path);
 			while (loadEnumeration.hasMoreElements()) {
 				JIPTerm jipTerm = (JIPTerm) loadEnumeration.nextElement();
 				engine.assertz(jipTerm);
@@ -133,7 +133,7 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 	}
 
 	public void asserta(PrologTerm head, PrologTerm... body) {
-		asserta(JIPClause.create((JIPFunctor) provider.fromTerm(head), adaptCons(body)));
+		asserta(JIPClause.create(fromTerm(head, JIPFunctor.class), adaptCons(body)));
 	}
 
 	private void asserta(JIPClause clause) {
@@ -147,7 +147,7 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 	}
 
 	public void assertz(PrologTerm head, PrologTerm... body) {
-		assertz(JIPClause.create((JIPFunctor) provider.fromTerm(head), adaptCons(body)));
+		assertz(JIPClause.create(fromTerm(head, JIPFunctor.class), adaptCons(body)));
 	}
 
 	private void assertz(JIPClause clause) {
@@ -161,7 +161,7 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 	}
 
 	public boolean clause(PrologTerm head, PrologTerm... body) {
-		return clause(JIPClause.create((JIPFunctor) provider.fromTerm(head), adaptCons(body)));
+		return clause(JIPClause.create(fromTerm(head, JIPFunctor.class), adaptCons(body)));
 	}
 
 	private boolean clause(JIPClause clause) {
@@ -173,7 +173,7 @@ public final class JiPrologEngine extends AbstractEngine<JIPTerm> implements Pro
 	}
 
 	public void retract(PrologTerm head, PrologTerm... body) {
-		retract(JIPClause.create((JIPFunctor) provider.fromTerm(head), adaptCons(body)));
+		retract(JIPClause.create(fromTerm(head, JIPFunctor.class), adaptCons(body)));
 	}
 
 	private void retract(JIPClause clause) {

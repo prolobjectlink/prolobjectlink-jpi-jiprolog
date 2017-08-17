@@ -5,11 +5,10 @@ import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPList;
-import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologEmpty extends JiPrologList implements PrologList {
 
-	protected JiPrologEmpty(PrologProvider<JIPTerm> provider) {
+	protected JiPrologEmpty(PrologProvider provider) {
 		super(EMPTY_TYPE, provider);
 		value = JIPList.create(null, null);
 	}

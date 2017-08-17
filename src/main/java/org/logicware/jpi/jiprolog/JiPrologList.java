@@ -11,20 +11,20 @@ import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologList extends JiPrologCompound implements PrologList {
 
-	protected JiPrologList(PrologProvider<JIPTerm> provider) {
+	protected JiPrologList(PrologProvider provider) {
 		super(LIST_TYPE, provider);
 	}
 
-	protected JiPrologList(int type, PrologProvider<JIPTerm> provider) {
+	protected JiPrologList(int type, PrologProvider provider) {
 		super(type, provider);
 	}
 
-	protected JiPrologList(PrologProvider<JIPTerm> provider, PrologTerm[] arguments) {
+	protected JiPrologList(PrologProvider provider, PrologTerm[] arguments) {
 		super(LIST_TYPE, provider);
 		value = adaptList(arguments);
 	}
 
-	protected JiPrologList(PrologProvider<JIPTerm> provider, JIPTerm[] arguments) {
+	protected JiPrologList(PrologProvider provider, JIPTerm[] arguments) {
 		super(LIST_TYPE, provider);
 		value = JIPList.NIL;
 		for (int i = arguments.length - 1; i >= 0; --i) {
@@ -32,7 +32,7 @@ public class JiPrologList extends JiPrologCompound implements PrologList {
 		}
 	}
 
-	protected JiPrologList(PrologProvider<JIPTerm> provider, JIPTerm[] arguments, JIPTerm tail) {
+	protected JiPrologList(PrologProvider provider, JIPTerm[] arguments, JIPTerm tail) {
 		super(LIST_TYPE, provider);
 		value = tail;
 		for (int i = arguments.length - 1; i >= 0; --i) {
@@ -40,16 +40,16 @@ public class JiPrologList extends JiPrologCompound implements PrologList {
 		}
 	}
 
-	protected JiPrologList(PrologProvider<JIPTerm> provider, PrologTerm head, PrologTerm tail) {
+	protected JiPrologList(PrologProvider provider, PrologTerm head, PrologTerm tail) {
 		super(LIST_TYPE, provider);
-		value = JIPList.create(provider.fromTerm(head), provider.fromTerm(tail));
+		value = JIPList.create(fromTerm(head, JIPTerm.class), fromTerm(tail, JIPTerm.class));
 	}
 
-	protected JiPrologList(PrologProvider<JIPTerm> provider, PrologTerm[] arguments, PrologTerm tail) {
+	protected JiPrologList(PrologProvider provider, PrologTerm[] arguments, PrologTerm tail) {
 		super(LIST_TYPE, provider);
-		value = provider.fromTerm(tail);
+		value = fromTerm(tail, JIPTerm.class);
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			value = JIPList.create(provider.fromTerm(arguments[i]), value);
+			value = JIPList.create(fromTerm(arguments[i], JIPTerm.class), value);
 		}
 	}
 
@@ -72,12 +72,12 @@ public class JiPrologList extends JiPrologCompound implements PrologList {
 
 	public PrologTerm getHead() {
 		JIPList list = (JIPList) value;
-		return provider.toTerm(list.getHead());
+		return toTerm(list.getHead(), PrologTerm.class);
 	}
 
 	public PrologTerm getTail() {
 		JIPList list = (JIPList) value;
-		return provider.toTerm(list.getTail());
+		return toTerm(list.getTail(), PrologTerm.class);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class JiPrologList extends JiPrologCompound implements PrologList {
 		if (list != null) {
 			PrologTerm[] arguments = new PrologTerm[list.length()];
 			for (int i = 0; i < arguments.length; i++) {
-				arguments[i] = provider.toTerm(list.getNth(i + 1));
+				arguments[i] = toTerm(list.getNth(i + 1), PrologTerm.class);
 			}
 			return arguments;
 		}
@@ -134,7 +134,7 @@ public class JiPrologList extends JiPrologCompound implements PrologList {
 		}
 
 		public PrologTerm next() {
-			return provider.toTerm(list.getNth(nextIndex++));
+			return toTerm(list.getNth(nextIndex++), PrologTerm.class);
 		}
 
 		public void remove() {

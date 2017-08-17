@@ -11,15 +11,14 @@ import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPNumber;
-import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologLong extends JiPrologTerm implements PrologLong {
 
-	public JiPrologLong(PrologProvider<JIPTerm> provider) {
+	public JiPrologLong(PrologProvider provider) {
 		super(LONG_TYPE, provider, JIPNumber.create(0));
 	}
 
-	public JiPrologLong(PrologProvider<JIPTerm> provider, Number value) {
+	public JiPrologLong(PrologProvider provider, Number value) {
 		super(LONG_TYPE, provider, JIPNumber.create(value.longValue()));
 	}
 

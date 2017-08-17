@@ -11,15 +11,14 @@ import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPNumber;
-import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologInteger extends JiPrologTerm implements PrologInteger {
 
-	public JiPrologInteger(PrologProvider<JIPTerm> provider) {
+	public JiPrologInteger(PrologProvider provider) {
 		super(INTEGER_TYPE, provider, JIPNumber.create(0));
 	}
 
-	public JiPrologInteger(PrologProvider<JIPTerm> provider, Number value) {
+	public JiPrologInteger(PrologProvider provider, Number value) {
 		super(INTEGER_TYPE, provider, JIPNumber.create(value.intValue()));
 	}
 

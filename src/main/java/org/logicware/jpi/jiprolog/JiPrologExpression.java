@@ -11,13 +11,13 @@ import com.ugos.jiprolog.engine.JIPTerm;
 public final class JiPrologExpression extends JiPrologCompound implements PrologExpression {
 
 	@Deprecated
-	JiPrologExpression(PrologProvider<JIPTerm> provider, PrologTerm left, String operator, PrologTerm right) {
+	JiPrologExpression(PrologProvider provider, PrologTerm left, String operator, PrologTerm right) {
 		super(EXPRESSION_TYPE, provider);
 		value = JIPFunctor.create(operator, adaptCons(new PrologTerm[] { left, right }));
 	}
 
 	@Deprecated
-	JiPrologExpression(PrologProvider<JIPTerm> provider, JIPTerm left, String functor, JIPTerm right) {
+	JiPrologExpression(PrologProvider provider, JIPTerm left, String functor, JIPTerm right) {
 		super(EXPRESSION_TYPE, provider, JIPFunctor.create(functor, JIPCons.create(left, JIPCons.create(right, null))));
 	}
 
@@ -26,11 +26,11 @@ public final class JiPrologExpression extends JiPrologCompound implements Prolog
 	}
 
 	public PrologTerm getLeft() {
-		return provider.toTerm(((JIPFunctor) value).getTerm(1));
+		return toTerm(((JIPFunctor) value).getTerm(1), PrologTerm.class);
 	}
 
 	public PrologTerm getRight() {
-		return provider.toTerm(((JIPFunctor) value).getTerm(2));
+		return toTerm(((JIPFunctor) value).getTerm(2), PrologTerm.class);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public final class JiPrologExpression extends JiPrologCompound implements Prolog
 		int arity = structure.getArity();
 		PrologTerm[] arguments = new PrologTerm[arity];
 		for (int i = 0; i < arity; i++) {
-			arguments[i] = provider.toTerm(structure.getTerm(i + 1));
+			arguments[i] = toTerm(structure.getTerm(i + 1), PrologTerm.class);
 		}
 		return arguments;
 	}

@@ -34,7 +34,7 @@ public final class JiPrologConverter extends AbstractConverter<JIPTerm> implemen
 	protected static final JiPrologOperatorSet OPERATORS = new JiPrologOperatorSet();
 
 	@Override
-	public PrologProvider<JIPTerm> createProvider() {
+	public PrologProvider createProvider() {
 		return new JiPrologProvider(this);
 	}
 

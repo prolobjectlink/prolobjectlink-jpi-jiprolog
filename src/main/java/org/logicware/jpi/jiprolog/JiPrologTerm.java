@@ -1,5 +1,7 @@
 package org.logicware.jpi.jiprolog;
 
+import java.util.Map;
+
 import org.logicware.jpi.AbstractTerm;
 import org.logicware.jpi.NumberExpectedError;
 import org.logicware.jpi.PrologIndex;
@@ -10,15 +12,15 @@ import org.logicware.jpi.PrologTerm;
 import com.ugos.jiprolog.engine.JIPNumber;
 import com.ugos.jiprolog.engine.JIPTerm;
 
-public abstract class JiPrologTerm extends AbstractTerm<JIPTerm> implements PrologTerm {
+public abstract class JiPrologTerm extends AbstractTerm implements PrologTerm {
 
 	protected JIPTerm value;
 
-	protected JiPrologTerm(int type, PrologProvider<JIPTerm> provider) {
+	protected JiPrologTerm(int type, PrologProvider provider) {
 		super(type, provider);
 	}
 
-	protected JiPrologTerm(int type, PrologProvider<JIPTerm> provider, JIPTerm value) {
+	protected JiPrologTerm(int type, PrologProvider provider, JIPTerm value) {
 		super(type, provider);
 		this.value = value;
 	}
@@ -128,7 +130,7 @@ public abstract class JiPrologTerm extends AbstractTerm<JIPTerm> implements Prol
 	}
 
 	public final boolean unify(PrologTerm term) {
-		return value != null && value.unifiable(provider.fromTerm(term));
+		return value != null && value.unifiable(fromTerm(term, JIPTerm.class));
 	}
 
 	public int compareTo(PrologTerm term) {

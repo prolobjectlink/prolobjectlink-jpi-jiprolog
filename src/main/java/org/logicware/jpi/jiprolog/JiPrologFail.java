@@ -5,11 +5,10 @@ import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
-import com.ugos.jiprolog.engine.JIPTerm;
 
 public final class JiPrologFail extends JiPrologTerm implements PrologTerm {
 
-	protected JiPrologFail(PrologProvider<JIPTerm> provider) {
+	protected JiPrologFail(PrologProvider provider) {
 		super(FAIL_TYPE, provider, JIPAtom.create("fail"));
 	}
 

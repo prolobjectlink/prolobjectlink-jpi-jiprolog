@@ -26,10 +26,10 @@ import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPTermParser;
 
-public class JiPrologProvider extends AbstractProvider<JIPTerm> implements PrologProvider<JIPTerm> {
+public class JiPrologProvider extends AbstractProvider implements PrologProvider {
 
 	static final PrologConverter<JIPTerm> converter = PrologConverterFactory.createPrologAdapter(JiPrologConverter.class);
-	static final PrologProvider<JIPTerm> provider = converter.createProvider();
+	static final PrologProvider provider = converter.createProvider();
 
 	// constants terms
 	static final PrologTerm CUT = new JiPrologCut(provider);
@@ -73,7 +73,7 @@ public class JiPrologProvider extends AbstractProvider<JIPTerm> implements Prolo
 
 	// engine
 
-	public PrologEngine<JIPTerm> newEngine() {
+	public PrologEngine newEngine() {
 		return new JiPrologEngine(this);
 	}
 

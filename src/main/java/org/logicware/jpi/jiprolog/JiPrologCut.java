@@ -4,11 +4,10 @@ import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
-import com.ugos.jiprolog.engine.JIPTerm;
 
 public class JiPrologCut extends JiPrologTerm implements PrologTerm {
 
-	protected JiPrologCut(PrologProvider<JIPTerm> provider) {
+	protected JiPrologCut(PrologProvider provider) {
 		super(CUT_TYPE, provider, JIPAtom.create("!"));
 	}
 

@@ -5,11 +5,10 @@ import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
-import com.ugos.jiprolog.engine.JIPTerm;
 
 public final class JiPrologFalse extends JiPrologTerm implements PrologTerm {
 
-	protected JiPrologFalse(PrologProvider<JIPTerm> provider) {
+	protected JiPrologFalse(PrologProvider provider) {
 		super(FALSE_TYPE, provider, JIPAtom.create("false"));
 	}
 

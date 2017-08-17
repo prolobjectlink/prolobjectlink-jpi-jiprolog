@@ -11,15 +11,14 @@ import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPNumber;
-import com.ugos.jiprolog.engine.JIPTerm;
 
 public final class JiPrologFloat extends JiPrologTerm implements PrologFloat {
 
-	public JiPrologFloat(PrologProvider<JIPTerm> provider) {
+	public JiPrologFloat(PrologProvider provider) {
 		super(FLOAT_TYPE, provider, JIPNumber.create(0));
 	}
 
-	public JiPrologFloat(PrologProvider<JIPTerm> provider, Number value) {
+	public JiPrologFloat(PrologProvider provider, Number value) {
 		super(FLOAT_TYPE, provider, JIPNumber.create(value.floatValue()));
 	}
 

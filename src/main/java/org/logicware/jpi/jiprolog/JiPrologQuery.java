@@ -15,19 +15,19 @@ import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 
-public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery {
+public class JiPrologQuery extends AbstractQuery implements PrologQuery {
 
 	private JIPQuery query;
 	private JIPTerm solution;
 
-	JiPrologQuery(PrologEngine<JIPTerm> engine, String stringQuery) {
+	JiPrologQuery(PrologEngine engine, String stringQuery) {
 		super(engine);
 		JiPrologEngine pe = engine.unwrap(JiPrologEngine.class);
 		query = pe.engine.openSynchronousQuery(stringQuery);
 		solution = query.nextSolution();
 	}
 
-	JiPrologQuery(PrologEngine<JIPTerm> engine, PrologTerm[] terms) {
+	JiPrologQuery(PrologEngine engine, PrologTerm[] terms) {
 		super(engine);
 		JiPrologEngine pe = engine.unwrap(JiPrologEngine.class);
 		query = pe.engine.openSynchronousQuery(adaptCons(terms));
@@ -37,7 +37,7 @@ public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery
 	private JIPCons adaptCons(PrologTerm[] arguments) {
 		JIPCons cons = null;
 		for (int i = arguments.length - 1; i >= 0; --i) {
-			cons = JIPCons.create(fromTerm(arguments[i]), cons);
+			cons = JIPCons.create(fromTerm(arguments[i], JIPTerm.class), cons);
 		}
 		return cons;
 	}
@@ -57,7 +57,7 @@ public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery
 			JIPVariable[] variables = solution.getVariables();
 			PrologTerm[] solutions = new PrologTerm[variables.length];
 			for (int i = 0; i < solutions.length; i++) {
-				solutions[i] = toTerm(variables[i].getValue());
+				solutions[i] = toTerm(variables[i].getValue(), PrologTerm.class);
 			}
 			return solutions;
 		}
@@ -69,7 +69,7 @@ public class JiPrologQuery extends AbstractQuery<JIPTerm> implements PrologQuery
 			JIPVariable[] variables = solution.getVariables();
 			Map<String, PrologTerm> solutions = new HashMap<String, PrologTerm>(variables.length);
 			for (int i = 0; i < variables.length; i++) {
-				solutions.put(variables[i].getName(), toTerm(variables[i].getValue()));
+				solutions.put(variables[i].getName(), toTerm(variables[i].getValue(), PrologTerm.class));
 			}
 			return solutions;
 		}

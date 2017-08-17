@@ -5,11 +5,10 @@ import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologTerm;
 
 import com.ugos.jiprolog.engine.JIPAtom;
-import com.ugos.jiprolog.engine.JIPTerm;
 
 public final class JiPrologAtom extends JiPrologTerm implements PrologAtom {
 
-	public JiPrologAtom(PrologProvider<JIPTerm> provider, String value) {
+	public JiPrologAtom(PrologProvider provider, String value) {
 		super(ATOM_TYPE, provider, JIPAtom.create(value));
 	}
 
