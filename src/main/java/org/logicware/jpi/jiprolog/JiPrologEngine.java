@@ -15,7 +15,7 @@ import org.logicware.jpi.OperatorEntry;
 import org.logicware.jpi.PredicateIndicator;
 import org.logicware.jpi.PrologEngine;
 import org.logicware.jpi.PrologIndicator;
-import org.logicware.jpi.PrologOperator;
+import org.logicware.jpi.IPrologOperator;
 import org.logicware.jpi.PrologProvider;
 import org.logicware.jpi.PrologQuery;
 import org.logicware.jpi.PrologTerm;
@@ -214,8 +214,8 @@ public final class JiPrologEngine extends AbstractEngine implements PrologEngine
 	return builtins;
     }
 
-    public Set<PrologOperator> currentOperators() {
-	HashSet<PrologOperator> operators = new HashSet<PrologOperator>();
+    public Set<IPrologOperator> currentOperators() {
+	HashSet<IPrologOperator> operators = new HashSet<IPrologOperator>();
 	OperatorManager manager = engine.getOperatorManager();
 	Enumeration<?> e = manager.getOperators();
 	while (e.hasMoreElements()) {
