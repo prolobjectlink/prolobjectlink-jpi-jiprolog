@@ -8,39 +8,39 @@ import com.ugos.jiprolog.engine.JIPList;
 
 public class JiPrologEmpty extends JiPrologList implements PrologList {
 
-	protected JiPrologEmpty(PrologProvider provider) {
-		super(EMPTY_TYPE, provider);
-		value = JIPList.create(null, null);
-	}
+    protected JiPrologEmpty(PrologProvider provider) {
+	super(EMPTY_TYPE, provider);
+	value = JIPList.create(null, null);
+    }
 
-	@Override
-	public PrologTerm[] getArguments() {
-		return new PrologTerm[0];
-	}
+    @Override
+    public PrologTerm[] getArguments() {
+	return new PrologTerm[0];
+    }
 
-	@Override
-	public int getArity() {
-		return 0;
-	}
+    @Override
+    public int getArity() {
+	return 0;
+    }
 
-	@Override
-	public String getFunctor() {
-		return "[]";
-	}
+    @Override
+    public String getFunctor() {
+	return "[]";
+    }
 
-	@Override
-	public String getIndicator() {
-		return getFunctor() + "/" + getArity();
-	}
+    @Override
+    public String getIndicator() {
+	return getFunctor() + "/" + getArity();
+    }
 
-	@Override
-	public boolean hasIndicator(String functor, int arity) {
-		return getFunctor().equals(functor) && getArity() == arity;
-	}
+    @Override
+    public boolean hasIndicator(String functor, int arity) {
+	return getFunctor().equals(functor) && getArity() == arity;
+    }
 
-	@Override
-	public PrologTerm clone() {
-		return new JiPrologEmpty(provider);
-	}
+    @Override
+    public PrologTerm clone() {
+	return new JiPrologEmpty(provider);
+    }
 
 }

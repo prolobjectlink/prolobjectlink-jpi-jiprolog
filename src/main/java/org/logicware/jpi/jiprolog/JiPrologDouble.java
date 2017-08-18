@@ -14,75 +14,75 @@ import com.ugos.jiprolog.engine.JIPNumber;
 
 public final class JiPrologDouble extends JiPrologTerm implements PrologDouble {
 
-	public JiPrologDouble(PrologProvider provider) {
-		super(DOUBLE_TYPE, provider, JIPNumber.create(0));
-	}
+    public JiPrologDouble(PrologProvider provider) {
+	super(DOUBLE_TYPE, provider, JIPNumber.create(0));
+    }
 
-	public JiPrologDouble(PrologProvider provider, Number value) {
-		super(DOUBLE_TYPE, provider, JIPNumber.create(value.doubleValue()));
-	}
+    public JiPrologDouble(PrologProvider provider, Number value) {
+	super(DOUBLE_TYPE, provider, JIPNumber.create(value.doubleValue()));
+    }
 
-	public PrologInteger getPrologInteger() {
-		return new JiPrologInteger(provider, getIntValue());
-	}
+    public PrologInteger getPrologInteger() {
+	return new JiPrologInteger(provider, getIntValue());
+    }
 
-	public PrologFloat getPrologFloat() {
-		return new JiPrologFloat(provider, getFloatValue());
-	}
+    public PrologFloat getPrologFloat() {
+	return new JiPrologFloat(provider, getFloatValue());
+    }
 
-	public PrologDouble getPrologDouble() {
-		return new JiPrologDouble(provider, getDoubleValue());
-	}
+    public PrologDouble getPrologDouble() {
+	return new JiPrologDouble(provider, getDoubleValue());
+    }
 
-	public PrologLong getPrologLong() {
-		return new JiPrologLong(provider, getLongValue());
-	}
+    public PrologLong getPrologLong() {
+	return new JiPrologLong(provider, getLongValue());
+    }
 
-	public long getLongValue() {
-		return (long) ((JIPNumber) value).getDoubleValue();
-	}
+    public long getLongValue() {
+	return (long) ((JIPNumber) value).getDoubleValue();
+    }
 
-	public double getDoubleValue() {
-		return ((JIPNumber) value).getDoubleValue();
-	}
+    public double getDoubleValue() {
+	return ((JIPNumber) value).getDoubleValue();
+    }
 
-	public int getIntValue() {
-		return (int) ((JIPNumber) value).getDoubleValue();
-	}
+    public int getIntValue() {
+	return (int) ((JIPNumber) value).getDoubleValue();
+    }
 
-	public float getFloatValue() {
-		return (float) ((JIPNumber) value).getDoubleValue();
-	}
+    public float getFloatValue() {
+	return (float) ((JIPNumber) value).getDoubleValue();
+    }
 
-	@Override
-	public PrologTerm[] getArguments() {
-		return new JiPrologDouble[0];
-	}
+    @Override
+    public PrologTerm[] getArguments() {
+	return new JiPrologDouble[0];
+    }
 
-	@Override
-	public int getArity() {
-		throw new ArityError(this);
-	}
+    @Override
+    public int getArity() {
+	throw new ArityError(this);
+    }
 
-	@Override
-	public String getFunctor() {
-		throw new FunctorError(this);
-	}
+    @Override
+    public String getFunctor() {
+	throw new FunctorError(this);
+    }
 
-	@Override
-	public String getIndicator() {
-		throw new IndicatorError(this);
-	}
+    @Override
+    public String getIndicator() {
+	throw new IndicatorError(this);
+    }
 
-	@Override
-	public boolean hasIndicator(String functor, int arity) {
-		throw new IndicatorError(this);
-	}
+    @Override
+    public boolean hasIndicator(String functor, int arity) {
+	throw new IndicatorError(this);
+    }
 
-	@Override
-	public PrologTerm clone() {
-		double d = getDoubleValue();
-		return new JiPrologDouble(provider, d);
-	}
+    @Override
+    public PrologTerm clone() {
+	double d = getDoubleValue();
+	return new JiPrologDouble(provider, d);
+    }
 
 }

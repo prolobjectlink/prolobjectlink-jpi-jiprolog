@@ -23,276 +23,277 @@ import org.logicware.jpi.PrologVariable;
 
 public class JiPrologListTest extends JiPrologBaseTest {
 
-	private PrologList list;
+    private PrologList list;
 
-	@Before
-	public void setUp() throws Exception {
-		list = provider.newList(new PrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine });
+    @Before
+    public void setUp() throws Exception {
+	list = provider.newList(new PrologTerm[] { zero, one, two, three, four, five, six, seven, eight, nine });
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    @Test
+    public final void testGetArguments() {
+	PrologTerm[] terms = { zero, one, two, three, four, five, six, seven, eight, nine };
+	assertArrayEquals(terms, list.getArguments());
+    }
+
+    @Test
+    public final void testSize() {
+	assertEquals(10, list.size());
+    }
+
+    @Test
+    public final void testClear() {
+	list.clear();
+	assertTrue(list.isEmpty());
+    }
+
+    @Test
+    public final void testIsEmpty() {
+	assertFalse(list.isEmpty());
+	list.clear();
+	assertTrue(list.isEmpty());
+    }
+
+    @Test
+    public final void testIterator() {
+	int number = 0;
+	for (Iterator<PrologTerm> iterator = list.iterator(); iterator.hasNext();) {
+	    PrologTerm prologTerm = (PrologTerm) iterator.next();
+	    assertEquals(provider.newInteger(number++), prologTerm);
 	}
+    }
 
-	@After
-	public void tearDown() throws Exception {
-	}
+    @Test
+    public final void testGetHead() {
+	assertEquals(provider.newInteger(0), list.getHead());
+    }
 
-	@Test
-	public final void testGetArguments() {
-		PrologTerm[] terms = { zero, one, two, three, four, five, six, seven, eight, nine };
-		assertArrayEquals(terms, list.getArguments());
-	}
+    @Test
+    public final void testGetTail() {
+	assertEquals(provider.newList(new PrologTerm[] { one, two, three, four, five, six, seven, eight, nine }),
+		list.getTail());
+    }
 
-	@Test
-	public final void testSize() {
-		assertEquals(10, list.size());
-	}
+    @Test
+    public final void testGetType() {
+	assertEquals(PrologTerm.LIST_TYPE, list.getType());
+    }
 
-	@Test
-	public final void testClear() {
-		list.clear();
-		assertTrue(list.isEmpty());
-	}
+    @Test
+    public final void testGetKey() {
+	assertEquals("./2", list.getIndicator());
+    }
 
-	@Test
-	public final void testIsEmpty() {
-		assertFalse(list.isEmpty());
-		list.clear();
-		assertTrue(list.isEmpty());
-	}
+    @Test
+    public final void testIsAtom() {
+	assertFalse(list.isAtom());
+    }
 
-	@Test
-	public final void testIterator() {
-		int number = 0;
-		for (Iterator<PrologTerm> iterator = list.iterator(); iterator.hasNext();) {
-			PrologTerm prologTerm = (PrologTerm) iterator.next();
-			assertEquals(provider.newInteger(number++), prologTerm);
-		}
-	}
+    @Test
+    public final void testIsNumber() {
+	assertFalse(list.isNumber());
+    }
 
-	@Test
-	public final void testGetHead() {
-		assertEquals(provider.newInteger(0), list.getHead());
-	}
+    @Test
+    public final void testIsFloat() {
+	assertFalse(list.isFloat());
+    }
 
-	@Test
-	public final void testGetTail() {
-		assertEquals(provider.newList(new PrologTerm[] { one, two, three, four, five, six, seven, eight, nine }), list.getTail());
-	}
+    @Test
+    public final void testIsInteger() {
+	assertFalse(list.isInteger());
+    }
 
-	@Test
-	public final void testGetType() {
-		assertEquals(PrologTerm.LIST_TYPE, list.getType());
-	}
+    @Test
+    public final void testIsVariable() {
+	assertFalse(list.isVariable());
+    }
 
-	@Test
-	public final void testGetKey() {
-		assertEquals("./2", list.getIndicator());
-	}
+    @Test
+    public final void testIsList() {
+	assertTrue(list.isList());
+    }
 
-	@Test
-	public final void testIsAtom() {
-		assertFalse(list.isAtom());
-	}
+    @Test
+    public final void testIsStructure() {
+	assertFalse(list.isStructure());
+    }
 
-	@Test
-	public final void testIsNumber() {
-		assertFalse(list.isNumber());
-	}
+    @Test
+    public final void testIsNil() {
+	assertFalse(list.isNil());
+    }
 
-	@Test
-	public final void testIsFloat() {
-		assertFalse(list.isFloat());
-	}
+    @Test
+    public final void testIsEmptyList() {
+	assertFalse(list.isEmptyList());
+    }
 
-	@Test
-	public final void testIsInteger() {
-		assertFalse(list.isInteger());
-	}
+    @Test
+    public final void testIsExpression() {
+	assertFalse(list.isEvaluable());
+    }
 
-	@Test
-	public final void testIsVariable() {
-		assertFalse(list.isVariable());
-	}
+    @Test
+    public final void testGetArity() {
+	assertEquals(2, list.getArity());
+    }
 
-	@Test
-	public final void testIsList() {
-		assertTrue(list.isList());
-	}
+    @Test
+    public final void testGetFunctor() {
+	assertEquals(".", list.getFunctor());
+    }
 
-	@Test
-	public final void testIsStructure() {
-		assertFalse(list.isStructure());
-	}
+    @Test
+    public final void testUnify() {
 
-	@Test
-	public final void testIsNil() {
-		assertFalse(list.isNil());
-	}
+	PrologTerm empty = provider.prologEmpty();
+	PrologList flattened = provider.parsePrologList("[a,b,c]");
+	PrologList headTail = provider.parsePrologList("[a|[b|[c|[]]]]");
 
-	@Test
-	public final void testIsEmptyList() {
-		assertFalse(list.isEmptyList());
-	}
+	// with atom
+	PrologAtom atom = provider.newAtom("John Doe");
+	assertFalse(flattened.unify(atom));
+	assertFalse(headTail.unify(atom));
+	assertFalse(empty.unify(atom));
 
-	@Test
-	public final void testIsExpression() {
-		assertFalse(list.isEvaluable());
-	}
+	// with integer
+	PrologInteger iValue = provider.newInteger(28);
+	assertFalse(flattened.unify(iValue));
+	assertFalse(headTail.unify(iValue));
+	assertFalse(empty.unify(iValue));
 
-	@Test
-	public final void testGetArity() {
-		assertEquals(2, list.getArity());
-	}
+	// with long
+	PrologLong lValue = provider.newLong(28);
+	assertFalse(flattened.unify(lValue));
+	assertFalse(headTail.unify(lValue));
+	assertFalse(empty.unify(lValue));
 
-	@Test
-	public final void testGetFunctor() {
-		assertEquals(".", list.getFunctor());
-	}
+	// with float
+	PrologFloat fValue = provider.newFloat(36.47);
+	assertFalse(flattened.unify(fValue));
+	assertFalse(headTail.unify(fValue));
+	assertFalse(empty.unify(fValue));
 
-	@Test
-	public final void testUnify() {
+	// with double
+	PrologDouble dValue = provider.newDouble(36.47);
+	assertFalse(flattened.unify(dValue));
+	assertFalse(headTail.unify(dValue));
+	assertFalse(empty.unify(dValue));
 
-		PrologTerm empty = provider.prologEmpty();
-		PrologList flattened = provider.parsePrologList("[a,b,c]");
-		PrologList headTail = provider.parsePrologList("[a|[b|[c|[]]]]");
+	// with variable
+	PrologVariable x = provider.newVariable("X");
+	PrologVariable y = provider.newVariable("Y");
+	PrologVariable z = provider.newVariable("Z");
+	assertTrue(flattened.unify(x));
+	assertTrue(headTail.unify(y));
+	assertTrue(empty.unify(z));
 
-		// with atom
-		PrologAtom atom = provider.newAtom("John Doe");
-		assertFalse(flattened.unify(atom));
-		assertFalse(headTail.unify(atom));
-		assertFalse(empty.unify(atom));
+	// with predicate
+	PrologStructure structure = provider.parsePrologStructure("somepredicate(a,b,c)");
+	assertFalse(flattened.unify(structure));
+	assertFalse(headTail.unify(structure));
+	assertFalse(empty.unify(structure));
 
-		// with integer
-		PrologInteger iValue = provider.newInteger(28);
-		assertFalse(flattened.unify(iValue));
-		assertFalse(headTail.unify(iValue));
-		assertFalse(empty.unify(iValue));
+	// with list
+	x = provider.newVariable("X");
 
-		// with long
-		PrologLong lValue = provider.newLong(28);
-		assertFalse(flattened.unify(lValue));
-		assertFalse(headTail.unify(lValue));
-		assertFalse(empty.unify(lValue));
+	PrologList flattenList1 = provider.parsePrologList("[X,Y,Z]");
+	PrologList headTailList1 = provider.parsePrologList("[X|[Y|[Z]]]");
 
-		// with float
-		PrologFloat fValue = provider.newFloat(36.47);
-		assertFalse(flattened.unify(fValue));
-		assertFalse(headTail.unify(fValue));
-		assertFalse(empty.unify(fValue));
+	// true because are equals
+	assertTrue(flattened.unify(flattened));
+	assertTrue(headTail.unify(headTail));
+	assertTrue(empty.unify(empty));
 
-		// with double
-		PrologDouble dValue = provider.newDouble(36.47);
-		assertFalse(flattened.unify(dValue));
-		assertFalse(headTail.unify(dValue));
-		assertFalse(empty.unify(dValue));
+	// true because their terms unify
+	assertTrue(flattened.unify(flattenList1));
+	assertTrue(headTail.unify(headTailList1));
 
-		// with variable
-		PrologVariable x = provider.newVariable("X");
-		PrologVariable y = provider.newVariable("Y");
-		PrologVariable z = provider.newVariable("Z");
-		assertTrue(flattened.unify(x));
-		assertTrue(headTail.unify(y));
-		assertTrue(empty.unify(z));
+	// testing different list type that unify
+	assertTrue(flattened.unify(headTail));
+	assertTrue(flattenList1.unify(headTailList1));
+	assertTrue(flattened.unify(headTailList1));
+	assertTrue(flattenList1.unify(headTail));
 
-		// with predicate
-		PrologStructure structure = provider.parsePrologStructure("somepredicate(a,b,c)");
-		assertFalse(flattened.unify(structure));
-		assertFalse(headTail.unify(structure));
-		assertFalse(empty.unify(structure));
+    }
 
-		// with list
-		x = provider.newVariable("X");
+    @Test
+    public final void testCompareTo() {
 
-		PrologList flattenList1 = provider.parsePrologList("[X,Y,Z]");
-		PrologList headTailList1 = provider.parsePrologList("[X|[Y|[Z]]]");
+	PrologTerm empty = provider.prologEmpty();
+	PrologList flattened = provider.parsePrologList("[a,b,c]");
+	PrologList headTail = provider.parsePrologList("[a|[b|[c|[]]]]");
 
-		// true because are equals
-		assertTrue(flattened.unify(flattened));
-		assertTrue(headTail.unify(headTail));
-		assertTrue(empty.unify(empty));
+	// with atom
+	PrologAtom atom = provider.newAtom("John Doe");
+	assertEquals(flattened.compareTo(atom), 1);
+	assertEquals(headTail.compareTo(atom), 1);
+	assertEquals(empty.compareTo(atom), 1);
 
-		// true because their terms unify
-		assertTrue(flattened.unify(flattenList1));
-		assertTrue(headTail.unify(headTailList1));
+	// with integer
+	PrologInteger iValue = provider.newInteger(28);
+	assertEquals(flattened.compareTo(iValue), 1);
+	assertEquals(headTail.compareTo(iValue), 1);
+	assertEquals(empty.compareTo(iValue), 1);
 
-		// testing different list type that unify
-		assertTrue(flattened.unify(headTail));
-		assertTrue(flattenList1.unify(headTailList1));
-		assertTrue(flattened.unify(headTailList1));
-		assertTrue(flattenList1.unify(headTail));
+	// with long
+	PrologLong lValue = provider.newLong(28);
+	assertEquals(flattened.compareTo(lValue), 1);
+	assertEquals(headTail.compareTo(lValue), 1);
+	assertEquals(empty.compareTo(lValue), 1);
 
-	}
+	// with float
+	PrologFloat fValue = provider.newFloat(36.47);
+	assertEquals(flattened.compareTo(fValue), 1);
+	assertEquals(headTail.compareTo(fValue), 1);
+	assertEquals(empty.compareTo(fValue), 1);
 
-	@Test
-	public final void testCompareTo() {
+	// with double
+	PrologDouble dValue = provider.newDouble(36.47);
+	assertEquals(flattened.compareTo(dValue), 1);
+	assertEquals(headTail.compareTo(dValue), 1);
+	assertEquals(empty.compareTo(dValue), 1);
 
-		PrologTerm empty = provider.prologEmpty();
-		PrologList flattened = provider.parsePrologList("[a,b,c]");
-		PrologList headTail = provider.parsePrologList("[a|[b|[c|[]]]]");
+	// with variable
+	PrologVariable x = provider.newVariable("X");
+	PrologVariable y = provider.newVariable("Y");
+	PrologVariable z = provider.newVariable("Z");
+	assertEquals(flattened.compareTo(x), 1);
+	assertEquals(headTail.compareTo(y), 1);
+	assertEquals(empty.compareTo(z), 1);
 
-		// with atom
-		PrologAtom atom = provider.newAtom("John Doe");
-		assertEquals(flattened.compareTo(atom), 1);
-		assertEquals(headTail.compareTo(atom), 1);
-		assertEquals(empty.compareTo(atom), 1);
+	// with predicate
+	PrologStructure structure = provider.parsePrologStructure("somepredicate(a,b,c)");
+	assertEquals(flattened.compareTo(structure), -1);
+	assertEquals(headTail.compareTo(structure), -1);
+	assertEquals(empty.compareTo(structure), -1);
 
-		// with integer
-		PrologInteger iValue = provider.newInteger(28);
-		assertEquals(flattened.compareTo(iValue), 1);
-		assertEquals(headTail.compareTo(iValue), 1);
-		assertEquals(empty.compareTo(iValue), 1);
+	// with list
+	x = provider.newVariable("X");
 
-		// with long
-		PrologLong lValue = provider.newLong(28);
-		assertEquals(flattened.compareTo(lValue), 1);
-		assertEquals(headTail.compareTo(lValue), 1);
-		assertEquals(empty.compareTo(lValue), 1);
+	PrologList flattenList1 = provider.parsePrologList("[X,Y,Z]");
+	PrologList headTailList1 = provider.parsePrologList("[X|[Y|[Z]]]");
 
-		// with float
-		PrologFloat fValue = provider.newFloat(36.47);
-		assertEquals(flattened.compareTo(fValue), 1);
-		assertEquals(headTail.compareTo(fValue), 1);
-		assertEquals(empty.compareTo(fValue), 1);
+	// true because are equals
+	assertEquals(flattened.compareTo(flattened), 0);
+	assertEquals(headTail.compareTo(headTail), 0);
+	assertEquals(empty.compareTo(empty), 0);
 
-		// with double
-		PrologDouble dValue = provider.newDouble(36.47);
-		assertEquals(flattened.compareTo(dValue), 1);
-		assertEquals(headTail.compareTo(dValue), 1);
-		assertEquals(empty.compareTo(dValue), 1);
+	// true because their terms are equals
+	assertEquals(flattened.compareTo(flattenList1), 1);
+	assertEquals(headTail.compareTo(headTailList1), 1);
 
-		// with variable
-		PrologVariable x = provider.newVariable("X");
-		PrologVariable y = provider.newVariable("Y");
-		PrologVariable z = provider.newVariable("Z");
-		assertEquals(flattened.compareTo(x), 1);
-		assertEquals(headTail.compareTo(y), 1);
-		assertEquals(empty.compareTo(z), 1);
+	// testing different list type
+	assertEquals(flattened.compareTo(headTail), 0);
+	assertEquals(flattenList1.compareTo(headTailList1), 1);
+	assertEquals(flattened.compareTo(headTailList1), 1);
+	assertEquals(flattenList1.compareTo(headTail), -1);
 
-		// with predicate
-		PrologStructure structure = provider.parsePrologStructure("somepredicate(a,b,c)");
-		assertEquals(flattened.compareTo(structure), -1);
-		assertEquals(headTail.compareTo(structure), -1);
-		assertEquals(empty.compareTo(structure), -1);
-
-		// with list
-		x = provider.newVariable("X");
-
-		PrologList flattenList1 = provider.parsePrologList("[X,Y,Z]");
-		PrologList headTailList1 = provider.parsePrologList("[X|[Y|[Z]]]");
-
-		// true because are equals
-		assertEquals(flattened.compareTo(flattened), 0);
-		assertEquals(headTail.compareTo(headTail), 0);
-		assertEquals(empty.compareTo(empty), 0);
-
-		// true because their terms are equals
-		assertEquals(flattened.compareTo(flattenList1), 1);
-		assertEquals(headTail.compareTo(headTailList1), 1);
-
-		// testing different list type
-		assertEquals(flattened.compareTo(headTail), 0);
-		assertEquals(flattenList1.compareTo(headTailList1), 1);
-		assertEquals(flattened.compareTo(headTailList1), 1);
-		assertEquals(flattenList1.compareTo(headTail), -1);
-
-	}
+    }
 
 }
