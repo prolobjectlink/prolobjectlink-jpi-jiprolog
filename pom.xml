@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.logicware.jpi.jiprolog</groupId>
 	<artifactId>prolobjectlink-jpi-jiprolog</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>prolobjectlink-jpi-jiprolog</name>
 	<description>JIProlog Java Interface Implementation (Interface Adaptee)</description>
 
