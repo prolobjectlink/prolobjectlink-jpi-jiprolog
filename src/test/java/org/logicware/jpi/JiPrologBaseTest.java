@@ -24,7 +24,7 @@ public abstract class JiPrologBaseTest {
     protected String department = "department";
 
     protected static final EngineOptions options = EngineOptions.javaOptions(JiPrologConverter.class);
-    protected static final PrologConverter<JIPTerm> converter = options.createConverter(JIPTerm.class);
+    protected static final PrologConverter<JIPTerm> converter = options.createConverter();
     protected static final PrologProvider provider = options.createProvider();
 
     protected PrologVariable x = provider.newVariable("X");
