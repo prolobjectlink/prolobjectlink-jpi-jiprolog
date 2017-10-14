@@ -39,8 +39,12 @@ public class JiPrologProvider extends AbstractProvider implements PrologProvider
     static final PrologTerm FALSE = new JiPrologFalse(provider);
     static final PrologTerm EMPTY = new JiPrologList(provider);
 
-    JiPrologProvider(PrologConverter<JIPTerm> adapter) {
-	super(adapter);
+    JiPrologProvider() {
+	super(new JiPrologConverter());
+    }
+
+    JiPrologProvider(PrologConverter<JIPTerm> converter) {
+	super(converter);
     }
 
     public boolean isCompliant() {
