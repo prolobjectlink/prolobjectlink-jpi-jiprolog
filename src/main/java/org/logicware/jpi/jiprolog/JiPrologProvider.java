@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 
 import org.logicware.jpi.AbstractProvider;
-import org.logicware.jpi.EngineOptions;
 import org.logicware.jpi.PrologAtom;
 import org.logicware.jpi.PrologConverter;
 import org.logicware.jpi.PrologDouble;
@@ -28,17 +27,6 @@ import com.ugos.jiprolog.engine.JIPTermParser;
 
 public class JiPrologProvider extends AbstractProvider implements PrologProvider {
 
-    static final EngineOptions options = EngineOptions.javaOptions(JiPrologConverter.class);
-    static final PrologProvider provider = options.createProvider();
-
-    // constants terms
-    static final PrologTerm CUT = new JiPrologCut(provider);
-    static final PrologTerm NIL = new JiPrologNil(provider);
-    static final PrologTerm FAIL = new JiPrologFail(provider);
-    static final PrologTerm TRUE = new JiPrologTrue(provider);
-    static final PrologTerm FALSE = new JiPrologFalse(provider);
-    static final PrologTerm EMPTY = new JiPrologList(provider);
-
     JiPrologProvider() {
 	super(new JiPrologConverter());
     }
@@ -52,27 +40,27 @@ public class JiPrologProvider extends AbstractProvider implements PrologProvider
     }
 
     public PrologTerm prologNil() {
-	return NIL;
+	return new JiPrologNil(this);
     }
 
     public PrologTerm prologCut() {
-	return CUT;
+	return new JiPrologCut(this);
     }
 
     public PrologTerm prologFail() {
-	return FAIL;
+	return new JiPrologFail(this);
     }
 
     public PrologTerm prologTrue() {
-	return TRUE;
+	return new JiPrologTrue(this);
     }
 
     public PrologTerm prologFalse() {
-	return FALSE;
+	return new JiPrologFalse(this);
     }
 
     public PrologTerm prologEmpty() {
-	return EMPTY;
+	return new JiPrologEmpty(this);
     }
 
     // engine

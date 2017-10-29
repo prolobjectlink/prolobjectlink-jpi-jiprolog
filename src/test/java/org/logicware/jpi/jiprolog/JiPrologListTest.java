@@ -274,8 +274,6 @@ public class JiPrologListTest extends JiPrologBaseTest {
 	assertEquals(empty.compareTo(structure), -1);
 
 	// with list
-	x = provider.newVariable("X");
-
 	PrologList flattenList1 = provider.parsePrologList("[X,Y,Z]");
 	PrologList headTailList1 = provider.parsePrologList("[X|[Y|[Z]]]");
 

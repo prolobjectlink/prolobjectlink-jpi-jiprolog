@@ -39,15 +39,15 @@ public final class JiPrologConverter extends AbstractConverter<JIPTerm> implemen
 	if (prologTerm instanceof JIPAtom) {
 	    JIPAtom atom = (JIPAtom) prologTerm;
 	    if (atom.getName().equals("!")) {
-		return JiPrologProvider.CUT;
+		return new JiPrologCut(provider);
 	    } else if (atom.getName().equals("nil")) {
-		return JiPrologProvider.NIL;
+		return new JiPrologNil(provider);
 	    } else if (atom.getName().equals("true")) {
-		return JiPrologProvider.TRUE;
+		return new JiPrologTrue(provider);
 	    } else if (atom.getName().equals("false")) {
-		return JiPrologProvider.FALSE;
+		return new JiPrologFalse(provider);
 	    } else if (atom.getName().equals("fail")) {
-		return JiPrologProvider.FAIL;
+		return new JiPrologFail(provider);
 	    } else {
 		return new JiPrologAtom(provider, atom.getName());
 	    }
@@ -80,7 +80,7 @@ public final class JiPrologConverter extends AbstractConverter<JIPTerm> implemen
 		}
 		return new JiPrologList(provider, arguments);
 	    }
-	    return JiPrologProvider.EMPTY;
+	    return new JiPrologEmpty(provider);
 	} else if (prologTerm instanceof JIPFunctor) {
 	    JIPFunctor structure = (JIPFunctor) prologTerm;
 	    String functor = structure.getName();

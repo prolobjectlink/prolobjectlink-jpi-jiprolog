@@ -9,7 +9,7 @@ import com.ugos.jiprolog.engine.JIPList;
 public class JiPrologEmpty extends JiPrologList implements PrologList {
 
     protected JiPrologEmpty(PrologProvider provider) {
-	super(EMPTY_TYPE, provider);
+	super(LIST_TYPE, provider);
 	value = JIPList.create(null, null);
     }
 
