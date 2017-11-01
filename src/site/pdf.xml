@@ -1,19 +1,39 @@
+<!-- #%L
+  prolobjectlink-jpi-jiprolog
+  %%
+  Copyright (C) 2019 Prolobjectlink Project
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #L% -->
 <document xmlns="http://maven.apache.org/DOCUMENT/1.0.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/DOCUMENT/1.0.1 http://maven.apache.org/xsd/document-1.0.1.xsd"
 	outputName="${project.artifactId}">
 
 	<meta>
-		<title>Maven PDF Plugin</title>
-		<author>The Apache Maven Project</author>
+		<title>Prolobjectlink Java Prolog Interface</title>
+		<author>Prolobjectlink Project</author>
 	</meta>
 
 	<toc name="Table of Contents">
-		<item name="Introduction" ref="index.apt" />
-		<item name="Usage" ref="usage.apt.vm" />
-		<item name="Filtering Document Descriptor" ref="examples/filtering.apt" />
-		<item name="Configuring Reports" ref="/examples/configuring-reports.xml.vm" />
-		<item name="Limitations" ref="limitations.apt" />
+		<item name="What Is" ref="pdf-whatis.apt.vm" />
+		<item name="Getting Started" ref="pdf-started.apt.vm" />
+		<item name="Prolog Programming" ref="pdf-prolog.apt.vm" />
+		<item name="Bidirectional Interface" ref="pdf-interface.apt.vm" />
+		<item name="Development Tools" ref="pdf-tools.apt.vm" />
+		<item name="Contribution" ref="pdf-contribution.apt.vm" />
+		<item name="Related Works" ref="pdf-related.apt.vm" />
 		<item name="FAQ" ref="faq.fml" />
 	</toc>
 

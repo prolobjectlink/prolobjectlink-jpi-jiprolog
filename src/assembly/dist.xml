@@ -14,22 +14,33 @@
 			<directory>${project.basedir}</directory>
 			<outputDirectory>/</outputDirectory>
 			<includes>
+				
+				<include>CONTRIBUTING*</include>
 				<include>LICENSE*</include>
 				<include>NOTICE*</include>
 				<include>README*</include>
 			</includes>
 		</fileSet>
 
-		<!-- documentation and api documentation -->
+		<!-- binary script folder -->
+		<fileSet>
+			<directory>${project.basedir}/bin</directory>
+			<outputDirectory>bin</outputDirectory>
+		</fileSet>
+
+		<!-- api documentation -->
 		<fileSet>
 			<directory>${project.build.directory}/apidocs</directory>
 			<outputDirectory>doc/apidocs</outputDirectory>
 		</fileSet>
 
-		<!-- configuration properties folder -->
+		<!-- documentation pdf -->
 		<fileSet>
-			<directory>${project.basedir}/etc</directory>
-			<outputDirectory>etc</outputDirectory>
+			<directory>${project.basedir}/doc</directory>
+			<outputDirectory>doc</outputDirectory>
+			<includes>
+				<include>${project.name}.pdf</include>
+			</includes>
 		</fileSet>
 
 		<!-- source code folder -->
@@ -41,44 +52,15 @@
 			<directory>${project.basedir}</directory>
 			<outputDirectory>/src</outputDirectory>
 			<includes>
-				<include>company.pl</include>
-				<include>family.pl</include>
 				<include>pom.xml</include>
-				<include>zoo.pl</include>
 			</includes>
 		</fileSet>
 
 	</fileSets>
 	<dependencySets>
 		<dependencySet>
-			<outputDirectory>bin</outputDirectory>
-			<scope>runtime</scope>
-			<excludes>
-				<exclude>junit:junit</exclude>
-				<exclude>org.hamcrest:hamcrest-core</exclude>
-			</excludes>
-		</dependencySet>
-		<dependencySet>
-			<outputDirectory>bin</outputDirectory>
-			<scope>system</scope>
-			<excludes>
-				<exclude>${project.groupId}:${project.artifactId}</exclude>
-			</excludes>
-		</dependencySet>
-		<dependencySet>
-			<outputDirectory>share</outputDirectory>
-			<scope>system</scope>
-			<excludes>
-				<exclude>${project.groupId}:${project.artifactId}</exclude>
-			</excludes>
-		</dependencySet>
-		<dependencySet>
 			<outputDirectory>lib</outputDirectory>
 			<scope>runtime</scope>
-			<excludes>
-				<exclude>junit:junit</exclude>
-				<exclude>org.hamcrest:hamcrest-core</exclude>
-			</excludes>
 		</dependencySet>
 	</dependencySets>
 </assembly>
