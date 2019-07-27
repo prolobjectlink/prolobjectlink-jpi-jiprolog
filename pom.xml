@@ -39,6 +39,51 @@
 			<timezone>-5</timezone>
 		</developer>
 	</developers>
+	
+		<scm>
+		<developerConnection>scm:git:https://github.com/prolobjectlink/${project.name}.git</developerConnection>
+		<connection>scm:git:https://github.com/prolobjectlink/${project.name}.git</connection>
+		<url>https://github.com/prolobjectlink/${project.name}</url>
+
+	</scm>
+
+	<ciManagement>
+		<system>Travis CI</system>
+		<url>https://travis-ci.org/prolobjectlink/${project.name}</url>
+	</ciManagement>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/prolobjectlink/${project.name}/issues</url>
+	</issueManagement>
+	
+	<repositories>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/repositories/central_bundles-18411/content/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+	
+	<distributionManagement>
+		<snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+		<repository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+		<site>
+			<id>website</id>
+			<url>dav:http://deploy.delnet.cu/webdav/sites/${project.name}</url>
+		</site>
+	</distributionManagement>
 
 	<properties>
 		<encoding>UTF-8</encoding>
@@ -60,8 +105,7 @@
 			<groupId>com.ugos.jiprolog</groupId>
 			<artifactId>jiprolog</artifactId>
 			<version>4.0.6.27</version>
-			<!-- <version>4.1.4.2</version> -->
-			<!-- <scope>provided</scope> -->
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -91,6 +135,18 @@
 		</pluginManagement>
 
 		<plugins>
+			<plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.8</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+				<skipStaging>true</skipStaging>
+                        </configuration>
+                    </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
