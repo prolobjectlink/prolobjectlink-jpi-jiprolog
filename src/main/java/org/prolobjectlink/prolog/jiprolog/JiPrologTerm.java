@@ -245,7 +245,9 @@ abstract class JiPrologTerm extends AbstractTerm implements PrologTerm {
 		if (value == null) {
 			if (other.value != null)
 				return false;
-		} else if (!value.equals(other.value)) {
+		} else if (value.toString().equals(other.value.toString())) {
+			return true;
+		} else if (!value.unifiable(other.value)) {
 			return false;
 		}
 		return true;

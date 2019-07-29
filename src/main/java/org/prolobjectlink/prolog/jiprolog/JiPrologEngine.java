@@ -271,8 +271,14 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 	}
 
 	public boolean clause(PrologTerm head, PrologTerm... body) {
-		JIPCons cons = converter.adaptCons(body);
-		return clause(JIPClause.create(fromTerm(head, JIPFunctor.class), cons));
+		String c = "" + head + "";
+		if (body != null && body.length > 0) {
+			String cb = Arrays.toString(body);
+			cb = cb.substring(1, cb.length() - 1);
+			c = c + " :- " + cb;
+		}
+		c = c + ".";
+		return clause(c);
 	}
 
 	private boolean clause(JIPClause clause) {
