@@ -121,6 +121,34 @@ abstract class JiPrologTerm extends AbstractTerm implements PrologTerm {
 		return isStructure() || isList();
 	}
 
+	public final boolean isTrueType() {
+		return false;
+	}
+
+	public final boolean isFalseType() {
+		return false;
+	}
+
+	public final boolean isNullType() {
+		return false;
+	}
+
+	public final boolean isVoidType() {
+		return false;
+	}
+
+	public final boolean isObjectType() {
+		return false;
+	}
+
+	public final boolean isReference() {
+		return false;
+	}
+
+	public final Object getObject() {
+		return null;
+	}
+
 	public final boolean unify(PrologTerm term) {
 		return value != null && value.unifiable(fromTerm(term, JIPTerm.class));
 	}
