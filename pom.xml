@@ -220,7 +220,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<mainClass>
-								org.prolobjectlink.prolog.jiProlog.JiPrologConsole
+								io.github.prolobjectlink.prolog.jiProlog.JiPrologConsole
 							</mainClass>
 						</manifest>
 						<manifestEntries>
