@@ -6,6 +6,7 @@
 	<artifactId>prolobjectlink-jpi-jiprolog</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<name>prolobjectlink-jpi-jiprolog</name>
+	<packaging>bundle</packaging>
 	<description>JIProlog Java Prolog Interface Implementation</description>
 
 	<url>https://prolobjectlink.github.io/${project.name}</url>
@@ -417,11 +418,36 @@
 					</execution>
 				</executions>
 			</plugin>
-		<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18.1</version>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>2.3.7</version>
+				<configuration>
+					<instructions>
+						<Bundle-Name>JIProlog Java Prolog Interface Implementation</Bundle-Name>
+						<Export-Package>${project.groupId}.prolog.jiprolog</Export-Package>
+						<Import-Package>javax.script;com.ugos.jiprolog.engine;${project.groupId}.*;provide:=true</Import-Package>
+						<Bundle-SymbolicName>${project.groupId}.prolog.jiprolog.plugin;singleton:=true</Bundle-SymbolicName>
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
+					</instructions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>bundle-manifest</id>
+						<!-- <phase>process-classes</phase> -->
+						<phase>install</phase>
+						<goals>
+							<goal>manifest</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
