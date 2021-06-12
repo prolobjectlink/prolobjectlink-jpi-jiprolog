@@ -55,6 +55,7 @@ import io.github.prolobjectlink.prolog.PrologEngine;
 import io.github.prolobjectlink.prolog.PrologIndicator;
 import io.github.prolobjectlink.prolog.PrologLogger;
 import io.github.prolobjectlink.prolog.PrologOperator;
+import io.github.prolobjectlink.prolog.PrologProgram;
 import io.github.prolobjectlink.prolog.PrologProvider;
 import io.github.prolobjectlink.prolog.PrologQuery;
 import io.github.prolobjectlink.prolog.PrologTerm;
@@ -403,6 +404,11 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 			}
 		}
 		return counter;
+	}
+
+	@Override
+	public PrologProgram getProgram() {
+		return new JiPrologProgram(this);
 	}
 
 	public String getVersion() {
