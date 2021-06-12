@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.5" timestamp="2021-06-22T14:53:46.876">
+<pmd version="4.2.5" timestamp="2021-06-12T15:04:52.638">
 <file name="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiProlog.java">
 <violation beginline="94" endline="98" begincolumn="22" endcolumn="9" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.jiprolog" class="JiProlog" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
