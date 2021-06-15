@@ -65,6 +65,7 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 	final JIPEngine engine;
 	private final JIPTermParser parser;
 	private final JiPrologConverter converter;
+	private static final JIPCons nil = JIPCons.NIL;
 
 	private static final String JIPXSETS_VERSION = "ver(jipxsets, '4.0.1')";
 	private static final String JIPXIO_VERSION = "ver(jipxio, '4.0.2')";
@@ -242,12 +243,19 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 
 	@Override
 	public void asserta(PrologTerm term) {
-		asserta(JIPClause.create(fromTerm(term, JIPFunctor.class)));
+		asserta(JIPClause.create(fromTerm(term, JIPTerm.class)));
 	}
 
 	public void asserta(PrologTerm head, PrologTerm... body) {
 		JIPCons cons = converter.adaptCons(body);
-		asserta(JIPClause.create(fromTerm(head, JIPFunctor.class), cons));
+		JIPFunctor h = null;
+		if (head.isAtom()) {
+			String atom = head.getFunctor();
+			h = JIPFunctor.create(atom, nil);
+		} else {
+			h = fromTerm(head, JIPFunctor.class);
+		}
+		asserta(JIPClause.create(h, cons));
 	}
 
 	private void asserta(JIPClause clause) {
@@ -262,12 +270,19 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 
 	@Override
 	public void assertz(PrologTerm term) {
-		assertz(JIPClause.create(fromTerm(term, JIPFunctor.class)));
+		assertz(JIPClause.create(fromTerm(term, JIPTerm.class)));
 	}
 
 	public void assertz(PrologTerm head, PrologTerm... body) {
 		JIPCons cons = converter.adaptCons(body);
-		assertz(JIPClause.create(fromTerm(head, JIPFunctor.class), cons));
+		JIPFunctor h = null;
+		if (head.isAtom()) {
+			String atom = head.getFunctor();
+			h = JIPFunctor.create(atom, nil);
+		} else {
+			h = fromTerm(head, JIPFunctor.class);
+		}
+		assertz(JIPClause.create(h, cons));
 	}
 
 	private void assertz(JIPClause clause) {
@@ -282,7 +297,7 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 
 	@Override
 	public boolean clause(PrologTerm term) {
-		return clause(JIPClause.create(fromTerm(term, JIPFunctor.class)));
+		return clause(JIPClause.create(fromTerm(term, JIPTerm.class)));
 	}
 
 	public boolean clause(PrologTerm head, PrologTerm... body) {
@@ -306,12 +321,19 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 
 	@Override
 	public void retract(PrologTerm term) {
-		retract(JIPClause.create(fromTerm(term, JIPFunctor.class)));
+		retract(JIPClause.create(fromTerm(term, JIPTerm.class)));
 	}
 
 	public void retract(PrologTerm head, PrologTerm... body) {
 		JIPCons cons = converter.adaptCons(body);
-		retract(JIPClause.create(fromTerm(head, JIPFunctor.class), cons));
+		JIPFunctor h = null;
+		if (head.isAtom()) {
+			String atom = head.getFunctor();
+			h = JIPFunctor.create(atom, nil);
+		} else {
+			h = fromTerm(head, JIPFunctor.class);
+		}
+		retract(JIPClause.create(h, cons));
 	}
 
 	private void retract(JIPClause clause) {
