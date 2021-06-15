@@ -240,6 +240,11 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 		asserta(JIPClause.create(parser.parseTerm(stringClause)));
 	}
 
+	@Override
+	public void asserta(PrologTerm term) {
+		asserta(JIPClause.create(fromTerm(term, JIPFunctor.class)));
+	}
+
 	public void asserta(PrologTerm head, PrologTerm... body) {
 		JIPCons cons = converter.adaptCons(body);
 		asserta(JIPClause.create(fromTerm(head, JIPFunctor.class), cons));
@@ -255,6 +260,11 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 		assertz(JIPClause.create(parser.parseTerm(stringClause)));
 	}
 
+	@Override
+	public void assertz(PrologTerm term) {
+		assertz(JIPClause.create(fromTerm(term, JIPFunctor.class)));
+	}
+
 	public void assertz(PrologTerm head, PrologTerm... body) {
 		JIPCons cons = converter.adaptCons(body);
 		assertz(JIPClause.create(fromTerm(head, JIPFunctor.class), cons));
@@ -268,6 +278,11 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 
 	public boolean clause(String stringClause) {
 		return clause(JIPClause.create(parser.parseTerm(stringClause)));
+	}
+
+	@Override
+	public boolean clause(PrologTerm term) {
+		return clause(JIPClause.create(fromTerm(term, JIPFunctor.class)));
 	}
 
 	public boolean clause(PrologTerm head, PrologTerm... body) {
@@ -289,6 +304,11 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 		retract(JIPClause.create(parser.parseTerm(stringClause)));
 	}
 
+	@Override
+	public void retract(PrologTerm term) {
+		retract(JIPClause.create(fromTerm(term, JIPFunctor.class)));
+	}
+
 	public void retract(PrologTerm head, PrologTerm... body) {
 		JIPCons cons = converter.adaptCons(body);
 		retract(JIPClause.create(fromTerm(head, JIPFunctor.class), cons));
@@ -300,6 +320,11 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 
 	public PrologQuery query(String stringQuery) {
 		return new JiPrologQuery(this, stringQuery);
+	}
+
+	@Override
+	public PrologQuery query(PrologTerm goal) {
+		return new JiPrologQuery(this, goal);
 	}
 
 	public PrologQuery query(PrologTerm[] terms) {

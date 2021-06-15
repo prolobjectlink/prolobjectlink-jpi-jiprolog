@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>prolobjectlink-jpi-jiprolog - Checkstyle report</title>
+    <link>https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog</link>
+    <description>prolobjectlink-jpi-jiprolog - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2020 - 2021 Prolobjectlink Project</copyright>
+    <item>
+      <title>File: 33,
+             Errors: 2914,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html</link>
+      <description>
+        <p>Click <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologEngine.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologEngine.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  529
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologInteger.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologInteger.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  59
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologQuery.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologQuery.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  254
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologFalse.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologFalse.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologFormatter.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologFormatter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  65
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologCut.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologCut.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologFail.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologFail.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologLong.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologLong.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  58
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologEntry.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologEntry.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  105
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologOperator.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologOperator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  11
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologLogger.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologLogger.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  47
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologOperatorSet.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologOperatorSet.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  73
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologReference.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologReference.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  61
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologJavaConverter.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologJavaConverter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologScriptFactory.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologScriptFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  29
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologTerm.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologTerm.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  261
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologAtom.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologAtom.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  30
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologDouble.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologDouble.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  59
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologConsole.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologConsole.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologIndicator.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologIndicator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologList.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  157
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologStructure.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologStructure.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  92
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologNil.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologNil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologClause.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologClause.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  67
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologUtil.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiProlog.java">io/github/prolobjectlink/prolog/jiprolog/JiProlog.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  242
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologEmpty.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologEmpty.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologConverter.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologConverter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  185
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologCompound.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologCompound.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  45
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologTrue.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologTrue.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologFloat.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologFloat.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  64
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologMap.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologMap.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  217
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://prolobjectlink.github.io/prolobjectlink-jpi-jiprolog/checkstyle.html#io.github.prolobjectlink.prolog.jiprolog.JiPrologVariable.java">io/github/prolobjectlink/prolog/jiprolog/JiPrologVariable.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  47
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

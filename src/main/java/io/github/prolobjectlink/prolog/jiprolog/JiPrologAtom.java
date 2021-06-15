@@ -54,12 +54,4 @@ final class JiPrologAtom extends JiPrologTerm implements PrologAtom {
 		return "" + value + "";
 	}
 
-	public String getIndicator() {
-		return getFunctor() + "/" + getArity();
-	}
-
-	public boolean hasIndicator(String functor, int arity) {
-		return getFunctor().equals(functor) && getArity() == arity;
-	}
-
 }

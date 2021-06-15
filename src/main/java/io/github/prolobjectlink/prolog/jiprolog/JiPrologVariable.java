@@ -26,7 +26,6 @@ import com.ugos.jiprolog.engine.JIPVariable;
 
 import io.github.prolobjectlink.prolog.ArityError;
 import io.github.prolobjectlink.prolog.FunctorError;
-import io.github.prolobjectlink.prolog.IndicatorError;
 import io.github.prolobjectlink.prolog.PrologProvider;
 import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologVariable;
@@ -67,14 +66,6 @@ class JiPrologVariable extends JiPrologTerm implements PrologVariable {
 
 	public String getFunctor() {
 		throw new FunctorError(this);
-	}
-
-	public String getIndicator() {
-		throw new IndicatorError(this);
-	}
-
-	public boolean hasIndicator(String functor, int arity) {
-		throw new IndicatorError(this);
 	}
 
 	public int getPosition() {

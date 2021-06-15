@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.prolobjectlink</groupId>
 	<artifactId>prolobjectlink-jpi-jiprolog</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>prolobjectlink-jpi-jiprolog</name>
 	<packaging>bundle</packaging>
 	<description>JIProlog Java Prolog Interface Implementation</description>
@@ -455,7 +455,7 @@
 						<Bundle-DocURL>${project.url}</Bundle-DocURL>
 						<Bundle-Name>JIProlog Java Prolog Interface Implementation</Bundle-Name>
 						<Export-Package>${project.groupId}.prolog.jiprolog</Export-Package>
-						<Import-Package>javax.script;com.ugos.jiprolog.engine;${project.groupId}.*;provide:=true</Import-Package>
+						<Import-Package>javax.script;com.ugos.jiprolog.engine;com.ugos.jiprolog.extensions.reflect;${project.groupId}.*;provide:=true</Import-Package>
 						<Bundle-SymbolicName>${project.groupId}.prolog.jiprolog.plugin;singleton:=true</Bundle-SymbolicName>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
 						<Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>

@@ -24,6 +24,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Map;
 
 import com.ugos.jiprolog.engine.JIPCons;
 import com.ugos.jiprolog.engine.JIPEngine;
@@ -194,8 +195,47 @@ public final class JiProlog extends AbstractProvider implements PrologProvider {
 		return new JiPrologStructure(this, left, operator, right);
 	}
 
+	public final PrologTerm newEntry(PrologTerm key, PrologTerm value) {
+		return new JiPrologEntry(this, key, value);
+	}
+
+	public final PrologTerm newEntry(Object key, Object value) {
+		PrologJavaConverter transformer = getJavaConverter();
+		PrologTerm keyTerm = transformer.toTerm(key);
+		PrologTerm valueTerm = transformer.toTerm(value);
+		return new JiPrologEntry(this, keyTerm, valueTerm);
+	}
+
+	public final PrologTerm newMap(Map<PrologTerm, PrologTerm> map) {
+		return new JiPrologMap(this, map);
+	}
+
+	public final PrologTerm newMap(int initialCapacity) {
+		return new JiPrologMap(this, initialCapacity);
+	}
+
+	public final PrologTerm newMap() {
+		return new JiPrologMap(this);
+	}
+
 	public PrologTerm newReference(Object reference) {
-		throw new UnsupportedOperationException("newReference(Object reference)");
+		return new JiPrologReference(this, reference);
+	}
+
+	public PrologTerm falseReference() {
+		return newReference(false);
+	}
+
+	public PrologTerm trueReference() {
+		return newReference(true);
+	}
+
+	public PrologTerm nullReference() {
+		return newReference(null);
+	}
+
+	public PrologTerm voidReference() {
+		return newReference(void.class);
 	}
 
 	public PrologJavaConverter getJavaConverter() {

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd>
+<duplication lines="28" tokens="171">
+<file line="147" path="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologEngine.java"/>
+<file line="191" path="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologEngine.java"/>
+<codefragment>
+<![CDATA[
+			BufferedReader bfr = new BufferedReader(reader);
+			StringBuilder script = new StringBuilder();
+			String line = bfr.readLine();
+			while (line != null) {
+				script.append(line);
+				script.append("\n");
+				line = bfr.readLine();
+			}
+
+			// load and assert
+			String name = reader.toString();
+			byte[] bs = script.toString().getBytes();
+			ByteArrayInputStream fins = new ByteArrayInputStream(bs);
+			Enumeration<?> loadEnumeration = parser.parseStream(fins, name);
+//			PushbackLineNumberInputStream stream = new PushbackLineNumberInputStream(fins);
+//			Enumeration<?> loadEnumeration = parser.parseStream(stream, name);
+			while (loadEnumeration.hasMoreElements()) {
+				JIPTerm jipTerm = (JIPTerm) loadEnumeration.nextElement();
+				engine.assertz(jipTerm);
+			}
+		} catch (FileNotFoundException e) {
+			getLogger().error(getClass(), PrologLogger.FILE_NOT_FOUND, e);
+		} catch (IOException e) {
+			getLogger().error(getClass(), PrologLogger.IO, e);
+		}
+	}
+
+	public void persist(String path) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="37" tokens="164">
+<file line="43" path="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologDouble.java"/>
+<file line="43" path="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologFloat.java"/>
+<file line="43" path="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologInteger.java"/>
+<file line="43" path="C:\Users\Jose Zalacain\Documents\eclipse-java-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologLong.java"/>
+<codefragment>
+<![CDATA[
+		super(LONG_TYPE, provider, JIPNumber.create(value.longValue()));
+	}
+
+	public PrologInteger getPrologInteger() {
+		return new JiPrologInteger(provider, getIntegerValue());
+	}
+
+	public PrologFloat getPrologFloat() {
+		return new JiPrologFloat(provider, getFloatValue());
+	}
+
+	public PrologDouble getPrologDouble() {
+		return new JiPrologDouble(provider, getDoubleValue());
+	}
+
+	public PrologLong getPrologLong() {
+		return new JiPrologLong(provider, getLongValue());
+	}
+
+	public long getLongValue() {
+		return (long) ((JIPNumber) value).getDoubleValue();
+	}
+
+	public double getDoubleValue() {
+		return ((JIPNumber) value).getDoubleValue();
+	}
+
+	public int getIntegerValue() {
+		return (int) ((JIPNumber) value).getDoubleValue();
+	}
+
+	public float getFloatValue() {
+		return (float) ((JIPNumber) value).getDoubleValue();
+	}
+
+	public PrologTerm[] getArguments() {
+		return new JiPrologLong[0];
+]]>
+</codefragment>
+</duplication>
+</pmd-cpd>

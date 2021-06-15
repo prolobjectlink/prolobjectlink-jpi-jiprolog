@@ -158,6 +158,8 @@ final class JiPrologConverter extends AbstractConverter<JIPTerm> implements Prol
 			arguments = ((PrologStructure) term).getArguments();
 			JIPCons cons = adaptCons(arguments);
 			return JIPFunctor.create(removeQuoted(functor), cons);
+		case PrologTermType.OBJECT_TYPE:
+			return JiPrologReference.set(term.getObject());
 		default:
 			throw new UnknownTermError(term);
 		}

@@ -47,6 +47,13 @@ class JiPrologQuery extends AbstractQuery implements PrologQuery {
 		solution = query.nextSolution();
 	}
 
+	JiPrologQuery(AbstractEngine engine, PrologTerm goal) {
+		super(engine);
+		JiPrologEngine pe = (JiPrologEngine) engine;
+		query = pe.engine.openSynchronousQuery("" + goal + "");
+		solution = query.nextSolution();
+	}
+
 	JiPrologQuery(AbstractEngine engine, PrologTerm[] terms) {
 		super(engine);
 		JiPrologEngine pe = (JiPrologEngine) engine;

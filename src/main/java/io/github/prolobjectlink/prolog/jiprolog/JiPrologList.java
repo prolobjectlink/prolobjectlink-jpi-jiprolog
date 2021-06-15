@@ -126,14 +126,6 @@ class JiPrologList extends JiPrologCompound implements PrologList {
 		return "[]";
 	}
 
-	public final String getIndicator() {
-		return getFunctor() + "/" + getArity();
-	}
-
-	public final boolean hasIndicator(String functor, int arity) {
-		return getFunctor().equals(functor) && getArity() == arity;
-	}
-
 	public final PrologTerm[] getArguments() {
 		JIPList list = (JIPList) value;
 		if (list != null) {

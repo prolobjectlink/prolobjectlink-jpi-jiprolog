@@ -32,7 +32,6 @@ import org.junit.Test;
 
 import io.github.prolobjectlink.prolog.ArityError;
 import io.github.prolobjectlink.prolog.FunctorError;
-import io.github.prolobjectlink.prolog.IndicatorError;
 import io.github.prolobjectlink.prolog.PrologAtom;
 import io.github.prolobjectlink.prolog.PrologDouble;
 import io.github.prolobjectlink.prolog.PrologFloat;
@@ -105,7 +104,7 @@ public class PrologLongTest extends PrologBaseTest {
 		long1.getFunctor();
 	}
 
-	@Test(expected = IndicatorError.class)
+	@Test(expected = FunctorError.class)
 	public void testHasIndicator() {
 		assertFalse(long1.hasIndicator("100", 0));
 	}
@@ -180,7 +179,7 @@ public class PrologLongTest extends PrologBaseTest {
 		assertFalse(long1.isEvaluable());
 	}
 
-	@Test(expected = IndicatorError.class)
+	@Test(expected = FunctorError.class)
 	public void testGetKey() {
 		long1.getIndicator();
 	}

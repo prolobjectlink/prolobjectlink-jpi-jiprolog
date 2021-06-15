@@ -29,7 +29,10 @@ import static io.github.prolobjectlink.prolog.PrologTermType.FLOAT_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.INTEGER_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.LIST_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.LONG_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.MAP_ENTRY_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.MAP_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.NIL_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.OBJECT_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.STRUCTURE_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.TRUE_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.VARIABLE_TYPE;
@@ -121,31 +124,31 @@ abstract class JiPrologTerm extends AbstractTerm implements PrologTerm {
 		return isStructure() || isList();
 	}
 
-	public final boolean isTrueType() {
-		return false;
+	public boolean isTrueType() {
+		return getObject().equals(true);
 	}
 
 	public final boolean isFalseType() {
-		return false;
+		return getObject().equals(false);
 	}
 
 	public final boolean isNullType() {
-		return false;
+		return getObject() == null;
 	}
 
 	public final boolean isVoidType() {
-		return false;
+		return getObject() == void.class;
 	}
 
 	public final boolean isObjectType() {
-		return false;
+		return getType() == OBJECT_TYPE;
 	}
 
 	public final boolean isReference() {
-		return false;
+		return isObjectType();
 	}
 
-	public final Object getObject() {
+	public Object getObject() {
 		return null;
 	}
 
@@ -191,11 +194,17 @@ abstract class JiPrologTerm extends AbstractTerm implements PrologTerm {
 
 			break;
 
+		case MAP_TYPE:
 		case LIST_TYPE:
 		case STRUCTURE_TYPE:
+		case MAP_ENTRY_TYPE:
 
 			PrologTerm thisCompound = this;
 			PrologTerm otherCompound = term;
+
+			if (thisCompound.isEmptyList() && otherCompound.isEmptyList()) {
+				return 0;
+			}
 
 			// comparison by arity
 			if (thisCompound.getArity() < otherCompound.getArity()) {
