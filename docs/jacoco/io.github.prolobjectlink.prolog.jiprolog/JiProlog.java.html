@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JiProlog.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">prolobjectlink-jpi-jiprolog</a> &gt; <a href="index.source.html" class="el_package">io.github.prolobjectlink.prolog.jiprolog</a> &gt; <span class="el_source">JiProlog.java</span></div><h1>JiProlog.java</h1><pre class="source lang-java linenums">/*-
+ * #%L
+ * prolobjectlink-jpi-jiprolog
+ * %%
+ * Copyright (C) 2012 - 2019 Logicware Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ * #L%
+ */
+package io.github.prolobjectlink.prolog.jiprolog;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Map;
+
+import com.ugos.jiprolog.engine.JIPCons;
+import com.ugos.jiprolog.engine.JIPEngine;
+import com.ugos.jiprolog.engine.JIPTerm;
+import com.ugos.jiprolog.engine.JIPTermParser;
+
+import io.github.prolobjectlink.prolog.AbstractProvider;
+import io.github.prolobjectlink.prolog.PrologAtom;
+import io.github.prolobjectlink.prolog.PrologConverter;
+import io.github.prolobjectlink.prolog.PrologDouble;
+import io.github.prolobjectlink.prolog.PrologEngine;
+import io.github.prolobjectlink.prolog.PrologFloat;
+import io.github.prolobjectlink.prolog.PrologInteger;
+import io.github.prolobjectlink.prolog.PrologJavaConverter;
+import io.github.prolobjectlink.prolog.PrologList;
+import io.github.prolobjectlink.prolog.PrologLogger;
+import io.github.prolobjectlink.prolog.PrologLong;
+import io.github.prolobjectlink.prolog.PrologProvider;
+import io.github.prolobjectlink.prolog.PrologStructure;
+import io.github.prolobjectlink.prolog.PrologTerm;
+import io.github.prolobjectlink.prolog.PrologVariable;
+
+public final class JiProlog extends AbstractProvider implements PrologProvider {
+
+<span class="fc" id="L52">	private static final PrologLogger logger = new JiPrologLogger();</span>
+
+	public JiProlog() {
+<span class="fc" id="L55">		super(new JiPrologConverter());</span>
+<span class="fc" id="L56">	}</span>
+
+	JiProlog(PrologConverter&lt;JIPTerm&gt; converter) {
+<span class="fc" id="L59">		super(converter);</span>
+<span class="fc" id="L60">	}</span>
+
+	public boolean isCompliant() {
+<span class="fc" id="L63">		return false;</span>
+	}
+
+	public PrologTerm prologNil() {
+<span class="fc" id="L67">		return new JiPrologNil(this);</span>
+	}
+
+	public PrologTerm prologCut() {
+<span class="fc" id="L71">		return new JiPrologCut(this);</span>
+	}
+
+	public PrologTerm prologFail() {
+<span class="fc" id="L75">		return new JiPrologFail(this);</span>
+	}
+
+	public PrologTerm prologTrue() {
+<span class="fc" id="L79">		return new JiPrologTrue(this);</span>
+	}
+
+	public PrologTerm prologFalse() {
+<span class="fc" id="L83">		return new JiPrologFalse(this);</span>
+	}
+
+	public PrologTerm prologEmpty() {
+<span class="fc" id="L87">		return new JiPrologEmpty(this);</span>
+	}
+
+	public PrologTerm prologInclude(String file) {
+<span class="nc" id="L91">		return newStructure(&quot;include&quot;, newAtom(file));</span>
+	}
+
+	public PrologEngine newEngine() {
+<span class="fc" id="L95">		return new JiPrologEngine(this);</span>
+	}
+
+	public final PrologEngine newEngine(String path) {
+<span class="nc" id="L99">		PrologEngine engine = newEngine();</span>
+<span class="nc" id="L100">		engine.consult(path);</span>
+<span class="nc" id="L101">		return engine;</span>
+	}
+
+	public PrologTerm parseTerm(String term) {
+<span class="fc" id="L105">		JIPTermParser parser = new JIPEngine().getTermParser();</span>
+<span class="fc" id="L106">		return toTerm(parser.parseTerm(term), PrologTerm.class);</span>
+	}
+
+	public PrologTerm[] parseTerms(String stringTerms) {
+<span class="fc" id="L110">		JIPTermParser parser = new JIPEngine().getTermParser();</span>
+<span class="fc" id="L111">		InputStream inputStream = new ByteArrayInputStream(stringTerms.getBytes());</span>
+<span class="fc" id="L112">		Enumeration&lt;JIPTerm&gt; e = parser.parseStream(inputStream, inputStream.toString());</span>
+//		PushbackLineNumberInputStream stream = new PushbackLineNumberInputStream(inputStream);
+//		Enumeration&lt;JIPTerm&gt; e = parser.parseStream(stream, stream.toString());
+<span class="fc" id="L115">		ArrayList&lt;PrologTerm&gt; terms = new ArrayList&lt;PrologTerm&gt;();</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">		while (e.hasMoreElements()) {</span>
+<span class="fc" id="L117">			JIPTerm term = e.nextElement();</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">			if (!(term instanceof JIPCons)) {</span>
+<span class="fc" id="L119">				terms.add(toTerm(term, PrologTerm.class));</span>
+			} else {
+
+<span class="fc" id="L122">				JIPCons structure = (JIPCons) term;</span>
+<span class="fc" id="L123">				int deep = structure.getHeight();</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">				for (int i = 1; i &lt;= deep; i++) {</span>
+
+//					JIPTerm j = structure.getNth(i)
+
+//					System.out.println(j + &quot;[ &quot; + j.getClass() + &quot; ]&quot;)
+
+<span class="fc" id="L130">					PrologTerm k = toTerm(structure.getNth(i), PrologTerm.class);</span>
+
+<span class="fc" id="L132">					terms.add(k);</span>
+
+				}
+
+			}
+<span class="fc" id="L137">		}</span>
+<span class="fc" id="L138">		return terms.toArray(new PrologTerm[0]);</span>
+	}
+
+	// terms
+
+	public PrologAtom newAtom(String functor) {
+<span class="fc" id="L144">		return new JiPrologAtom(this, functor);</span>
+	}
+
+	public PrologFloat newFloat(Number value) {
+<span class="fc" id="L148">		return new JiPrologFloat(this, value);</span>
+	}
+
+	public PrologDouble newDouble(Number value) {
+<span class="fc" id="L152">		return new JiPrologDouble(this, value);</span>
+	}
+
+	public PrologInteger newInteger(Number value) {
+<span class="fc" id="L156">		return new JiPrologInteger(this, value);</span>
+	}
+
+	public PrologLong newLong(Number value) {
+<span class="fc" id="L160">		return new JiPrologLong(this, value);</span>
+	}
+
+	public PrologVariable newVariable(int position) {
+<span class="fc" id="L164">		return new JiPrologVariable(this);</span>
+	}
+
+	public PrologVariable newVariable(String name, int position) {
+<span class="fc" id="L168">		return new JiPrologVariable(this, name);</span>
+	}
+
+	public PrologList newList() {
+<span class="fc" id="L172">		return new JiPrologEmpty(this);</span>
+	}
+
+	public PrologList newList(PrologTerm[] arguments) {
+<span class="fc bfc" id="L176" title="All 4 branches covered.">		if (arguments != null &amp;&amp; arguments.length &gt; 0) {</span>
+<span class="fc" id="L177">			return new JiPrologList(this, arguments);</span>
+		}
+<span class="fc" id="L179">		return new JiPrologList(this);</span>
+	}
+
+	public PrologList newList(PrologTerm head, PrologTerm tail) {
+<span class="fc" id="L183">		return new JiPrologList(this, head, tail);</span>
+	}
+
+	public PrologList newList(PrologTerm[] arguments, PrologTerm tail) {
+<span class="fc" id="L187">		return new JiPrologList(this, arguments, tail);</span>
+	}
+
+	public PrologStructure newStructure(String functor, PrologTerm... arguments) {
+<span class="fc" id="L191">		return new JiPrologStructure(this, functor, arguments);</span>
+	}
+
+	public PrologStructure newStructure(PrologTerm left, String operator, PrologTerm right) {
+<span class="fc" id="L195">		return new JiPrologStructure(this, left, operator, right);</span>
+	}
+
+	public final PrologTerm newEntry(PrologTerm key, PrologTerm value) {
+<span class="fc" id="L199">		return new JiPrologEntry(this, key, value);</span>
+	}
+
+	public final PrologTerm newEntry(Object key, Object value) {
+<span class="nc" id="L203">		PrologJavaConverter transformer = getJavaConverter();</span>
+<span class="nc" id="L204">		PrologTerm keyTerm = transformer.toTerm(key);</span>
+<span class="nc" id="L205">		PrologTerm valueTerm = transformer.toTerm(value);</span>
+<span class="nc" id="L206">		return new JiPrologEntry(this, keyTerm, valueTerm);</span>
+	}
+
+	public final PrologTerm newMap(Map&lt;PrologTerm, PrologTerm&gt; map) {
+<span class="nc" id="L210">		return new JiPrologMap(this, map);</span>
+	}
+
+	public final PrologTerm newMap(int initialCapacity) {
+<span class="fc" id="L214">		return new JiPrologMap(this, initialCapacity);</span>
+	}
+
+	public final PrologTerm newMap() {
+<span class="fc" id="L218">		return new JiPrologMap(this);</span>
+	}
+
+	public PrologTerm newReference(Object reference) {
+<span class="fc" id="L222">		return new JiPrologReference(this, reference);</span>
+	}
+
+	public PrologTerm falseReference() {
+<span class="fc" id="L226">		return newReference(false);</span>
+	}
+
+	public PrologTerm trueReference() {
+<span class="fc" id="L230">		return newReference(true);</span>
+	}
+
+	public PrologTerm nullReference() {
+<span class="fc" id="L234">		return newReference(null);</span>
+	}
+
+	public PrologTerm voidReference() {
+<span class="fc" id="L238">		return newReference(void.class);</span>
+	}
+
+	public PrologJavaConverter getJavaConverter() {
+<span class="fc" id="L242">		return new JiPrologJavaConverter(this);</span>
+	}
+
+	public PrologLogger getLogger() {
+<span class="fc" id="L246">		return logger;</span>
+	}
+
+	@Override
+	public String toString() {
+<span class="fc" id="L251">		return &quot;JiProlog [converter=&quot; + converter + &quot;]&quot;;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

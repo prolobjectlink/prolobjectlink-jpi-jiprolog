@@ -498,59 +498,59 @@
 				<artifactId>versions-maven-plugin</artifactId>
 				<version>2.2</version>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.rat</groupId>
-				<artifactId>apache-rat-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<excludeSubProjects>false</excludeSubProjects>
-					<numUnapprovedLicenses>0</numUnapprovedLicenses>
-					<licenses>
-						<license
-							implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
-							<licenseFamilyCategory>AGPL3.0</licenseFamilyCategory>
-							<licenseFamilyName>GNU Affero General Public License (AGPL) 3.0</licenseFamilyName>
-							<notes></notes>
-							<patterns>
-								<pattern>GNU Affero General Public License</pattern>
-							</patterns>
-						</license>
-					</licenses>
-					<licenseFamilies>
-						<licenseFamily
-							implementation="org.apache.rat.license.GPL3LicenseFamily">
-							<familyName>GNU Affero General Public License (AGPL) version 3.0</familyName>
-						</licenseFamily>
-					</licenseFamilies>
-					<excludes>
-						generated content
-						<exclude>**/.*/**</exclude>
-						<exclude>**/target/**/*</exclude>
-					</excludes>
-					<includes>
-						only check common source files
-						<include>**/src/**/*.apt</include>
-						<include>**/src/**/*.bat</include>
-						<include>**/src/**/*.css</include>
-						<include>**/src/**/*.html</include>
-						<include>**/src/**/*.java</include>
-						<include>**/src/**/*.js</include>
-						<include>**/src/**/*.jsp</include>
-						<include>**/src/**/*.properties</include>
-						<include>**/src/**/*.sh</include>
-						<include>**/src/**/*.txt</include>
-						<include>**/src/**/*.vm</include>
-						<include>**/src/**/*.xml</include>
-					</includes>
-				</configuration>
-			</plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.rat</groupId> -->
+			<!-- <artifactId>apache-rat-plugin</artifactId> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <phase>verify</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>check</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- <configuration> -->
+			<!-- <excludeSubProjects>false</excludeSubProjects> -->
+			<!-- <numUnapprovedLicenses>0</numUnapprovedLicenses> -->
+			<!-- <licenses> -->
+			<!-- <license -->
+			<!-- implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense"> -->
+			<!-- <licenseFamilyCategory>AGPL3.0</licenseFamilyCategory> -->
+			<!-- <licenseFamilyName>GNU Affero General Public License (AGPL) 3.0</licenseFamilyName> -->
+			<!-- <notes></notes> -->
+			<!-- <patterns> -->
+			<!-- <pattern>GNU Affero General Public License</pattern> -->
+			<!-- </patterns> -->
+			<!-- </license> -->
+			<!-- </licenses> -->
+			<!-- <licenseFamilies> -->
+			<!-- <licenseFamily -->
+			<!-- implementation="org.apache.rat.license.GPL3LicenseFamily"> -->
+			<!-- <familyName>GNU Affero General Public License (AGPL) version 3.0</familyName> -->
+			<!-- </licenseFamily> -->
+			<!-- </licenseFamilies> -->
+			<!-- <excludes> -->
+			<!-- generated content -->
+			<!-- <exclude>**/.*/**</exclude> -->
+			<!-- <exclude>**/target/**/*</exclude> -->
+			<!-- </excludes> -->
+			<!-- <includes> -->
+			<!-- only check common source files -->
+			<!-- <include>**/src/**/*.apt</include> -->
+			<!-- <include>**/src/**/*.bat</include> -->
+			<!-- <include>**/src/**/*.css</include> -->
+			<!-- <include>**/src/**/*.html</include> -->
+			<!-- <include>**/src/**/*.java</include> -->
+			<!-- <include>**/src/**/*.js</include> -->
+			<!-- <include>**/src/**/*.jsp</include> -->
+			<!-- <include>**/src/**/*.properties</include> -->
+			<!-- <include>**/src/**/*.sh</include> -->
+			<!-- <include>**/src/**/*.txt</include> -->
+			<!-- <include>**/src/**/*.vm</include> -->
+			<!-- <include>**/src/**/*.xml</include> -->
+			<!-- </includes> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
@@ -704,24 +704,24 @@
 					</reportSet>
 				</reportSets>
 			</plugin>
-			<plugin>
-				<artifactId>maven-changelog-plugin</artifactId>
-				<version>2.2</version>
-				<reportSets>
-					<reportSet>
-						<id>dual-report</id>
-						<configuration>
-							<type>range</type>
-							<range>30</range>
-						</configuration>
-						<reports>
-							<report>changelog</report>
-							<report>file-activity</report>
-							<report>dev-activity</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
+			<!-- <plugin> -->
+			<!-- <artifactId>maven-changelog-plugin</artifactId> -->
+			<!-- <version>2.2</version> -->
+			<!-- <reportSets> -->
+			<!-- <reportSet> -->
+			<!-- <id>dual-report</id> -->
+			<!-- <configuration> -->
+			<!-- <type>range</type> -->
+			<!-- <range>30</range> -->
+			<!-- </configuration> -->
+			<!-- <reports> -->
+			<!-- <report>changelog</report> -->
+			<!-- <report>file-activity</report> -->
+			<!-- <report>dev-activity</report> -->
+			<!-- </reports> -->
+			<!-- </reportSet> -->
+			<!-- </reportSets> -->
+			<!-- </plugin> -->
 		</plugins>
 	</reporting>
 

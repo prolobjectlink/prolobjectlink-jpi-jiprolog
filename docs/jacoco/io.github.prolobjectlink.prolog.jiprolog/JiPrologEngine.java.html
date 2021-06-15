@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JiPrologEngine.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">prolobjectlink-jpi-jiprolog</a> &gt; <a href="index.source.html" class="el_package">io.github.prolobjectlink.prolog.jiprolog</a> &gt; <span class="el_source">JiPrologEngine.java</span></div><h1>JiPrologEngine.java</h1><pre class="source lang-java linenums">/*-
+ * #%L
+ * prolobjectlink-jpi-jiprolog
+ * %%
+ * Copyright (C) 2012 - 2019 Logicware Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ * #L%
+ */
+package io.github.prolobjectlink.prolog.jiprolog;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+import com.ugos.jiprolog.engine.JIPClause;
+import com.ugos.jiprolog.engine.JIPClausesDatabase;
+import com.ugos.jiprolog.engine.JIPCons;
+import com.ugos.jiprolog.engine.JIPEngine;
+import com.ugos.jiprolog.engine.JIPFunctor;
+import com.ugos.jiprolog.engine.JIPTerm;
+import com.ugos.jiprolog.engine.JIPTermParser;
+import com.ugos.jiprolog.engine.Operator;
+import com.ugos.jiprolog.engine.OperatorManager;
+
+import io.github.prolobjectlink.prolog.AbstractEngine;
+import io.github.prolobjectlink.prolog.Licenses;
+import io.github.prolobjectlink.prolog.PrologClause;
+import io.github.prolobjectlink.prolog.PrologEngine;
+import io.github.prolobjectlink.prolog.PrologIndicator;
+import io.github.prolobjectlink.prolog.PrologLogger;
+import io.github.prolobjectlink.prolog.PrologOperator;
+import io.github.prolobjectlink.prolog.PrologProvider;
+import io.github.prolobjectlink.prolog.PrologQuery;
+import io.github.prolobjectlink.prolog.PrologTerm;
+import io.github.prolobjectlink.prolog.PrologTermType;
+
+final class JiPrologEngine extends AbstractEngine implements PrologEngine {
+
+	final JIPEngine engine;
+	private final JIPTermParser parser;
+	private final JiPrologConverter converter;
+<span class="fc" id="L68">	private static final JIPCons nil = JIPCons.NIL;</span>
+
+	private static final String JIPXSETS_VERSION = &quot;ver(jipxsets, '4.0.1')&quot;;
+	private static final String JIPXIO_VERSION = &quot;ver(jipxio, '4.0.2')&quot;;
+	private static final String JIPXDB_VERSION = &quot;ver(jipxdb, '3.0.0')&quot;;
+	private static final String JIPXEXCEPTION_VERSION = &quot;ver(jipxexception, '3.0.2')&quot;;
+	private static final String JIPXREFLECT_VERSION = &quot;ver(jipxreflect, '3.0.0')&quot;;
+	private static final String JIPXSYSTEM_VERSION = &quot;ver(jipxsystem, '3.0.1')&quot;;
+	private static final String JIPXTERMS_VERSION = &quot;ver(jipxterms, '4.0.1')&quot;;
+	private static final String JIPXXML_VERSION = &quot;ver(jipxxml, '3.0.0')&quot;;
+
+	JiPrologEngine(PrologProvider provider) {
+<span class="fc" id="L80">		this(provider, new JIPEngine());</span>
+<span class="fc" id="L81">	}</span>
+
+	private JiPrologEngine(PrologProvider provider, JIPEngine engine) {
+<span class="fc" id="L84">		super(provider);</span>
+
+<span class="fc" id="L86">		this.engine = engine;</span>
+<span class="fc" id="L87">		this.parser = engine.getTermParser();</span>
+<span class="fc" id="L88">		this.converter = new JiPrologConverter();</span>
+
+		// retract versions predicates
+<span class="fc" id="L91">		retract(JIPXSETS_VERSION);</span>
+<span class="fc" id="L92">		retract(JIPXIO_VERSION);</span>
+<span class="fc" id="L93">		retract(JIPXDB_VERSION);</span>
+<span class="fc" id="L94">		retract(JIPXEXCEPTION_VERSION);</span>
+<span class="fc" id="L95">		retract(JIPXREFLECT_VERSION);</span>
+<span class="fc" id="L96">		retract(JIPXSYSTEM_VERSION);</span>
+<span class="fc" id="L97">		retract(JIPXTERMS_VERSION);</span>
+<span class="fc" id="L98">		retract(JIPXXML_VERSION);</span>
+
+<span class="fc" id="L100">	}</span>
+
+	public void consult(String path) {
+		try {
+
+			// clear database
+<span class="fc" id="L106">			engine.reset();</span>
+
+			// retract versions predicates
+<span class="fc" id="L109">			retract(JIPXSETS_VERSION);</span>
+<span class="fc" id="L110">			retract(JIPXIO_VERSION);</span>
+<span class="fc" id="L111">			retract(JIPXDB_VERSION);</span>
+<span class="fc" id="L112">			retract(JIPXEXCEPTION_VERSION);</span>
+<span class="fc" id="L113">			retract(JIPXREFLECT_VERSION);</span>
+<span class="fc" id="L114">			retract(JIPXSYSTEM_VERSION);</span>
+<span class="fc" id="L115">			retract(JIPXTERMS_VERSION);</span>
+<span class="fc" id="L116">			retract(JIPXXML_VERSION);</span>
+
+			// load and assert
+<span class="fc" id="L119">			FileInputStream fins = new FileInputStream(path);</span>
+<span class="fc" id="L120">			Enumeration&lt;?&gt; loadEnumeration = parser.parseStream(fins, path);</span>
+//			PushbackLineNumberInputStream stream = new PushbackLineNumberInputStream(fins);
+//			Enumeration&lt;?&gt; loadEnumeration = parser.parseStream(stream, path);
+<span class="fc bfc" id="L123" title="All 2 branches covered.">			while (loadEnumeration.hasMoreElements()) {</span>
+<span class="fc" id="L124">				JIPTerm jipTerm = (JIPTerm) loadEnumeration.nextElement();</span>
+<span class="fc" id="L125">				engine.assertz(jipTerm);</span>
+<span class="fc" id="L126">			}</span>
+<span class="nc" id="L127">		} catch (FileNotFoundException e) {</span>
+<span class="nc" id="L128">			getLogger().error(getClass(), PrologLogger.FILE_NOT_FOUND, e);</span>
+<span class="fc" id="L129">		}</span>
+<span class="fc" id="L130">	}</span>
+
+	public void consult(Reader reader) {
+		try {
+
+			// clear database
+<span class="nc" id="L136">			engine.reset();</span>
+
+			// retract versions predicates
+<span class="nc" id="L139">			retract(JIPXSETS_VERSION);</span>
+<span class="nc" id="L140">			retract(JIPXIO_VERSION);</span>
+<span class="nc" id="L141">			retract(JIPXDB_VERSION);</span>
+<span class="nc" id="L142">			retract(JIPXEXCEPTION_VERSION);</span>
+<span class="nc" id="L143">			retract(JIPXREFLECT_VERSION);</span>
+<span class="nc" id="L144">			retract(JIPXSYSTEM_VERSION);</span>
+<span class="nc" id="L145">			retract(JIPXTERMS_VERSION);</span>
+<span class="nc" id="L146">			retract(JIPXXML_VERSION);</span>
+
+<span class="nc" id="L148">			BufferedReader bfr = new BufferedReader(reader);</span>
+<span class="nc" id="L149">			StringBuilder script = new StringBuilder();</span>
+<span class="nc" id="L150">			String line = bfr.readLine();</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">			while (line != null) {</span>
+<span class="nc" id="L152">				script.append(line);</span>
+<span class="nc" id="L153">				script.append(&quot;\n&quot;);</span>
+<span class="nc" id="L154">				line = bfr.readLine();</span>
+			}
+
+			// load and assert
+<span class="nc" id="L158">			String name = reader.toString();</span>
+<span class="nc" id="L159">			byte[] bs = script.toString().getBytes();</span>
+<span class="nc" id="L160">			ByteArrayInputStream fins = new ByteArrayInputStream(bs);</span>
+<span class="nc" id="L161">			Enumeration&lt;?&gt; loadEnumeration = parser.parseStream(fins, name);</span>
+//			PushbackLineNumberInputStream stream = new PushbackLineNumberInputStream(fins);
+//			Enumeration&lt;?&gt; loadEnumeration = parser.parseStream(stream, name);
+<span class="nc bnc" id="L164" title="All 2 branches missed.">			while (loadEnumeration.hasMoreElements()) {</span>
+<span class="nc" id="L165">				JIPTerm jipTerm = (JIPTerm) loadEnumeration.nextElement();</span>
+<span class="nc" id="L166">				engine.assertz(jipTerm);</span>
+<span class="nc" id="L167">			}</span>
+<span class="nc" id="L168">		} catch (FileNotFoundException e) {</span>
+<span class="nc" id="L169">			getLogger().error(getClass(), PrologLogger.FILE_NOT_FOUND, e);</span>
+<span class="nc" id="L170">		} catch (IOException e) {</span>
+<span class="nc" id="L171">			getLogger().error(getClass(), PrologLogger.IO, e);</span>
+<span class="nc" id="L172">		}</span>
+<span class="nc" id="L173">	}</span>
+
+	public void include(String path) {
+		try {
+<span class="fc" id="L177">			FileInputStream fins = new FileInputStream(path);</span>
+<span class="fc" id="L178">			Enumeration&lt;?&gt; loadEnumeration = parser.parseStream(fins, path);</span>
+//			PushbackLineNumberInputStream stream = new PushbackLineNumberInputStream(fins);
+//			Enumeration&lt;?&gt; loadEnumeration = parser.parseStream(stream, path);
+<span class="fc bfc" id="L181" title="All 2 branches covered.">			while (loadEnumeration.hasMoreElements()) {</span>
+<span class="fc" id="L182">				JIPTerm jipTerm = (JIPTerm) loadEnumeration.nextElement();</span>
+<span class="fc" id="L183">				engine.assertz(jipTerm);</span>
+<span class="fc" id="L184">			}</span>
+<span class="nc" id="L185">		} catch (FileNotFoundException e) {</span>
+<span class="nc" id="L186">			getLogger().error(getClass(), PrologLogger.FILE_NOT_FOUND, e);</span>
+<span class="fc" id="L187">		}</span>
+<span class="fc" id="L188">	}</span>
+
+	public void include(Reader reader) {
+		try {
+<span class="fc" id="L192">			BufferedReader bfr = new BufferedReader(reader);</span>
+<span class="fc" id="L193">			StringBuilder script = new StringBuilder();</span>
+<span class="fc" id="L194">			String line = bfr.readLine();</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">			while (line != null) {</span>
+<span class="fc" id="L196">				script.append(line);</span>
+<span class="fc" id="L197">				script.append(&quot;\n&quot;);</span>
+<span class="fc" id="L198">				line = bfr.readLine();</span>
+			}
+
+			// load and assert
+<span class="fc" id="L202">			String name = reader.toString();</span>
+<span class="fc" id="L203">			byte[] bs = script.toString().getBytes();</span>
+<span class="fc" id="L204">			ByteArrayInputStream fins = new ByteArrayInputStream(bs);</span>
+<span class="fc" id="L205">			Enumeration&lt;?&gt; loadEnumeration = parser.parseStream(fins, name);</span>
+//			PushbackLineNumberInputStream stream = new PushbackLineNumberInputStream(fins);
+//			Enumeration&lt;?&gt; loadEnumeration = parser.parseStream(stream, name);
+<span class="fc bfc" id="L208" title="All 2 branches covered.">			while (loadEnumeration.hasMoreElements()) {</span>
+<span class="fc" id="L209">				JIPTerm jipTerm = (JIPTerm) loadEnumeration.nextElement();</span>
+<span class="fc" id="L210">				engine.assertz(jipTerm);</span>
+<span class="fc" id="L211">			}</span>
+<span class="nc" id="L212">		} catch (FileNotFoundException e) {</span>
+<span class="nc" id="L213">			getLogger().error(getClass(), PrologLogger.FILE_NOT_FOUND, e);</span>
+<span class="nc" id="L214">		} catch (IOException e) {</span>
+<span class="nc" id="L215">			getLogger().error(getClass(), PrologLogger.IO, e);</span>
+<span class="pc" id="L216">		}</span>
+<span class="fc" id="L217">	}</span>
+
+	public void persist(String path) {
+		try {
+<span class="fc" id="L221">			PrintWriter writer = new PrintWriter(new FileWriter(path));</span>
+<span class="fc" id="L222">			Collection&lt;JIPClausesDatabase&gt; collection = engine.getDataBase();</span>
+<span class="fc bfc" id="L223" title="All 2 branches covered.">			for (JIPClausesDatabase jipClausesDatabase : collection) {</span>
+<span class="fc" id="L224">				Enumeration&lt;JIPClause&gt; enumeration = jipClausesDatabase.clauses();</span>
+<span class="fc bfc" id="L225" title="All 2 branches covered.">				while (enumeration.hasMoreElements()) {</span>
+<span class="fc" id="L226">					writer.println(enumeration.nextElement());</span>
+				}
+<span class="fc" id="L228">			}</span>
+<span class="fc" id="L229">			writer.flush();</span>
+<span class="fc" id="L230">			writer.close();</span>
+<span class="nc" id="L231">		} catch (IOException e) {</span>
+<span class="nc" id="L232">			getLogger().error(getClass(), PrologLogger.IO, e);</span>
+<span class="fc" id="L233">		}</span>
+<span class="fc" id="L234">	}</span>
+
+	public void abolish(String functor, int arity) {
+<span class="fc" id="L237">		engine.abolish(parser.parseTerm(functor + &quot;/&quot; + arity));</span>
+<span class="fc" id="L238">	}</span>
+
+	public void asserta(String stringClause) {
+<span class="fc" id="L241">		asserta(JIPClause.create(parser.parseTerm(stringClause)));</span>
+<span class="fc" id="L242">	}</span>
+
+	@Override
+	public void asserta(PrologTerm term) {
+<span class="fc" id="L246">		asserta(JIPClause.create(fromTerm(term, JIPTerm.class)));</span>
+<span class="fc" id="L247">	}</span>
+
+	public void asserta(PrologTerm head, PrologTerm... body) {
+<span class="fc" id="L250">		JIPCons cons = converter.adaptCons(body);</span>
+<span class="fc" id="L251">		JIPFunctor h = null;</span>
+<span class="pc bpc" id="L252" title="1 of 2 branches missed.">		if (head.isAtom()) {</span>
+<span class="nc" id="L253">			String atom = head.getFunctor();</span>
+<span class="nc" id="L254">			h = JIPFunctor.create(atom, nil);</span>
+<span class="nc" id="L255">		} else {</span>
+<span class="fc" id="L256">			h = fromTerm(head, JIPFunctor.class);</span>
+		}
+<span class="fc" id="L258">		asserta(JIPClause.create(h, cons));</span>
+<span class="fc" id="L259">	}</span>
+
+	private void asserta(JIPClause clause) {
+<span class="fc bfc" id="L262" title="All 2 branches covered.">		if (!clause(clause)) {</span>
+<span class="fc" id="L263">			engine.asserta(clause);</span>
+		}
+<span class="fc" id="L265">	}</span>
+
+	public void assertz(String stringClause) {
+<span class="fc" id="L268">		assertz(JIPClause.create(parser.parseTerm(stringClause)));</span>
+<span class="fc" id="L269">	}</span>
+
+	@Override
+	public void assertz(PrologTerm term) {
+<span class="fc" id="L273">		assertz(JIPClause.create(fromTerm(term, JIPTerm.class)));</span>
+<span class="fc" id="L274">	}</span>
+
+	public void assertz(PrologTerm head, PrologTerm... body) {
+<span class="fc" id="L277">		JIPCons cons = converter.adaptCons(body);</span>
+<span class="fc" id="L278">		JIPFunctor h = null;</span>
+<span class="pc bpc" id="L279" title="1 of 2 branches missed.">		if (head.isAtom()) {</span>
+<span class="nc" id="L280">			String atom = head.getFunctor();</span>
+<span class="nc" id="L281">			h = JIPFunctor.create(atom, nil);</span>
+<span class="nc" id="L282">		} else {</span>
+<span class="fc" id="L283">			h = fromTerm(head, JIPFunctor.class);</span>
+		}
+<span class="fc" id="L285">		assertz(JIPClause.create(h, cons));</span>
+<span class="fc" id="L286">	}</span>
+
+	private void assertz(JIPClause clause) {
+<span class="fc bfc" id="L289" title="All 2 branches covered.">		if (!clause(clause)) {</span>
+<span class="fc" id="L290">			engine.assertz(clause);</span>
+		}
+<span class="fc" id="L292">	}</span>
+
+	public boolean clause(String stringClause) {
+<span class="fc" id="L295">		return clause(JIPClause.create(parser.parseTerm(stringClause)));</span>
+	}
+
+	@Override
+	public boolean clause(PrologTerm term) {
+<span class="fc" id="L300">		return clause(JIPClause.create(fromTerm(term, JIPTerm.class)));</span>
+	}
+
+	public boolean clause(PrologTerm head, PrologTerm... body) {
+<span class="fc" id="L304">		String c = &quot;&quot; + head + &quot;&quot;;</span>
+<span class="pc bpc" id="L305" title="2 of 4 branches missed.">		if (body != null &amp;&amp; body.length &gt; 0) {</span>
+<span class="fc" id="L306">			String cb = Arrays.toString(body);</span>
+<span class="fc" id="L307">			cb = cb.substring(1, cb.length() - 1);</span>
+<span class="fc" id="L308">			c = c + &quot; :- &quot; + cb;</span>
+		}
+<span class="fc" id="L310">		c = c + &quot;.&quot;;</span>
+<span class="fc" id="L311">		return clause(c);</span>
+	}
+
+	private boolean clause(JIPClause clause) {
+<span class="fc" id="L315">		return engine.clause(clause);</span>
+	}
+
+	public void retract(String stringClause) {
+<span class="fc" id="L319">		retract(JIPClause.create(parser.parseTerm(stringClause)));</span>
+<span class="fc" id="L320">	}</span>
+
+	@Override
+	public void retract(PrologTerm term) {
+<span class="fc" id="L324">		retract(JIPClause.create(fromTerm(term, JIPTerm.class)));</span>
+<span class="fc" id="L325">	}</span>
+
+	public void retract(PrologTerm head, PrologTerm... body) {
+<span class="fc" id="L328">		JIPCons cons = converter.adaptCons(body);</span>
+<span class="fc" id="L329">		JIPFunctor h = null;</span>
+<span class="pc bpc" id="L330" title="1 of 2 branches missed.">		if (head.isAtom()) {</span>
+<span class="nc" id="L331">			String atom = head.getFunctor();</span>
+<span class="nc" id="L332">			h = JIPFunctor.create(atom, nil);</span>
+<span class="nc" id="L333">		} else {</span>
+<span class="fc" id="L334">			h = fromTerm(head, JIPFunctor.class);</span>
+		}
+<span class="fc" id="L336">		retract(JIPClause.create(h, cons));</span>
+<span class="fc" id="L337">	}</span>
+
+	private void retract(JIPClause clause) {
+<span class="fc" id="L340">		engine.retract(clause);</span>
+<span class="fc" id="L341">	}</span>
+
+	public PrologQuery query(String stringQuery) {
+<span class="fc" id="L344">		return new JiPrologQuery(this, stringQuery);</span>
+	}
+
+	@Override
+	public PrologQuery query(PrologTerm goal) {
+<span class="fc" id="L349">		return new JiPrologQuery(this, goal);</span>
+	}
+
+	public PrologQuery query(PrologTerm[] terms) {
+<span class="fc" id="L353">		return new JiPrologQuery(this, terms);</span>
+	}
+
+	public PrologQuery query(PrologTerm term, PrologTerm... terms) {
+<span class="fc" id="L357">		PrologTerm[] query = new PrologTerm[terms.length + 1];</span>
+<span class="fc" id="L358">		System.arraycopy(terms, 0, query, 1, terms.length);</span>
+<span class="fc" id="L359">		query[0] = term;</span>
+<span class="fc" id="L360">		return query(query);</span>
+	}
+
+	public void operator(int priority, String specifier, String operator) {
+<span class="fc" id="L364">		engine.getOperatorManager().put(priority, specifier, operator);</span>
+<span class="fc" id="L365">	}</span>
+
+	public boolean currentPredicate(String functor, int arity) {
+<span class="fc" id="L368">		PrologIndicator pi = new JiPrologIndicator(functor, arity);</span>
+<span class="fc" id="L369">		return currentPredicates().contains(pi);</span>
+	}
+
+	public boolean currentOperator(int priority, String specifier, String operator) {
+<span class="fc" id="L373">		Operator op = engine.getOperatorManager().get(operator);</span>
+<span class="pc bpc" id="L374" title="2 of 6 branches missed.">		return op != null &amp;&amp; op.m_nPrecedence == priority &amp;&amp; op.m_strAssoc.equals(specifier);</span>
+	}
+
+	public Set&lt;PrologOperator&gt; currentOperators() {
+<span class="fc" id="L378">		HashSet&lt;PrologOperator&gt; operators = new HashSet&lt;PrologOperator&gt;();</span>
+<span class="fc" id="L379">		OperatorManager manager = engine.getOperatorManager();</span>
+<span class="fc" id="L380">		Enumeration&lt;?&gt; e = manager.getOperators();</span>
+<span class="fc bfc" id="L381" title="All 2 branches covered.">		while (e.hasMoreElements()) {</span>
+<span class="fc" id="L382">			Object object = e.nextElement();</span>
+<span class="pc bpc" id="L383" title="1 of 2 branches missed.">			if (object instanceof Operator) {</span>
+<span class="fc" id="L384">				Operator op = (Operator) object;</span>
+<span class="fc" id="L385">				String s = op.m_strAssoc;</span>
+<span class="fc" id="L386">				String o = op.m_strName;</span>
+<span class="fc" id="L387">				int p = op.m_nPrecedence;</span>
+<span class="fc" id="L388">				PrologOperator oe = new JiPrologOperator(p, s, o);</span>
+<span class="fc" id="L389">				operators.add(oe);</span>
+			}
+<span class="fc" id="L391">		}</span>
+<span class="fc" id="L392">		return operators;</span>
+	}
+
+	public int getProgramSize() {
+<span class="fc" id="L396">		int counter = 0;</span>
+<span class="fc" id="L397">		Collection&lt;JIPClausesDatabase&gt; collection = engine.getDataBase();</span>
+<span class="fc bfc" id="L398" title="All 2 branches covered.">		for (JIPClausesDatabase jipClausesDatabase : collection) {</span>
+<span class="fc" id="L399">			Enumeration&lt;JIPClause&gt; enumeration = jipClausesDatabase.clauses();</span>
+<span class="fc bfc" id="L400" title="All 2 branches covered.">			while (enumeration.hasMoreElements()) {</span>
+<span class="fc" id="L401">				enumeration.nextElement();</span>
+<span class="fc" id="L402">				counter++;</span>
+			}
+<span class="fc" id="L404">		}</span>
+<span class="fc" id="L405">		return counter;</span>
+	}
+
+	public String getVersion() {
+<span class="fc" id="L409">		return JIPEngine.getVersion();</span>
+	}
+
+	public Iterator&lt;PrologClause&gt; iterator() {
+<span class="fc" id="L413">		Collection&lt;PrologClause&gt; cls = new LinkedList&lt;PrologClause&gt;();</span>
+<span class="fc" id="L414">		Collection&lt;JIPClausesDatabase&gt; collection = engine.getDataBase();</span>
+<span class="fc bfc" id="L415" title="All 2 branches covered.">		for (JIPClausesDatabase jipClausesDatabase : collection) {</span>
+<span class="fc" id="L416">			Enumeration&lt;JIPClause&gt; enumeration = jipClausesDatabase.clauses();</span>
+<span class="fc bfc" id="L417" title="All 2 branches covered.">			while (enumeration.hasMoreElements()) {</span>
+<span class="fc" id="L418">				Object object = enumeration.nextElement();</span>
+<span class="fc" id="L419">				JIPTerm term = parser.parseTerm(&quot;&quot; + object + &quot;&quot;);</span>
+<span class="pc bpc" id="L420" title="1 of 2 branches missed.">				if (term instanceof JIPFunctor) {</span>
+<span class="fc" id="L421">					JIPFunctor clause = (JIPFunctor) term;</span>
+<span class="pc bpc" id="L422" title="1 of 4 branches missed.">					if (clause.getName().equals(&quot;:-&quot;) &amp;&amp; clause.getArity() == 2) {</span>
+<span class="fc" id="L423">						PrologTerm head = toTerm(clause.getTerm(1), PrologTerm.class);</span>
+<span class="fc" id="L424">						PrologTerm body = toTerm(clause.getTerm(2), PrologTerm.class);</span>
+<span class="pc bpc" id="L425" title="1 of 2 branches missed.">						if (body.getType() != PrologTermType.TRUE_TYPE) {</span>
+<span class="fc" id="L426">							cls.add(new JiPrologClause(provider, head, body, false, false, false));</span>
+						} else {
+<span class="nc" id="L428">							cls.add(new JiPrologClause(provider, head, false, false, false));</span>
+						}
+<span class="fc" id="L430">					} else {</span>
+<span class="fc" id="L431">						cls.add(new JiPrologClause(provider, toTerm(clause, PrologTerm.class), false, false, false));</span>
+					}
+				}
+<span class="fc" id="L434">			}</span>
+<span class="fc" id="L435">		}</span>
+<span class="fc" id="L436">		return new PrologProgramIterator(cls);</span>
+	}
+
+	public List&lt;String&gt; verify() {
+<span class="nc" id="L440">		return Arrays.asList(&quot;OK&quot;);</span>
+	}
+
+	public Set&lt;PrologIndicator&gt; getPredicates() {
+<span class="fc" id="L444">		Set&lt;PrologIndicator&gt; builtins = new HashSet&lt;PrologIndicator&gt;();</span>
+<span class="fc" id="L445">		Collection&lt;JIPClausesDatabase&gt; collection = engine.getDataBase();</span>
+<span class="fc bfc" id="L446" title="All 2 branches covered.">		for (JIPClausesDatabase jipClausesDatabase : collection) {</span>
+<span class="fc" id="L447">			String functor = jipClausesDatabase.getFunctorName();</span>
+<span class="fc" id="L448">			int arity = jipClausesDatabase.getArity();</span>
+<span class="fc" id="L449">			PrologIndicator pi = new JiPrologIndicator(functor, arity);</span>
+<span class="fc" id="L450">			builtins.add(pi);</span>
+<span class="fc" id="L451">		}</span>
+<span class="fc" id="L452">		return builtins;</span>
+	}
+
+	public Set&lt;PrologIndicator&gt; getBuiltIns() {
+<span class="fc" id="L456">		Set&lt;PrologIndicator&gt; builtins = new HashSet&lt;PrologIndicator&gt;();</span>
+<span class="fc" id="L457">		Collection&lt;JIPClausesDatabase&gt; collection = engine.getGlobalDataBase();</span>
+<span class="fc bfc" id="L458" title="All 2 branches covered.">		for (JIPClausesDatabase jipClausesDatabase : collection) {</span>
+<span class="fc" id="L459">			String functor = jipClausesDatabase.getFunctorName();</span>
+<span class="fc" id="L460">			int arity = jipClausesDatabase.getArity();</span>
+<span class="fc" id="L461">			PrologIndicator pi = new JiPrologIndicator(functor, arity);</span>
+<span class="fc" id="L462">			builtins.add(pi);</span>
+<span class="fc" id="L463">		}</span>
+<span class="fc" id="L464">		return builtins;</span>
+	}
+
+	public String getLicense() {
+<span class="fc" id="L468">		return Licenses.AGPL_V3;</span>
+	}
+
+	public String getName() {
+<span class="fc" id="L472">		String credits = JIPEngine.getInfo();</span>
+<span class="fc" id="L473">		StringTokenizer tokenizer = new StringTokenizer(credits);</span>
+<span class="fc" id="L474">		return tokenizer.nextToken();</span>
+	}
+
+	@Override
+	public int hashCode() {
+<span class="fc" id="L479">		final int prime = 31;</span>
+<span class="fc" id="L480">		int result = 1;</span>
+<span class="pc bpc" id="L481" title="1 of 2 branches missed.">		result = prime * result + ((engine == null) ? 0 : engine.getEncoding().hashCode());</span>
+<span class="fc" id="L482">		return result;</span>
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+<span class="fc bfc" id="L487" title="All 2 branches covered.">		if (this == obj)</span>
+<span class="fc" id="L488">			return true;</span>
+<span class="pc bpc" id="L489" title="1 of 2 branches missed.">		if (obj == null)</span>
+<span class="nc" id="L490">			return false;</span>
+<span class="pc bpc" id="L491" title="1 of 2 branches missed.">		if (getClass() != obj.getClass())</span>
+<span class="nc" id="L492">			return false;</span>
+<span class="fc" id="L493">		JiPrologEngine other = (JiPrologEngine) obj;</span>
+<span class="pc bpc" id="L494" title="3 of 4 branches missed.">		if (engine == null &amp;&amp; other.engine != null) {</span>
+<span class="nc" id="L495">			return false;</span>
+		}
+<span class="pc bpc" id="L497" title="3 of 4 branches missed.">		return !(parser == null &amp;&amp; other.parser != null);</span>
+	}
+
+	public void dispose() {
+<span class="pc bpc" id="L501" title="1 of 2 branches missed.">		if (engine != null) {</span>
+
+			// clear database
+<span class="fc" id="L504">			engine.reset();</span>
+
+			// retract versions predicates
+<span class="fc" id="L507">			retract(JIPXSETS_VERSION);</span>
+<span class="fc" id="L508">			retract(JIPXIO_VERSION);</span>
+<span class="fc" id="L509">			retract(JIPXDB_VERSION);</span>
+<span class="fc" id="L510">			retract(JIPXEXCEPTION_VERSION);</span>
+<span class="fc" id="L511">			retract(JIPXREFLECT_VERSION);</span>
+<span class="fc" id="L512">			retract(JIPXSYSTEM_VERSION);</span>
+<span class="fc" id="L513">			retract(JIPXTERMS_VERSION);</span>
+<span class="fc" id="L514">			retract(JIPXXML_VERSION);</span>
+
+		}
+<span class="fc" id="L517">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
