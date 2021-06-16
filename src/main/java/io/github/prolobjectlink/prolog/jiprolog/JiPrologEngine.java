@@ -409,6 +409,11 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 		return JIPEngine.getVersion();
 	}
 
+	@Override
+	public String getVendor() {
+		return JIPEngine.getCopyrightInfo();
+	}
+
 	public Iterator<PrologClause> iterator() {
 		Collection<PrologClause> cls = new LinkedList<PrologClause>();
 		Collection<JIPClausesDatabase> collection = engine.getDataBase();
