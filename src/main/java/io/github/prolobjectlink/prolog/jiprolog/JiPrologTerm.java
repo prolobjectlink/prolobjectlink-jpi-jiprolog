@@ -148,10 +148,6 @@ abstract class JiPrologTerm extends AbstractTerm implements PrologTerm {
 		return isObjectType();
 	}
 
-	public Object getObject() {
-		return null;
-	}
-
 	public final boolean unify(PrologTerm term) {
 		return value != null && value.unifiable(fromTerm(term, JIPTerm.class));
 	}

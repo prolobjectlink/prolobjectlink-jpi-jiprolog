@@ -409,112 +409,117 @@ final class JiPrologEngine extends AbstractEngine implements PrologEngine {
 <span class="fc" id="L409">		return JIPEngine.getVersion();</span>
 	}
 
+	@Override
+	public String getVendor() {
+<span class="nc" id="L414">		return JIPEngine.getCopyrightInfo();</span>
+	}
+
 	public Iterator&lt;PrologClause&gt; iterator() {
-<span class="fc" id="L413">		Collection&lt;PrologClause&gt; cls = new LinkedList&lt;PrologClause&gt;();</span>
-<span class="fc" id="L414">		Collection&lt;JIPClausesDatabase&gt; collection = engine.getDataBase();</span>
-<span class="fc bfc" id="L415" title="All 2 branches covered.">		for (JIPClausesDatabase jipClausesDatabase : collection) {</span>
-<span class="fc" id="L416">			Enumeration&lt;JIPClause&gt; enumeration = jipClausesDatabase.clauses();</span>
-<span class="fc bfc" id="L417" title="All 2 branches covered.">			while (enumeration.hasMoreElements()) {</span>
-<span class="fc" id="L418">				Object object = enumeration.nextElement();</span>
-<span class="fc" id="L419">				JIPTerm term = parser.parseTerm(&quot;&quot; + object + &quot;&quot;);</span>
-<span class="pc bpc" id="L420" title="1 of 2 branches missed.">				if (term instanceof JIPFunctor) {</span>
-<span class="fc" id="L421">					JIPFunctor clause = (JIPFunctor) term;</span>
-<span class="pc bpc" id="L422" title="1 of 4 branches missed.">					if (clause.getName().equals(&quot;:-&quot;) &amp;&amp; clause.getArity() == 2) {</span>
-<span class="fc" id="L423">						PrologTerm head = toTerm(clause.getTerm(1), PrologTerm.class);</span>
-<span class="fc" id="L424">						PrologTerm body = toTerm(clause.getTerm(2), PrologTerm.class);</span>
-<span class="pc bpc" id="L425" title="1 of 2 branches missed.">						if (body.getType() != PrologTermType.TRUE_TYPE) {</span>
-<span class="fc" id="L426">							cls.add(new JiPrologClause(provider, head, body, false, false, false));</span>
+<span class="fc" id="L418">		Collection&lt;PrologClause&gt; cls = new LinkedList&lt;PrologClause&gt;();</span>
+<span class="fc" id="L419">		Collection&lt;JIPClausesDatabase&gt; collection = engine.getDataBase();</span>
+<span class="fc bfc" id="L420" title="All 2 branches covered.">		for (JIPClausesDatabase jipClausesDatabase : collection) {</span>
+<span class="fc" id="L421">			Enumeration&lt;JIPClause&gt; enumeration = jipClausesDatabase.clauses();</span>
+<span class="fc bfc" id="L422" title="All 2 branches covered.">			while (enumeration.hasMoreElements()) {</span>
+<span class="fc" id="L423">				Object object = enumeration.nextElement();</span>
+<span class="fc" id="L424">				JIPTerm term = parser.parseTerm(&quot;&quot; + object + &quot;&quot;);</span>
+<span class="pc bpc" id="L425" title="1 of 2 branches missed.">				if (term instanceof JIPFunctor) {</span>
+<span class="fc" id="L426">					JIPFunctor clause = (JIPFunctor) term;</span>
+<span class="pc bpc" id="L427" title="1 of 4 branches missed.">					if (clause.getName().equals(&quot;:-&quot;) &amp;&amp; clause.getArity() == 2) {</span>
+<span class="fc" id="L428">						PrologTerm head = toTerm(clause.getTerm(1), PrologTerm.class);</span>
+<span class="fc" id="L429">						PrologTerm body = toTerm(clause.getTerm(2), PrologTerm.class);</span>
+<span class="pc bpc" id="L430" title="1 of 2 branches missed.">						if (body.getType() != PrologTermType.TRUE_TYPE) {</span>
+<span class="fc" id="L431">							cls.add(new JiPrologClause(provider, head, body, false, false, false));</span>
 						} else {
-<span class="nc" id="L428">							cls.add(new JiPrologClause(provider, head, false, false, false));</span>
+<span class="nc" id="L433">							cls.add(new JiPrologClause(provider, head, false, false, false));</span>
 						}
-<span class="fc" id="L430">					} else {</span>
-<span class="fc" id="L431">						cls.add(new JiPrologClause(provider, toTerm(clause, PrologTerm.class), false, false, false));</span>
+<span class="fc" id="L435">					} else {</span>
+<span class="fc" id="L436">						cls.add(new JiPrologClause(provider, toTerm(clause, PrologTerm.class), false, false, false));</span>
 					}
 				}
-<span class="fc" id="L434">			}</span>
-<span class="fc" id="L435">		}</span>
-<span class="fc" id="L436">		return new PrologProgramIterator(cls);</span>
+<span class="fc" id="L439">			}</span>
+<span class="fc" id="L440">		}</span>
+<span class="fc" id="L441">		return new PrologProgramIterator(cls);</span>
 	}
 
 	public List&lt;String&gt; verify() {
-<span class="nc" id="L440">		return Arrays.asList(&quot;OK&quot;);</span>
+<span class="nc" id="L445">		return Arrays.asList(&quot;OK&quot;);</span>
 	}
 
 	public Set&lt;PrologIndicator&gt; getPredicates() {
-<span class="fc" id="L444">		Set&lt;PrologIndicator&gt; builtins = new HashSet&lt;PrologIndicator&gt;();</span>
-<span class="fc" id="L445">		Collection&lt;JIPClausesDatabase&gt; collection = engine.getDataBase();</span>
-<span class="fc bfc" id="L446" title="All 2 branches covered.">		for (JIPClausesDatabase jipClausesDatabase : collection) {</span>
-<span class="fc" id="L447">			String functor = jipClausesDatabase.getFunctorName();</span>
-<span class="fc" id="L448">			int arity = jipClausesDatabase.getArity();</span>
-<span class="fc" id="L449">			PrologIndicator pi = new JiPrologIndicator(functor, arity);</span>
-<span class="fc" id="L450">			builtins.add(pi);</span>
-<span class="fc" id="L451">		}</span>
-<span class="fc" id="L452">		return builtins;</span>
+<span class="fc" id="L449">		Set&lt;PrologIndicator&gt; builtins = new HashSet&lt;PrologIndicator&gt;();</span>
+<span class="fc" id="L450">		Collection&lt;JIPClausesDatabase&gt; collection = engine.getDataBase();</span>
+<span class="fc bfc" id="L451" title="All 2 branches covered.">		for (JIPClausesDatabase jipClausesDatabase : collection) {</span>
+<span class="fc" id="L452">			String functor = jipClausesDatabase.getFunctorName();</span>
+<span class="fc" id="L453">			int arity = jipClausesDatabase.getArity();</span>
+<span class="fc" id="L454">			PrologIndicator pi = new JiPrologIndicator(functor, arity);</span>
+<span class="fc" id="L455">			builtins.add(pi);</span>
+<span class="fc" id="L456">		}</span>
+<span class="fc" id="L457">		return builtins;</span>
 	}
 
 	public Set&lt;PrologIndicator&gt; getBuiltIns() {
-<span class="fc" id="L456">		Set&lt;PrologIndicator&gt; builtins = new HashSet&lt;PrologIndicator&gt;();</span>
-<span class="fc" id="L457">		Collection&lt;JIPClausesDatabase&gt; collection = engine.getGlobalDataBase();</span>
-<span class="fc bfc" id="L458" title="All 2 branches covered.">		for (JIPClausesDatabase jipClausesDatabase : collection) {</span>
-<span class="fc" id="L459">			String functor = jipClausesDatabase.getFunctorName();</span>
-<span class="fc" id="L460">			int arity = jipClausesDatabase.getArity();</span>
-<span class="fc" id="L461">			PrologIndicator pi = new JiPrologIndicator(functor, arity);</span>
-<span class="fc" id="L462">			builtins.add(pi);</span>
-<span class="fc" id="L463">		}</span>
-<span class="fc" id="L464">		return builtins;</span>
+<span class="fc" id="L461">		Set&lt;PrologIndicator&gt; builtins = new HashSet&lt;PrologIndicator&gt;();</span>
+<span class="fc" id="L462">		Collection&lt;JIPClausesDatabase&gt; collection = engine.getGlobalDataBase();</span>
+<span class="fc bfc" id="L463" title="All 2 branches covered.">		for (JIPClausesDatabase jipClausesDatabase : collection) {</span>
+<span class="fc" id="L464">			String functor = jipClausesDatabase.getFunctorName();</span>
+<span class="fc" id="L465">			int arity = jipClausesDatabase.getArity();</span>
+<span class="fc" id="L466">			PrologIndicator pi = new JiPrologIndicator(functor, arity);</span>
+<span class="fc" id="L467">			builtins.add(pi);</span>
+<span class="fc" id="L468">		}</span>
+<span class="fc" id="L469">		return builtins;</span>
 	}
 
 	public String getLicense() {
-<span class="fc" id="L468">		return Licenses.AGPL_V3;</span>
+<span class="fc" id="L473">		return Licenses.AGPL_V3;</span>
 	}
 
 	public String getName() {
-<span class="fc" id="L472">		String credits = JIPEngine.getInfo();</span>
-<span class="fc" id="L473">		StringTokenizer tokenizer = new StringTokenizer(credits);</span>
-<span class="fc" id="L474">		return tokenizer.nextToken();</span>
+<span class="fc" id="L477">		String credits = JIPEngine.getInfo();</span>
+<span class="fc" id="L478">		StringTokenizer tokenizer = new StringTokenizer(credits);</span>
+<span class="fc" id="L479">		return tokenizer.nextToken();</span>
 	}
 
 	@Override
 	public int hashCode() {
-<span class="fc" id="L479">		final int prime = 31;</span>
-<span class="fc" id="L480">		int result = 1;</span>
-<span class="pc bpc" id="L481" title="1 of 2 branches missed.">		result = prime * result + ((engine == null) ? 0 : engine.getEncoding().hashCode());</span>
-<span class="fc" id="L482">		return result;</span>
+<span class="fc" id="L484">		final int prime = 31;</span>
+<span class="fc" id="L485">		int result = 1;</span>
+<span class="pc bpc" id="L486" title="1 of 2 branches missed.">		result = prime * result + ((engine == null) ? 0 : engine.getEncoding().hashCode());</span>
+<span class="fc" id="L487">		return result;</span>
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-<span class="fc bfc" id="L487" title="All 2 branches covered.">		if (this == obj)</span>
-<span class="fc" id="L488">			return true;</span>
-<span class="pc bpc" id="L489" title="1 of 2 branches missed.">		if (obj == null)</span>
-<span class="nc" id="L490">			return false;</span>
-<span class="pc bpc" id="L491" title="1 of 2 branches missed.">		if (getClass() != obj.getClass())</span>
-<span class="nc" id="L492">			return false;</span>
-<span class="fc" id="L493">		JiPrologEngine other = (JiPrologEngine) obj;</span>
-<span class="pc bpc" id="L494" title="3 of 4 branches missed.">		if (engine == null &amp;&amp; other.engine != null) {</span>
+<span class="fc bfc" id="L492" title="All 2 branches covered.">		if (this == obj)</span>
+<span class="fc" id="L493">			return true;</span>
+<span class="pc bpc" id="L494" title="1 of 2 branches missed.">		if (obj == null)</span>
 <span class="nc" id="L495">			return false;</span>
+<span class="pc bpc" id="L496" title="1 of 2 branches missed.">		if (getClass() != obj.getClass())</span>
+<span class="nc" id="L497">			return false;</span>
+<span class="fc" id="L498">		JiPrologEngine other = (JiPrologEngine) obj;</span>
+<span class="pc bpc" id="L499" title="3 of 4 branches missed.">		if (engine == null &amp;&amp; other.engine != null) {</span>
+<span class="nc" id="L500">			return false;</span>
 		}
-<span class="pc bpc" id="L497" title="3 of 4 branches missed.">		return !(parser == null &amp;&amp; other.parser != null);</span>
+<span class="pc bpc" id="L502" title="3 of 4 branches missed.">		return !(parser == null &amp;&amp; other.parser != null);</span>
 	}
 
 	public void dispose() {
-<span class="pc bpc" id="L501" title="1 of 2 branches missed.">		if (engine != null) {</span>
+<span class="pc bpc" id="L506" title="1 of 2 branches missed.">		if (engine != null) {</span>
 
 			// clear database
-<span class="fc" id="L504">			engine.reset();</span>
+<span class="fc" id="L509">			engine.reset();</span>
 
 			// retract versions predicates
-<span class="fc" id="L507">			retract(JIPXSETS_VERSION);</span>
-<span class="fc" id="L508">			retract(JIPXIO_VERSION);</span>
-<span class="fc" id="L509">			retract(JIPXDB_VERSION);</span>
-<span class="fc" id="L510">			retract(JIPXEXCEPTION_VERSION);</span>
-<span class="fc" id="L511">			retract(JIPXREFLECT_VERSION);</span>
-<span class="fc" id="L512">			retract(JIPXSYSTEM_VERSION);</span>
-<span class="fc" id="L513">			retract(JIPXTERMS_VERSION);</span>
-<span class="fc" id="L514">			retract(JIPXXML_VERSION);</span>
+<span class="fc" id="L512">			retract(JIPXSETS_VERSION);</span>
+<span class="fc" id="L513">			retract(JIPXIO_VERSION);</span>
+<span class="fc" id="L514">			retract(JIPXDB_VERSION);</span>
+<span class="fc" id="L515">			retract(JIPXEXCEPTION_VERSION);</span>
+<span class="fc" id="L516">			retract(JIPXREFLECT_VERSION);</span>
+<span class="fc" id="L517">			retract(JIPXSYSTEM_VERSION);</span>
+<span class="fc" id="L518">			retract(JIPXTERMS_VERSION);</span>
+<span class="fc" id="L519">			retract(JIPXXML_VERSION);</span>
 
 		}
-<span class="fc" id="L517">	}</span>
+<span class="fc" id="L522">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
