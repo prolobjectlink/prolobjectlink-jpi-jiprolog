@@ -40,6 +40,10 @@ public class JiPrologReference extends JiPrologTerm implements PrologReference {
 		super(OBJECT_TYPE, provider, set(reference));
 	}
 
+	public Class<?> getReferenceType() {
+		return getObject().getClass();
+	}
+
 	public int getArity() {
 		return 0;
 	}
