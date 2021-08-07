@@ -43,7 +43,7 @@
 <a class="jxr_linenumber" name="33" href="#33">33</a>  		<strong class="jxr_keyword">super</strong>(type, provider);
 <a class="jxr_linenumber" name="34" href="#34">34</a>  	}
 <a class="jxr_linenumber" name="35" href="#35">35</a>  
-<a class="jxr_linenumber" name="36" href="#36">36</a>  	<strong class="jxr_keyword">protected</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologCompound.html">JiPrologCompound</a>(<strong class="jxr_keyword">int</strong> type, PrologProvider provider, JIPTerm value) {
+<a class="jxr_linenumber" name="36" href="#36">36</a>  	<strong class="jxr_keyword">protected</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologCompound.html">JiPrologCompound</a>(<strong class="jxr_keyword">int</strong> type, PrologProvider provider, <a href="../../../../../com/ugos/jiprolog/engine/JIPTerm.html">JIPTerm</a> value) {
 <a class="jxr_linenumber" name="37" href="#37">37</a>  		<strong class="jxr_keyword">super</strong>(type, provider, value);
 <a class="jxr_linenumber" name="38" href="#38">38</a>  	}
 <a class="jxr_linenumber" name="39" href="#39">39</a>  
@@ -53,7 +53,7 @@
 <a class="jxr_linenumber" name="43" href="#43">43</a>  		}
 <a class="jxr_linenumber" name="44" href="#44">44</a>  	}
 <a class="jxr_linenumber" name="45" href="#45">45</a>  
-<a class="jxr_linenumber" name="46" href="#46">46</a>  	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> JIPList adaptList(PrologTerm[] arguments) {
+<a class="jxr_linenumber" name="46" href="#46">46</a>  	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../com/ugos/jiprolog/engine/JIPList.html">JIPList</a> adaptList(PrologTerm[] arguments) {
 <a class="jxr_linenumber" name="47" href="#47">47</a>  		JIPList list = JIPList.NIL;
 <a class="jxr_linenumber" name="48" href="#48">48</a>  		<strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = arguments.length - 1; i &gt;= 0; --i) {
 <a class="jxr_linenumber" name="49" href="#49">49</a>  			list = JIPList.create(fromTerm(arguments[i], JIPTerm.<strong class="jxr_keyword">class</strong>), list);
@@ -61,7 +61,7 @@
 <a class="jxr_linenumber" name="51" href="#51">51</a>  		<strong class="jxr_keyword">return</strong> list;
 <a class="jxr_linenumber" name="52" href="#52">52</a>  	}
 <a class="jxr_linenumber" name="53" href="#53">53</a>  
-<a class="jxr_linenumber" name="54" href="#54">54</a>  	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> JIPCons adaptCons(PrologTerm[] arguments) {
+<a class="jxr_linenumber" name="54" href="#54">54</a>  	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../../com/ugos/jiprolog/engine/JIPCons.html">JIPCons</a> adaptCons(PrologTerm[] arguments) {
 <a class="jxr_linenumber" name="55" href="#55">55</a>  		JIPCons cons = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="56" href="#56">56</a>  		<strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = arguments.length - 1; i &gt;= 0; --i) {
 <a class="jxr_linenumber" name="57" href="#57">57</a>  			cons = JIPCons.create(fromTerm(arguments[i], JIPTerm.<strong class="jxr_keyword">class</strong>), cons);

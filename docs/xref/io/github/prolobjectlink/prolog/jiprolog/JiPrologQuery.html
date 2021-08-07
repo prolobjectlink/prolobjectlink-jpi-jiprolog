@@ -47,8 +47,8 @@
 <a class="jxr_linenumber" name="37" href="#37">37</a>  
 <a class="jxr_linenumber" name="38" href="#38">38</a>  <strong class="jxr_keyword">class</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologQuery.html">JiPrologQuery</a> <strong class="jxr_keyword">extends</strong> AbstractQuery <strong class="jxr_keyword">implements</strong> PrologQuery {
 <a class="jxr_linenumber" name="39" href="#39">39</a>  
-<a class="jxr_linenumber" name="40" href="#40">40</a>  	<strong class="jxr_keyword">private</strong> JIPQuery query;
-<a class="jxr_linenumber" name="41" href="#41">41</a>  	<strong class="jxr_keyword">private</strong> JIPTerm solution;
+<a class="jxr_linenumber" name="40" href="#40">40</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../../com/ugos/jiprolog/engine/JIPQuery.html">JIPQuery</a> query;
+<a class="jxr_linenumber" name="41" href="#41">41</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../../com/ugos/jiprolog/engine/JIPTerm.html">JIPTerm</a> solution;
 <a class="jxr_linenumber" name="42" href="#42">42</a>  
 <a class="jxr_linenumber" name="43" href="#43">43</a>  	JiPrologQuery(AbstractEngine engine, String stringQuery) {
 <a class="jxr_linenumber" name="44" href="#44">44</a>  		<strong class="jxr_keyword">super</strong>(engine);
@@ -71,7 +71,7 @@
 <a class="jxr_linenumber" name="61" href="#61">61</a>  		solution = query.nextSolution();
 <a class="jxr_linenumber" name="62" href="#62">62</a>  	}
 <a class="jxr_linenumber" name="63" href="#63">63</a>  
-<a class="jxr_linenumber" name="64" href="#64">64</a>  	<strong class="jxr_keyword">private</strong> JIPCons adaptCons(PrologTerm[] arguments) {
+<a class="jxr_linenumber" name="64" href="#64">64</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../../com/ugos/jiprolog/engine/JIPCons.html">JIPCons</a> adaptCons(PrologTerm[] arguments) {
 <a class="jxr_linenumber" name="65" href="#65">65</a>  		JIPCons cons = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="66" href="#66">66</a>  		<strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = arguments.length - 1; i &gt;= 0; --i) {
 <a class="jxr_linenumber" name="67" href="#67">67</a>  			cons = JIPCons.create(fromTerm(arguments[i], JIPTerm.<strong class="jxr_keyword">class</strong>), cons);

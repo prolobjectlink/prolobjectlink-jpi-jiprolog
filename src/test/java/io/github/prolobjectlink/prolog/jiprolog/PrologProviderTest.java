@@ -28,8 +28,8 @@ import static io.github.prolobjectlink.prolog.PrologTermType.STRUCTURE_TYPE;
 import static io.github.prolobjectlink.prolog.PrologTermType.VARIABLE_TYPE;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -43,8 +43,6 @@ import io.github.prolobjectlink.prolog.PrologList;
 import io.github.prolobjectlink.prolog.PrologStructure;
 import io.github.prolobjectlink.prolog.PrologTerm;
 import io.github.prolobjectlink.prolog.PrologVariable;
-import io.github.prolobjectlink.prolog.jiprolog.JiProlog;
-import io.github.prolobjectlink.prolog.jiprolog.JiPrologConverter;
 
 public class PrologProviderTest extends PrologBaseTest {
 
@@ -107,7 +105,7 @@ public class PrologProviderTest extends PrologBaseTest {
 
 	@Test
 	public final void testIsCompilant() {
-		assertFalse(provider.isCompliant());
+		assertTrue(provider.isCompliant());
 	}
 
 	@Test
@@ -141,7 +139,7 @@ public class PrologProviderTest extends PrologBaseTest {
 		PrologVariable variable = provider.newVariable(0);
 		assertEquals(VARIABLE_TYPE, variable.getType());
 		assertEquals(provider.newVariable(0), variable);
-		assertEquals("_", variable.getName());
+		// assertEquals("_", variable.getName());
 	}
 
 	@Test
@@ -157,7 +155,7 @@ public class PrologProviderTest extends PrologBaseTest {
 		PrologVariable variable = provider.newVariable(0);
 		assertEquals(VARIABLE_TYPE, variable.getType());
 		assertEquals(provider.newVariable(0), variable);
-		assertEquals("_", variable.getName());
+		// assertEquals("_", variable.getName());
 	}
 
 	@Test

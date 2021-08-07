@@ -49,7 +49,7 @@
 <a class="jxr_linenumber" name="39" href="#39">39</a>  
 <a class="jxr_linenumber" name="40" href="#40">40</a>  	<strong class="jxr_keyword">public</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologOperatorSet.html">JiPrologOperatorSet</a>() {
 <a class="jxr_linenumber" name="41" href="#41">41</a>  		operators = <strong class="jxr_keyword">new</strong> HashSet&lt;PrologOperator&gt;();
-<a class="jxr_linenumber" name="42" href="#42">42</a>  		OperatorManager manager = <strong class="jxr_keyword">new</strong> JIPEngine().getOperatorManager();
+<a class="jxr_linenumber" name="42" href="#42">42</a>  		OperatorManager manager = <strong class="jxr_keyword">new</strong> <a href="../../../../../com/ugos/jiprolog/engine/JIPEngine.html">JIPEngine</a>().getOperatorManager();
 <a class="jxr_linenumber" name="43" href="#43">43</a>  		Enumeration&lt;?&gt; e = manager.getOperators();
 <a class="jxr_linenumber" name="44" href="#44">44</a>  		<strong class="jxr_keyword">while</strong> (e.hasMoreElements()) {
 <a class="jxr_linenumber" name="45" href="#45">45</a>  			Object object = e.nextElement();

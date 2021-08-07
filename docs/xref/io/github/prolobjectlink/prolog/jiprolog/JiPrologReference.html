@@ -42,7 +42,7 @@
 <a class="jxr_linenumber" name="32" href="#32">32</a>  
 <a class="jxr_linenumber" name="33" href="#33">33</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologReference.html">JiPrologReference</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologTerm.html">JiPrologTerm</a> <strong class="jxr_keyword">implements</strong> PrologReference {
 <a class="jxr_linenumber" name="34" href="#34">34</a>  
-<a class="jxr_linenumber" name="35" href="#35">35</a>  	JiPrologReference(PrologProvider provider, JIPTerm reference) {
+<a class="jxr_linenumber" name="35" href="#35">35</a>  	JiPrologReference(PrologProvider provider, <a href="../../../../../com/ugos/jiprolog/engine/JIPTerm.html">JIPTerm</a> reference) {
 <a class="jxr_linenumber" name="36" href="#36">36</a>  		<strong class="jxr_keyword">super</strong>(OBJECT_TYPE, provider, reference);
 <a class="jxr_linenumber" name="37" href="#37">37</a>  	}
 <a class="jxr_linenumber" name="38" href="#38">38</a>  
@@ -77,14 +77,14 @@
 <a class="jxr_linenumber" name="67" href="#67">67</a>  		<strong class="jxr_keyword">return</strong> provider.newAtom(tag);
 <a class="jxr_linenumber" name="68" href="#68">68</a>  	}
 <a class="jxr_linenumber" name="69" href="#69">69</a>  
-<a class="jxr_linenumber" name="70" href="#70">70</a>  	<strong class="jxr_keyword">static</strong> JIPAtom set(Object reference) {
+<a class="jxr_linenumber" name="70" href="#70">70</a>  	<strong class="jxr_keyword">static</strong> <a href="../../../../../com/ugos/jiprolog/engine/JIPAtom.html">JIPAtom</a> set(Object reference) {
 <a class="jxr_linenumber" name="71" href="#71">71</a>  		<strong class="jxr_keyword">if</strong> (reference == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="72" href="#72">72</a>  			<strong class="jxr_keyword">return</strong> JIPAtom.create(<span class="jxr_string">"#0"</span>);
 <a class="jxr_linenumber" name="73" href="#73">73</a>  		}
 <a class="jxr_linenumber" name="74" href="#74">74</a>  		<strong class="jxr_keyword">return</strong> JIPxReflect.putObject(reference);
 <a class="jxr_linenumber" name="75" href="#75">75</a>  	}
 <a class="jxr_linenumber" name="76" href="#76">76</a>  
-<a class="jxr_linenumber" name="77" href="#77">77</a>  	<strong class="jxr_keyword">static</strong> Object get(JIPAtom id) {
+<a class="jxr_linenumber" name="77" href="#77">77</a>  	<strong class="jxr_keyword">static</strong> Object get(<a href="../../../../../com/ugos/jiprolog/engine/JIPAtom.html">JIPAtom</a> id) {
 <a class="jxr_linenumber" name="78" href="#78">78</a>  		String str = id.toString();
 <a class="jxr_linenumber" name="79" href="#79">79</a>  		str = JiPrologUtil.removeQuoted(str);
 <a class="jxr_linenumber" name="80" href="#80">80</a>  		<strong class="jxr_keyword">if</strong> (str.equalsIgnoreCase(<span class="jxr_string">"#0"</span>)) {

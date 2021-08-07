@@ -58,7 +58,7 @@
 <a class="jxr_linenumber" name="48" href="#48">48</a>  		value = adaptList(arguments);
 <a class="jxr_linenumber" name="49" href="#49">49</a>  	}
 <a class="jxr_linenumber" name="50" href="#50">50</a>  
-<a class="jxr_linenumber" name="51" href="#51">51</a>  	<strong class="jxr_keyword">protected</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologList.html">JiPrologList</a>(PrologProvider provider, JIPTerm[] arguments) {
+<a class="jxr_linenumber" name="51" href="#51">51</a>  	<strong class="jxr_keyword">protected</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologList.html">JiPrologList</a>(PrologProvider provider, <a href="../../../../../com/ugos/jiprolog/engine/JIPTerm.html">JIPTerm</a>[] arguments) {
 <a class="jxr_linenumber" name="52" href="#52">52</a>  		<strong class="jxr_keyword">super</strong>(LIST_TYPE, provider);
 <a class="jxr_linenumber" name="53" href="#53">53</a>  		value = JIPList.NIL;
 <a class="jxr_linenumber" name="54" href="#54">54</a>  		<strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = arguments.length - 1; i &gt;= 0; --i) {
@@ -66,7 +66,7 @@
 <a class="jxr_linenumber" name="56" href="#56">56</a>  		}
 <a class="jxr_linenumber" name="57" href="#57">57</a>  	}
 <a class="jxr_linenumber" name="58" href="#58">58</a>  
-<a class="jxr_linenumber" name="59" href="#59">59</a>  	<strong class="jxr_keyword">protected</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologList.html">JiPrologList</a>(PrologProvider provider, JIPTerm[] arguments, JIPTerm tail) {
+<a class="jxr_linenumber" name="59" href="#59">59</a>  	<strong class="jxr_keyword">protected</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologList.html">JiPrologList</a>(PrologProvider provider, <a href="../../../../../com/ugos/jiprolog/engine/JIPTerm.html">JIPTerm</a>[] arguments, <a href="../../../../../com/ugos/jiprolog/engine/JIPTerm.html">JIPTerm</a> tail) {
 <a class="jxr_linenumber" name="60" href="#60">60</a>  		<strong class="jxr_keyword">super</strong>(LIST_TYPE, provider);
 <a class="jxr_linenumber" name="61" href="#61">61</a>  		value = tail;
 <a class="jxr_linenumber" name="62" href="#62">62</a>  		<strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = arguments.length - 1; i &gt;= 0; --i) {
@@ -150,10 +150,10 @@
 <a class="jxr_linenumber" name="140" href="#140">140</a> 
 <a class="jxr_linenumber" name="141" href="#141">141</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologList.html">JIPrologListIter</a> <strong class="jxr_keyword">extends</strong> AbstractIterator&lt;PrologTerm&gt; <strong class="jxr_keyword">implements</strong> Iterator&lt;PrologTerm&gt; {
 <a class="jxr_linenumber" name="142" href="#142">142</a> 
-<a class="jxr_linenumber" name="143" href="#143">143</a> 		<strong class="jxr_keyword">private</strong> JIPList list;
+<a class="jxr_linenumber" name="143" href="#143">143</a> 		<strong class="jxr_keyword">private</strong> <a href="../../../../../com/ugos/jiprolog/engine/JIPList.html">JIPList</a> list;
 <a class="jxr_linenumber" name="144" href="#144">144</a> 		<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> nextIndex;
 <a class="jxr_linenumber" name="145" href="#145">145</a> 
-<a class="jxr_linenumber" name="146" href="#146">146</a> 		<strong class="jxr_keyword">private</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologList.html">JIPrologListIter</a>(JIPList list) {
+<a class="jxr_linenumber" name="146" href="#146">146</a> 		<strong class="jxr_keyword">private</strong> <a href="../../../../../io/github/prolobjectlink/prolog/jiprolog/JiPrologList.html">JIPrologListIter</a>(<a href="../../../../../com/ugos/jiprolog/engine/JIPList.html">JIPList</a> list) {
 <a class="jxr_linenumber" name="147" href="#147">147</a> 			<strong class="jxr_keyword">this</strong>.list = list;
 <a class="jxr_linenumber" name="148" href="#148">148</a> 			<strong class="jxr_keyword">this</strong>.nextIndex = 1;
 <a class="jxr_linenumber" name="149" href="#149">149</a> 		}

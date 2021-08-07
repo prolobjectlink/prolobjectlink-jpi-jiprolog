@@ -1,0 +1,711 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>GlobalDB xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../apidocs/com/ugos/jiprolog/engine/GlobalDB.html">View Javadoc</a></div><pre>
+
+<a class="jxr_linenumber" name="1" href="#1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="2" href="#2">2</a>   <em class="jxr_comment"> * 23/04/2014</em>
+<a class="jxr_linenumber" name="3" href="#3">3</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="4" href="#4">4</a>   <em class="jxr_comment"> * Copyright (C) 1999-2014 Ugo Chirico - <a href="http://www.ugochirico.com" target="alexandria_uri">http://www.ugochirico.com</a></em>
+<a class="jxr_linenumber" name="5" href="#5">5</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="6" href="#6">6</a>   <em class="jxr_comment"> * This is free software; you can redistribute it and/or</em>
+<a class="jxr_linenumber" name="7" href="#7">7</a>   <em class="jxr_comment"> * modify it under the terms of the Affero GNU General Public License</em>
+<a class="jxr_linenumber" name="8" href="#8">8</a>   <em class="jxr_comment"> * as published by the Free Software Foundation; either version 3</em>
+<a class="jxr_linenumber" name="9" href="#9">9</a>   <em class="jxr_comment"> * of the License, or any later version.</em>
+<a class="jxr_linenumber" name="10" href="#10">10</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="11" href="#11">11</a>  <em class="jxr_comment"> * This program is distributed in the hope that it will be useful,</em>
+<a class="jxr_linenumber" name="12" href="#12">12</a>  <em class="jxr_comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</em>
+<a class="jxr_linenumber" name="13" href="#13">13</a>  <em class="jxr_comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</em>
+<a class="jxr_linenumber" name="14" href="#14">14</a>  <em class="jxr_comment"> * Affero GNU General Public License for more details.</em>
+<a class="jxr_linenumber" name="15" href="#15">15</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="16" href="#16">16</a>  <em class="jxr_comment"> * You should have received a copy of the Affero GNU General Public License</em>
+<a class="jxr_linenumber" name="17" href="#17">17</a>  <em class="jxr_comment"> * along with this program; if not, write to the Free Software</em>
+<a class="jxr_linenumber" name="18" href="#18">18</a>  <em class="jxr_comment"> * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</em>
+<a class="jxr_linenumber" name="19" href="#19">19</a>  <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="20" href="#20">20</a>  
+<a class="jxr_linenumber" name="21" href="#21">21</a>  <strong class="jxr_keyword">package</strong> com.ugos.jiprolog.engine;
+<a class="jxr_linenumber" name="22" href="#22">22</a>  
+<a class="jxr_linenumber" name="23" href="#23">23</a>  <strong class="jxr_keyword">import</strong> java.util.*;
+<a class="jxr_linenumber" name="24" href="#24">24</a>  <strong class="jxr_keyword">import</strong> java.io.*;
+<a class="jxr_linenumber" name="25" href="#25">25</a>  
+<a class="jxr_linenumber" name="26" href="#26">26</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/ugos/jiprolog/engine/GlobalDB.html">GlobalDB</a> <strong class="jxr_keyword">extends</strong> Object<em class="jxr_comment">// implements Cloneable //Serializable</em>
+<a class="jxr_linenumber" name="27" href="#27">27</a>  {
+<a class="jxr_linenumber" name="28" href="#28">28</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String[] INTERNAL_MODULES = { <span class="jxr_string">"jipxlist"</span>, <span class="jxr_string">"jipsys"</span>, <span class="jxr_string">"jipxdb"</span>, <span class="jxr_string">"jipxexception"</span>, <span class="jxr_string">"jipxio"</span>, <span class="jxr_string">"jipxreflect"</span>, <span class="jxr_string">"jipxsets"</span>, <span class="jxr_string">"jipxsystem"</span>, <span class="jxr_string">"jipxterms"</span>, <span class="jxr_string">"jipxxml"</span> };
+<a class="jxr_linenumber" name="29" href="#29">29</a>  
+<a class="jxr_linenumber" name="30" href="#30">30</a>  	<em class="jxr_comment">// Database</em>
+<a class="jxr_linenumber" name="31" href="#31">31</a>  	Hashtable&lt;String, JIPClausesDatabase&gt; m_clauseTable;
+<a class="jxr_linenumber" name="32" href="#32">32</a>  
+<a class="jxr_linenumber" name="33" href="#33">33</a>  	<em class="jxr_comment">// associazione tra predicati e file</em>
+<a class="jxr_linenumber" name="34" href="#34">34</a>  	<strong class="jxr_keyword">private</strong> Hashtable&lt;String, String&gt; m_pred2FileMap;
+<a class="jxr_linenumber" name="35" href="#35">35</a>  	<strong class="jxr_keyword">private</strong> Hashtable&lt;String, String&gt; m_moduleTransparentTbl;
+<a class="jxr_linenumber" name="36" href="#36">36</a>  	<strong class="jxr_keyword">private</strong> Hashtable&lt;String, String&gt; m_exportedTable;
+<a class="jxr_linenumber" name="37" href="#37">37</a>  	<strong class="jxr_keyword">private</strong> Hashtable&lt;String, Vector&lt;String&gt;&gt; m_file2PredMap;
+<a class="jxr_linenumber" name="38" href="#38">38</a>  
+<a class="jxr_linenumber" name="39" href="#39">39</a>  	<strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String SYSTEM_MODULE = <span class="jxr_string">"$system"</span>;
+<a class="jxr_linenumber" name="40" href="#40">40</a>  	<strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String USER_MODULE = <span class="jxr_string">"$user"</span>;
+<a class="jxr_linenumber" name="41" href="#41">41</a>  	<strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String KERNEL_MODULE = <span class="jxr_string">"$kernel"</span>;
+<a class="jxr_linenumber" name="42" href="#42">42</a>  
+<a class="jxr_linenumber" name="43" href="#43">43</a>  	<strong class="jxr_keyword">boolean</strong> m_bCheckDisabled = false;
+<a class="jxr_linenumber" name="44" href="#44">44</a>  
+<a class="jxr_linenumber" name="45" href="#45">45</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPEngine.html">JIPEngine</a> jipEngine;
+<a class="jxr_linenumber" name="46" href="#46">46</a>  
+<a class="jxr_linenumber" name="47" href="#47">47</a>  	@SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
+<a class="jxr_linenumber" name="48" href="#48">48</a>  	<strong class="jxr_keyword">private</strong> <a href="../../../../com/ugos/jiprolog/engine/GlobalDB.html">GlobalDB</a>(<a href="../../../../com/ugos/jiprolog/engine/GlobalDB.html">GlobalDB</a> gdb) {
+<a class="jxr_linenumber" name="49" href="#49">49</a>  		m_clauseTable = (Hashtable&lt;String, JIPClausesDatabase&gt;) gdb.m_clauseTable.clone();
+<a class="jxr_linenumber" name="50" href="#50">50</a>  		m_pred2FileMap = (Hashtable&lt;String, String&gt;) gdb.m_pred2FileMap.clone();
+<a class="jxr_linenumber" name="51" href="#51">51</a>  		m_moduleTransparentTbl = (Hashtable&lt;String, String&gt;) gdb.m_moduleTransparentTbl.clone();
+<a class="jxr_linenumber" name="52" href="#52">52</a>  		m_exportedTable = (Hashtable&lt;String, String&gt;) gdb.m_exportedTable.clone();
+<a class="jxr_linenumber" name="53" href="#53">53</a>  		m_file2PredMap = (Hashtable&lt;String, Vector&lt;String&gt;&gt;) gdb.m_file2PredMap.clone();
+<a class="jxr_linenumber" name="54" href="#54">54</a>  
+<a class="jxr_linenumber" name="55" href="#55">55</a>  		jipEngine = gdb.jipEngine;
+<a class="jxr_linenumber" name="56" href="#56">56</a>  
+<a class="jxr_linenumber" name="57" href="#57">57</a>  	}
+<a class="jxr_linenumber" name="58" href="#58">58</a>  
+<a class="jxr_linenumber" name="59" href="#59">59</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/ugos/jiprolog/engine/GlobalDB.html">GlobalDB</a> newInstance(<a href="../../../../com/ugos/jiprolog/engine/JIPEngine.html">JIPEngine</a> engine) {
+<a class="jxr_linenumber" name="60" href="#60">60</a>  		GlobalDB gdb = <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/GlobalDB.html">GlobalDB</a>(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="61" href="#61">61</a>  		gdb.jipEngine = engine;
+<a class="jxr_linenumber" name="62" href="#62">62</a>  		<strong class="jxr_keyword">return</strong> gdb;
+<a class="jxr_linenumber" name="63" href="#63">63</a>  	}
+<a class="jxr_linenumber" name="64" href="#64">64</a>  
+<a class="jxr_linenumber" name="65" href="#65">65</a>  	<strong class="jxr_keyword">public</strong> <a href="../../../../com/ugos/jiprolog/engine/GlobalDB.html">GlobalDB</a>(<a href="../../../../com/ugos/jiprolog/engine/JIPEngine.html">JIPEngine</a> engine) {
+<a class="jxr_linenumber" name="66" href="#66">66</a>  		m_clauseTable = <strong class="jxr_keyword">new</strong> Hashtable&lt;String, JIPClausesDatabase&gt;();
+<a class="jxr_linenumber" name="67" href="#67">67</a>  		m_pred2FileMap = <strong class="jxr_keyword">new</strong> Hashtable&lt;String, String&gt;();
+<a class="jxr_linenumber" name="68" href="#68">68</a>  		m_moduleTransparentTbl = <strong class="jxr_keyword">new</strong> Hashtable&lt;String, String&gt;();
+<a class="jxr_linenumber" name="69" href="#69">69</a>  		m_exportedTable = <strong class="jxr_keyword">new</strong> Hashtable&lt;String, String&gt;();
+<a class="jxr_linenumber" name="70" href="#70">70</a>  		m_file2PredMap = <strong class="jxr_keyword">new</strong> Hashtable&lt;String, Vector&lt;String&gt;&gt;();
+<a class="jxr_linenumber" name="71" href="#71">71</a>  		jipEngine = engine;
+<a class="jxr_linenumber" name="72" href="#72">72</a>  
+<a class="jxr_linenumber" name="73" href="#73">73</a>  		loadKernel(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="74" href="#74">74</a>  	}
+<a class="jxr_linenumber" name="75" href="#75">75</a>  
+<a class="jxr_linenumber" name="76" href="#76">76</a>  	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isMultifile(<strong class="jxr_keyword">final</strong> String strPredName) {
+<a class="jxr_linenumber" name="77" href="#77">77</a>  		<strong class="jxr_keyword">if</strong> (m_clauseTable.containsKey(USER_MODULE + <span class="jxr_string">":"</span> + strPredName)) {
+<a class="jxr_linenumber" name="78" href="#78">78</a>  			<strong class="jxr_keyword">return</strong> ((JIPClausesDatabase) m_clauseTable.get(USER_MODULE + <span class="jxr_string">":"</span> + strPredName)).isMultifile();
+<a class="jxr_linenumber" name="79" href="#79">79</a>  		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (m_clauseTable.containsKey(strPredName)) {
+<a class="jxr_linenumber" name="80" href="#80">80</a>  			<strong class="jxr_keyword">return</strong> ((JIPClausesDatabase) m_clauseTable.get(strPredName)).isMultifile();
+<a class="jxr_linenumber" name="81" href="#81">81</a>  		}
+<a class="jxr_linenumber" name="82" href="#82">82</a>  
+<a class="jxr_linenumber" name="83" href="#83">83</a>  		<strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="84" href="#84">84</a>  	}
+<a class="jxr_linenumber" name="85" href="#85">85</a>  
+<a class="jxr_linenumber" name="86" href="#86">86</a>  	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> multifile(<strong class="jxr_keyword">final</strong> String strPredName) {
+<a class="jxr_linenumber" name="87" href="#87">87</a>  		<strong class="jxr_keyword">if</strong> (isSystem(strPredName) &amp;&amp; !m_bCheckDisabled)
+<a class="jxr_linenumber" name="88" href="#88">88</a>  			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPPermissionException.html">JIPPermissionException</a>(<span class="jxr_string">"modify"</span>, <span class="jxr_string">"static_procedure"</span>, strPredName, jipEngine);
+<a class="jxr_linenumber" name="89" href="#89">89</a>  
+<a class="jxr_linenumber" name="90" href="#90">90</a>  		<strong class="jxr_keyword">int</strong> nPos = strPredName.lastIndexOf('/');
+<a class="jxr_linenumber" name="91" href="#91">91</a>  		<strong class="jxr_keyword">if</strong> (nPos &lt; 0)
+<a class="jxr_linenumber" name="92" href="#92">92</a>  			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPParameterTypeException.html">JIPParameterTypeException</a>(1, JIPParameterTypeException.PREDICATE_INDICATOR, jipEngine);
+<a class="jxr_linenumber" name="93" href="#93">93</a>  
+<a class="jxr_linenumber" name="94" href="#94">94</a>  		<strong class="jxr_keyword">final</strong> String strDef = USER_MODULE + <span class="jxr_string">":"</span> + strPredName;
+<a class="jxr_linenumber" name="95" href="#95">95</a>  		JIPClausesDatabase db;
+<a class="jxr_linenumber" name="96" href="#96">96</a>  		<strong class="jxr_keyword">if</strong> (m_clauseTable.containsKey(strDef)) {
+<a class="jxr_linenumber" name="97" href="#97">97</a>  			db = ((JIPClausesDatabase) m_clauseTable.get(strDef));
+<a class="jxr_linenumber" name="98" href="#98">98</a>  		} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="99" href="#99">99</a>  			<strong class="jxr_keyword">final</strong> String strName = strPredName.substring(0, nPos);
+<a class="jxr_linenumber" name="100" href="#100">100</a> 			<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> nArity = Integer.parseInt(strPredName.substring(nPos + 1));
+<a class="jxr_linenumber" name="101" href="#101">101</a> 			db = <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/DefaultClausesDatabase.html">DefaultClausesDatabase</a>(strName, nArity);
+<a class="jxr_linenumber" name="102" href="#102">102</a> 			db.setJIPEngine(jipEngine);
+<a class="jxr_linenumber" name="103" href="#103">103</a> 
+<a class="jxr_linenumber" name="104" href="#104">104</a> 			<em class="jxr_comment">// db = new DefaultClausesDatabase();</em>
+<a class="jxr_linenumber" name="105" href="#105">105</a> 			<em class="jxr_comment">// Aggiunge il vettore alla tabella</em>
+<a class="jxr_linenumber" name="106" href="#106">106</a> 			m_clauseTable.put(strDef, db);
+<a class="jxr_linenumber" name="107" href="#107">107</a> 		}
+<a class="jxr_linenumber" name="108" href="#108">108</a> 
+<a class="jxr_linenumber" name="109" href="#109">109</a> 		<strong class="jxr_keyword">if</strong> (db instanceof DefaultClausesDatabase)
+<a class="jxr_linenumber" name="110" href="#110">110</a> 			db.setMultifile();
+<a class="jxr_linenumber" name="111" href="#111">111</a> 		<strong class="jxr_keyword">else</strong>
+<a class="jxr_linenumber" name="112" href="#112">112</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPPermissionException.html">JIPPermissionException</a>(<span class="jxr_string">"modify"</span>, <span class="jxr_string">"extern_procedure"</span>, strPredName);
+<a class="jxr_linenumber" name="113" href="#113">113</a> 
+<a class="jxr_linenumber" name="114" href="#114">114</a> 	}
+<a class="jxr_linenumber" name="115" href="#115">115</a> 
+<a class="jxr_linenumber" name="116" href="#116">116</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> moduleTransparent(<strong class="jxr_keyword">final</strong> String strPredName) {
+<a class="jxr_linenumber" name="117" href="#117">117</a> 		<strong class="jxr_keyword">if</strong> (isSystem(strPredName) &amp;&amp; !m_bCheckDisabled)
+<a class="jxr_linenumber" name="118" href="#118">118</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPPermissionException.html">JIPPermissionException</a>(<span class="jxr_string">"modify"</span>, <span class="jxr_string">"static_procedure"</span>, strPredName);
+<a class="jxr_linenumber" name="119" href="#119">119</a> 		<em class="jxr_comment">// throw JIPRuntimeException.create(46, Atom.createAtom(strPredName));</em>
+<a class="jxr_linenumber" name="120" href="#120">120</a> 
+<a class="jxr_linenumber" name="121" href="#121">121</a> 		m_moduleTransparentTbl.put(strPredName, strPredName);
+<a class="jxr_linenumber" name="122" href="#122">122</a> 
+<a class="jxr_linenumber" name="123" href="#123">123</a> 		JIPClausesDatabase db = (JIPClausesDatabase) m_clauseTable.get(USER_MODULE + <span class="jxr_string">":"</span> + strPredName);
+<a class="jxr_linenumber" name="124" href="#124">124</a> 		<strong class="jxr_keyword">if</strong> (db == <strong class="jxr_keyword">null</strong>)
+<a class="jxr_linenumber" name="125" href="#125">125</a> 			db = (JIPClausesDatabase) m_clauseTable.get(SYSTEM_MODULE + <span class="jxr_string">":"</span> + strPredName);
+<a class="jxr_linenumber" name="126" href="#126">126</a> 
+<a class="jxr_linenumber" name="127" href="#127">127</a> 		<strong class="jxr_keyword">if</strong> (db != <strong class="jxr_keyword">null</strong>)
+<a class="jxr_linenumber" name="128" href="#128">128</a> 			db.setModuleTransparent();
+<a class="jxr_linenumber" name="129" href="#129">129</a> 
+<a class="jxr_linenumber" name="130" href="#130">130</a> 		<em class="jxr_comment">// final String strDef = strModule + ":" + strPredName;</em>
+<a class="jxr_linenumber" name="131" href="#131">131</a> 		<em class="jxr_comment">// JIPClausesDatabase db;</em>
+<a class="jxr_linenumber" name="132" href="#132">132</a> 		<em class="jxr_comment">// if(m_clauseTable.containsKey(strDef))</em>
+<a class="jxr_linenumber" name="133" href="#133">133</a> 		<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="134" href="#134">134</a> 		<em class="jxr_comment">// db = ((JIPClausesDatabase)m_clauseTable.get(strDef));</em>
+<a class="jxr_linenumber" name="135" href="#135">135</a> 		<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="136" href="#136">136</a> 		<em class="jxr_comment">// else</em>
+<a class="jxr_linenumber" name="137" href="#137">137</a> 		<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="138" href="#138">138</a> 		<em class="jxr_comment">// db = new DefaultClausesDatabase();</em>
+<a class="jxr_linenumber" name="139" href="#139">139</a> 		<em class="jxr_comment">// // Aggiunge il vettore alla tabella</em>
+<a class="jxr_linenumber" name="140" href="#140">140</a> 		<em class="jxr_comment">// m_clauseTable.put(strDef, db);</em>
+<a class="jxr_linenumber" name="141" href="#141">141</a> 		<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="142" href="#142">142</a> 		<em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="143" href="#143">143</a> 		<em class="jxr_comment">// db.setModuleTransparent();</em>
+<a class="jxr_linenumber" name="144" href="#144">144</a> 	}
+<a class="jxr_linenumber" name="145" href="#145">145</a> 
+<a class="jxr_linenumber" name="146" href="#146">146</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isModuleTransparent(<strong class="jxr_keyword">final</strong> String strPredName) {
+<a class="jxr_linenumber" name="147" href="#147">147</a> 		<strong class="jxr_keyword">if</strong> (m_clauseTable.containsKey(USER_MODULE + <span class="jxr_string">":"</span> + strPredName)) {
+<a class="jxr_linenumber" name="148" href="#148">148</a> 			<strong class="jxr_keyword">return</strong> ((JIPClausesDatabase) m_clauseTable.get(USER_MODULE + <span class="jxr_string">":"</span> + strPredName)).isModuleTransparent();
+<a class="jxr_linenumber" name="149" href="#149">149</a> 		}
+<a class="jxr_linenumber" name="150" href="#150">150</a> 
+<a class="jxr_linenumber" name="151" href="#151">151</a> 		<strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="152" href="#152">152</a> 	}
+<a class="jxr_linenumber" name="153" href="#153">153</a> 
+<a class="jxr_linenumber" name="154" href="#154">154</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isDynamic(<strong class="jxr_keyword">final</strong> String strPredName) {
+<a class="jxr_linenumber" name="155" href="#155">155</a> 		<strong class="jxr_keyword">if</strong> (m_clauseTable.containsKey(USER_MODULE + <span class="jxr_string">":"</span> + strPredName)) {
+<a class="jxr_linenumber" name="156" href="#156">156</a> 			<strong class="jxr_keyword">return</strong> ((JIPClausesDatabase) m_clauseTable.get(USER_MODULE + <span class="jxr_string">":"</span> + strPredName)).isDynamic();
+<a class="jxr_linenumber" name="157" href="#157">157</a> 		}
+<a class="jxr_linenumber" name="158" href="#158">158</a> 
+<a class="jxr_linenumber" name="159" href="#159">159</a> 		<strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="160" href="#160">160</a> 	}
+<a class="jxr_linenumber" name="161" href="#161">161</a> 
+<a class="jxr_linenumber" name="162" href="#162">162</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> dynamic(<strong class="jxr_keyword">final</strong> String strPredName) {
+<a class="jxr_linenumber" name="163" href="#163">163</a> 		<strong class="jxr_keyword">int</strong> nPos = strPredName.lastIndexOf('/');
+<a class="jxr_linenumber" name="164" href="#164">164</a> 		<strong class="jxr_keyword">if</strong> (nPos &lt; 0)
+<a class="jxr_linenumber" name="165" href="#165">165</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPParameterTypeException.html">JIPParameterTypeException</a>(1, JIPParameterTypeException.PREDICATE_INDICATOR, jipEngine);
+<a class="jxr_linenumber" name="166" href="#166">166</a> 
+<a class="jxr_linenumber" name="167" href="#167">167</a> 		<strong class="jxr_keyword">final</strong> String strDef = USER_MODULE + <span class="jxr_string">":"</span> + strPredName;
+<a class="jxr_linenumber" name="168" href="#168">168</a> 		JIPClausesDatabase db;
+<a class="jxr_linenumber" name="169" href="#169">169</a> 		<strong class="jxr_keyword">if</strong> (m_clauseTable.containsKey(strDef)) {
+<a class="jxr_linenumber" name="170" href="#170">170</a> 			db = ((JIPClausesDatabase) m_clauseTable.get(strDef));
+<a class="jxr_linenumber" name="171" href="#171">171</a> 		} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="172" href="#172">172</a> 			<strong class="jxr_keyword">final</strong> String strName = strPredName.substring(0, nPos);
+<a class="jxr_linenumber" name="173" href="#173">173</a> 			<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> nArity = Integer.parseInt(strPredName.substring(nPos + 1));
+<a class="jxr_linenumber" name="174" href="#174">174</a> 			db = <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/DefaultClausesDatabase.html">DefaultClausesDatabase</a>(strName, nArity);
+<a class="jxr_linenumber" name="175" href="#175">175</a> 			db.setJIPEngine(jipEngine);
+<a class="jxr_linenumber" name="176" href="#176">176</a> 			<em class="jxr_comment">// Aggiunge il vettore alla tabella</em>
+<a class="jxr_linenumber" name="177" href="#177">177</a> 			m_clauseTable.put(strDef, db);
+<a class="jxr_linenumber" name="178" href="#178">178</a> 		}
+<a class="jxr_linenumber" name="179" href="#179">179</a> 
+<a class="jxr_linenumber" name="180" href="#180">180</a> 		db.setDynamic();
+<a class="jxr_linenumber" name="181" href="#181">181</a> 	}
+<a class="jxr_linenumber" name="182" href="#182">182</a> 
+<a class="jxr_linenumber" name="183" href="#183">183</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isExternal(<strong class="jxr_keyword">final</strong> String strPredName) {
+<a class="jxr_linenumber" name="184" href="#184">184</a> 		<strong class="jxr_keyword">if</strong> (m_clauseTable.containsKey(USER_MODULE + <span class="jxr_string">":"</span> + strPredName)) {
+<a class="jxr_linenumber" name="185" href="#185">185</a> 			<strong class="jxr_keyword">return</strong> ((JIPClausesDatabase) m_clauseTable.get(USER_MODULE + <span class="jxr_string">":"</span> + strPredName)).isExternal();
+<a class="jxr_linenumber" name="186" href="#186">186</a> 		}
+<a class="jxr_linenumber" name="187" href="#187">187</a> 
+<a class="jxr_linenumber" name="188" href="#188">188</a> 		<strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="189" href="#189">189</a> 	}
+<a class="jxr_linenumber" name="190" href="#190">190</a> 
+<a class="jxr_linenumber" name="191" href="#191">191</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> external(<strong class="jxr_keyword">final</strong> String strPredName) {
+<a class="jxr_linenumber" name="192" href="#192">192</a> 		<strong class="jxr_keyword">int</strong> nPos = strPredName.lastIndexOf('/');
+<a class="jxr_linenumber" name="193" href="#193">193</a> 		<strong class="jxr_keyword">if</strong> (nPos &lt; 0)
+<a class="jxr_linenumber" name="194" href="#194">194</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPParameterTypeException.html">JIPParameterTypeException</a>(1, JIPParameterTypeException.PREDICATE_INDICATOR);
+<a class="jxr_linenumber" name="195" href="#195">195</a> 
+<a class="jxr_linenumber" name="196" href="#196">196</a> 		<strong class="jxr_keyword">final</strong> String strDef = USER_MODULE + <span class="jxr_string">":"</span> + strPredName;
+<a class="jxr_linenumber" name="197" href="#197">197</a> 		JIPClausesDatabase db;
+<a class="jxr_linenumber" name="198" href="#198">198</a> 		<strong class="jxr_keyword">if</strong> (m_clauseTable.containsKey(strDef)) {
+<a class="jxr_linenumber" name="199" href="#199">199</a> 			db = ((JIPClausesDatabase) m_clauseTable.get(strDef));
+<a class="jxr_linenumber" name="200" href="#200">200</a> 		} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="201" href="#201">201</a> 			<strong class="jxr_keyword">final</strong> String strName = strPredName.substring(0, nPos);
+<a class="jxr_linenumber" name="202" href="#202">202</a> 			<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> nArity = Integer.parseInt(strPredName.substring(nPos + 1));
+<a class="jxr_linenumber" name="203" href="#203">203</a> 			db = <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/DefaultClausesDatabase.html">DefaultClausesDatabase</a>(strName, nArity);
+<a class="jxr_linenumber" name="204" href="#204">204</a> 			db.setJIPEngine(jipEngine);
+<a class="jxr_linenumber" name="205" href="#205">205</a> 			<em class="jxr_comment">// Aggiunge il vettore alla tabella</em>
+<a class="jxr_linenumber" name="206" href="#206">206</a> 			m_clauseTable.put(strDef, db);
+<a class="jxr_linenumber" name="207" href="#207">207</a> 		}
+<a class="jxr_linenumber" name="208" href="#208">208</a> 
+<a class="jxr_linenumber" name="209" href="#209">209</a> 		db.setExternal();
+<a class="jxr_linenumber" name="210" href="#210">210</a> 	}
+<a class="jxr_linenumber" name="211" href="#211">211</a> 
+<a class="jxr_linenumber" name="212" href="#212">212</a> 	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isSystem(<strong class="jxr_keyword">final</strong> String strName) {
+<a class="jxr_linenumber" name="213" href="#213">213</a> 		<strong class="jxr_keyword">return</strong> m_clauseTable.containsKey(SYSTEM_MODULE + <span class="jxr_string">":"</span> + strName) || m_clauseTable.containsKey(KERNEL_MODULE + <span class="jxr_string">":"</span> + strName) || BuiltInFactory.isBuiltIn(strName) || strName.equals(<span class="jxr_string">",/2"</span>);
+<a class="jxr_linenumber" name="214" href="#214">214</a> 	}
+<a class="jxr_linenumber" name="215" href="#215">215</a> 
+<a class="jxr_linenumber" name="216" href="#216">216</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isSystem(<strong class="jxr_keyword">final</strong> <a href="../../../../com/ugos/jiprolog/engine/Clause.html">Clause</a> clause) {
+<a class="jxr_linenumber" name="217" href="#217">217</a> 		<strong class="jxr_keyword">return</strong> isSystem((Functor) clause.getHead());
+<a class="jxr_linenumber" name="218" href="#218">218</a> 	}
+<a class="jxr_linenumber" name="219" href="#219">219</a> 
+<a class="jxr_linenumber" name="220" href="#220">220</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isSystem(<strong class="jxr_keyword">final</strong> <a href="../../../../com/ugos/jiprolog/engine/Functor.html">Functor</a> funct) {
+<a class="jxr_linenumber" name="221" href="#221">221</a> 		<strong class="jxr_keyword">return</strong> isSystem(funct.getName());
+<a class="jxr_linenumber" name="222" href="#222">222</a> 	}
+<a class="jxr_linenumber" name="223" href="#223">223</a> 
+<a class="jxr_linenumber" name="224" href="#224">224</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isInternal(<strong class="jxr_keyword">final</strong> String funct) {
+<a class="jxr_linenumber" name="225" href="#225">225</a> 		<strong class="jxr_keyword">if</strong> (isSystem(funct)) {
+<a class="jxr_linenumber" name="226" href="#226">226</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="227" href="#227">227</a> 		} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="228" href="#228">228</a> 			<strong class="jxr_keyword">for</strong> (String module : INTERNAL_MODULES) {
+<a class="jxr_linenumber" name="229" href="#229">229</a> 				<strong class="jxr_keyword">if</strong> (m_clauseTable.containsKey(module + <span class="jxr_string">":"</span> + funct))
+<a class="jxr_linenumber" name="230" href="#230">230</a> 					<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="231" href="#231">231</a> 			}
+<a class="jxr_linenumber" name="232" href="#232">232</a> 		}
+<a class="jxr_linenumber" name="233" href="#233">233</a> 
+<a class="jxr_linenumber" name="234" href="#234">234</a> 		<strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="235" href="#235">235</a> 	}
+<a class="jxr_linenumber" name="236" href="#236">236</a> 
+<a class="jxr_linenumber" name="237" href="#237">237</a> 	<strong class="jxr_keyword">final</strong> String getFile(<strong class="jxr_keyword">final</strong> String strName) {
+<a class="jxr_linenumber" name="238" href="#238">238</a> 		<strong class="jxr_keyword">if</strong> (m_pred2FileMap.containsKey(strName))
+<a class="jxr_linenumber" name="239" href="#239">239</a> 			<strong class="jxr_keyword">return</strong> (String) m_pred2FileMap.get(strName);
+<a class="jxr_linenumber" name="240" href="#240">240</a> 		<strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (m_pred2FileMap.containsKey(USER_MODULE + <span class="jxr_string">":"</span> + strName))
+<a class="jxr_linenumber" name="241" href="#241">241</a> 			<strong class="jxr_keyword">return</strong> (String) m_pred2FileMap.get(USER_MODULE + <span class="jxr_string">":"</span> + strName);
+<a class="jxr_linenumber" name="242" href="#242">242</a> 		<strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (m_pred2FileMap.containsKey(SYSTEM_MODULE + <span class="jxr_string">":"</span> + strName))
+<a class="jxr_linenumber" name="243" href="#243">243</a> 			<strong class="jxr_keyword">return</strong> (String) m_pred2FileMap.get(SYSTEM_MODULE + <span class="jxr_string">":"</span> + strName);
+<a class="jxr_linenumber" name="244" href="#244">244</a> 		<strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (m_pred2FileMap.containsKey(KERNEL_MODULE + <span class="jxr_string">":"</span> + strName))
+<a class="jxr_linenumber" name="245" href="#245">245</a> 			<strong class="jxr_keyword">return</strong> (String) m_pred2FileMap.get(KERNEL_MODULE + <span class="jxr_string">":"</span> + strName);
+<a class="jxr_linenumber" name="246" href="#246">246</a> 		<strong class="jxr_keyword">else</strong>
+<a class="jxr_linenumber" name="247" href="#247">247</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="248" href="#248">248</a> 	}
+<a class="jxr_linenumber" name="249" href="#249">249</a> 
+<a class="jxr_linenumber" name="250" href="#250">250</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> assertz(<strong class="jxr_keyword">final</strong> <a href="../../../../com/ugos/jiprolog/engine/Clause.html">Clause</a> clause, String strFile, <strong class="jxr_keyword">boolean</strong> dynamic) {
+<a class="jxr_linenumber" name="251" href="#251">251</a> 		addPredicate((Clause) fixTerm(clause.copy(<strong class="jxr_keyword">true</strong>)), false, strFile, dynamic);
+<a class="jxr_linenumber" name="252" href="#252">252</a> 		<em class="jxr_comment">// addPredicate((Clause)fixTerm(clause), false, strFile);</em>
+<a class="jxr_linenumber" name="253" href="#253">253</a> 	}
+<a class="jxr_linenumber" name="254" href="#254">254</a> 
+<a class="jxr_linenumber" name="255" href="#255">255</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> asserta(<strong class="jxr_keyword">final</strong> <a href="../../../../com/ugos/jiprolog/engine/Clause.html">Clause</a> clause, String strFile, <strong class="jxr_keyword">boolean</strong> dynamic) {
+<a class="jxr_linenumber" name="256" href="#256">256</a> 		addPredicate((Clause) fixTerm(clause.copy(<strong class="jxr_keyword">true</strong>)), <strong class="jxr_keyword">true</strong>, strFile, dynamic);
+<a class="jxr_linenumber" name="257" href="#257">257</a> 		<em class="jxr_comment">// addPredicate((Clause)fixTerm(clause), true, strFile);</em>
+<a class="jxr_linenumber" name="258" href="#258">258</a> 	}
+<a class="jxr_linenumber" name="259" href="#259">259</a> 
+<a class="jxr_linenumber" name="260" href="#260">260</a> 	<strong class="jxr_keyword">final</strong> <a href="../../../../com/ugos/jiprolog/engine/Clause.html">Clause</a> retract(<a href="../../../../com/ugos/jiprolog/engine/Clause.html">Clause</a> clause) {
+<a class="jxr_linenumber" name="261" href="#261">261</a> 		<em class="jxr_comment">// System.out.println("retract");</em>
+<a class="jxr_linenumber" name="262" href="#262">262</a> 
+<a class="jxr_linenumber" name="263" href="#263">263</a> 		Functor functor = (Functor) clause.getHead();
+<a class="jxr_linenumber" name="264" href="#264">264</a> 
+<a class="jxr_linenumber" name="265" href="#265">265</a> 		<em class="jxr_comment">// System.out.println("functor " + functor); // DBG</em>
+<a class="jxr_linenumber" name="266" href="#266">266</a> 
+<a class="jxr_linenumber" name="267" href="#267">267</a> 		<strong class="jxr_keyword">if</strong> (isSystem(functor.getName()))
+<a class="jxr_linenumber" name="268" href="#268">268</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPPermissionException.html">JIPPermissionException</a>(<span class="jxr_string">"modify"</span>, <span class="jxr_string">"static_procedure"</span>, functor.getName());
+<a class="jxr_linenumber" name="269" href="#269">269</a> 		<em class="jxr_comment">// throw JIPRuntimeException.create(13, functor);</em>
+<a class="jxr_linenumber" name="270" href="#270">270</a> 
+<a class="jxr_linenumber" name="271" href="#271">271</a> 		JIPClausesDatabase db;
+<a class="jxr_linenumber" name="272" href="#272">272</a> 		db = search(functor, clause.getModuleName());
+<a class="jxr_linenumber" name="273" href="#273">273</a> 
+<a class="jxr_linenumber" name="274" href="#274">274</a> 		<strong class="jxr_keyword">if</strong> (db == <strong class="jxr_keyword">null</strong>)
+<a class="jxr_linenumber" name="275" href="#275">275</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="276" href="#276">276</a> 
+<a class="jxr_linenumber" name="277" href="#277">277</a> 		Enumeration en = db.clauses();
+<a class="jxr_linenumber" name="278" href="#278">278</a> 
+<a class="jxr_linenumber" name="279" href="#279">279</a> 		<strong class="jxr_keyword">if</strong> (!en.hasMoreElements())
+<a class="jxr_linenumber" name="280" href="#280">280</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="281" href="#281">281</a> 
+<a class="jxr_linenumber" name="282" href="#282">282</a> 		<em class="jxr_comment">// System.out.println("more");</em>
+<a class="jxr_linenumber" name="283" href="#283">283</a> 		<strong class="jxr_keyword">boolean</strong> bFound = false;
+<a class="jxr_linenumber" name="284" href="#284">284</a> 		Clause currentClause = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="285" href="#285">285</a> 		<strong class="jxr_keyword">while</strong> (en.hasMoreElements() &amp;&amp; !bFound) {
+<a class="jxr_linenumber" name="286" href="#286">286</a> 			currentClause = ((Clause) en.nextElement());<em class="jxr_comment">// .getHead();</em>
+<a class="jxr_linenumber" name="287" href="#287">287</a> 
+<a class="jxr_linenumber" name="288" href="#288">288</a> 			<strong class="jxr_keyword">if</strong> (clause.getTail() == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="289" href="#289">289</a> 				<em class="jxr_comment">// si tratta solo di funtore</em>
+<a class="jxr_linenumber" name="290" href="#290">290</a> 				bFound = functor.unifiable(currentClause.getHead());
+<a class="jxr_linenumber" name="291" href="#291">291</a> 			} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="292" href="#292">292</a> 				<em class="jxr_comment">// si tratta di clausola</em>
+<a class="jxr_linenumber" name="293" href="#293">293</a> 				bFound = clause.unifiable(currentClause);
+<a class="jxr_linenumber" name="294" href="#294">294</a> 			}
+<a class="jxr_linenumber" name="295" href="#295">295</a> 		}
+<a class="jxr_linenumber" name="296" href="#296">296</a> 
+<a class="jxr_linenumber" name="297" href="#297">297</a> 		<strong class="jxr_keyword">if</strong> (bFound) {
+<a class="jxr_linenumber" name="298" href="#298">298</a> 			db.removeClause(<strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPClause.html">JIPClause</a>(currentClause));
+<a class="jxr_linenumber" name="299" href="#299">299</a> 			<strong class="jxr_keyword">return</strong> currentClause;
+<a class="jxr_linenumber" name="300" href="#300">300</a> 		} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="301" href="#301">301</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="302" href="#302">302</a> 		}
+<a class="jxr_linenumber" name="303" href="#303">303</a> 	}
+<a class="jxr_linenumber" name="304" href="#304">304</a> 
+<a class="jxr_linenumber" name="305" href="#305">305</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> abolish(<a href="../../../../com/ugos/jiprolog/engine/PrologObject.html">PrologObject</a> pred) {
+<a class="jxr_linenumber" name="306" href="#306">306</a> 		<strong class="jxr_keyword">if</strong> (pred instanceof Variable)
+<a class="jxr_linenumber" name="307" href="#307">307</a> 			pred = ((Variable) pred).getObject();
+<a class="jxr_linenumber" name="308" href="#308">308</a> 
+<a class="jxr_linenumber" name="309" href="#309">309</a> 		<strong class="jxr_keyword">if</strong> (!(pred instanceof List))
+<a class="jxr_linenumber" name="310" href="#310">310</a> 			pred = <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/ConsCell.html">ConsCell</a>(pred, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="311" href="#311">311</a> 
+<a class="jxr_linenumber" name="312" href="#312">312</a> 		String strModuleName = USER_MODULE;
+<a class="jxr_linenumber" name="313" href="#313">313</a> 		PrologObject head = pred;
+<a class="jxr_linenumber" name="314" href="#314">314</a> 		<strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="315" href="#315">315</a> 			<strong class="jxr_keyword">while</strong> (pred != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="316" href="#316">316</a> 				head = ((ConsCell) pred).getHead();
+<a class="jxr_linenumber" name="317" href="#317">317</a> 				<strong class="jxr_keyword">if</strong> (head instanceof Variable)
+<a class="jxr_linenumber" name="318" href="#318">318</a> 					head = ((Variable) head).getObject();
+<a class="jxr_linenumber" name="319" href="#319">319</a> 
+<a class="jxr_linenumber" name="320" href="#320">320</a> 				<em class="jxr_comment">// controlla se :/2</em>
+<a class="jxr_linenumber" name="321" href="#321">321</a> 				<strong class="jxr_keyword">if</strong> (head instanceof Functor &amp;&amp; ((Functor) head).getName().equals(<span class="jxr_string">":/2"</span>)) {
+<a class="jxr_linenumber" name="322" href="#322">322</a> 					strModuleName = ((Atom) ((Functor) head).getParams().getHead()).getName();
+<a class="jxr_linenumber" name="323" href="#323">323</a> 					head = ((ConsCell) ((Functor) head).getParams().getTail()).getHead();
+<a class="jxr_linenumber" name="324" href="#324">324</a> 				}
+<a class="jxr_linenumber" name="325" href="#325">325</a> 
+<a class="jxr_linenumber" name="326" href="#326">326</a> 				String strPredDef;
+<a class="jxr_linenumber" name="327" href="#327">327</a> 				<em class="jxr_comment">// head deve essere instanza di funtore /2 del tipo name/arity</em>
+<a class="jxr_linenumber" name="328" href="#328">328</a> 				<strong class="jxr_keyword">if</strong> (head instanceof Functor &amp;&amp; ((Functor) head).getName().equals(<span class="jxr_string">"//2"</span>)) {
+<a class="jxr_linenumber" name="329" href="#329">329</a> 					ConsCell params = ((Functor) head).getParams();
+<a class="jxr_linenumber" name="330" href="#330">330</a> 					PrologObject h = params.getHead();
+<a class="jxr_linenumber" name="331" href="#331">331</a> 					<strong class="jxr_keyword">if</strong> (h instanceof Variable)
+<a class="jxr_linenumber" name="332" href="#332">332</a> 						h = ((Variable) h).getObject();
+<a class="jxr_linenumber" name="333" href="#333">333</a> 					strPredDef = ((Atom) h).getName() + <span class="jxr_string">"/"</span> + ((ConsCell) params.getTail()).getHead();
+<a class="jxr_linenumber" name="334" href="#334">334</a> 				} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="335" href="#335">335</a> 					<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPParameterTypeException.html">JIPParameterTypeException</a>(1, JIPParameterTypeException.PREDICATE_INDICATOR);
+<a class="jxr_linenumber" name="336" href="#336">336</a> 				}
+<a class="jxr_linenumber" name="337" href="#337">337</a> 
+<a class="jxr_linenumber" name="338" href="#338">338</a> 				<em class="jxr_comment">// if(head instanceof Atom) // atom deve essere un preddef</em>
+<a class="jxr_linenumber" name="339" href="#339">339</a> 				<em class="jxr_comment">// head = new Functor(((Atom)head).getName(), null);</em>
+<a class="jxr_linenumber" name="340" href="#340">340</a> 
+<a class="jxr_linenumber" name="341" href="#341">341</a> 				<em class="jxr_comment">// if(isSystem(((Functor)head).getName()))</em>
+<a class="jxr_linenumber" name="342" href="#342">342</a> 				<em class="jxr_comment">// throw JIPRuntimeException.create(18, head, null);</em>
+<a class="jxr_linenumber" name="343" href="#343">343</a> 				<strong class="jxr_keyword">if</strong> (isSystem(strPredDef))
+<a class="jxr_linenumber" name="344" href="#344">344</a> 					<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPPermissionException.html">JIPPermissionException</a>(<span class="jxr_string">"modify"</span>, <span class="jxr_string">"static_procedure"</span>, head.toString());
+<a class="jxr_linenumber" name="345" href="#345">345</a> 				<em class="jxr_comment">// throw JIPRuntimeException.create(12, head);</em>
+<a class="jxr_linenumber" name="346" href="#346">346</a> 
+<a class="jxr_linenumber" name="347" href="#347">347</a> 				<em class="jxr_comment">// aggiungere il modulo</em>
+<a class="jxr_linenumber" name="348" href="#348">348</a> 
+<a class="jxr_linenumber" name="349" href="#349">349</a> 				<em class="jxr_comment">// m_clauseTable.remove(strModuleName + ":" +</em>
+<a class="jxr_linenumber" name="350" href="#350">350</a> 				<em class="jxr_comment">// ((Functor)head).getName());</em>
+<a class="jxr_linenumber" name="351" href="#351">351</a> 				m_clauseTable.remove(strModuleName + <span class="jxr_string">":"</span> + strPredDef);
+<a class="jxr_linenumber" name="352" href="#352">352</a> 
+<a class="jxr_linenumber" name="353" href="#353">353</a> 				pred = ((ConsCell) pred).getTail();
+<a class="jxr_linenumber" name="354" href="#354">354</a> 			}
+<a class="jxr_linenumber" name="355" href="#355">355</a> 		} <strong class="jxr_keyword">catch</strong> (ClassCastException ex) {
+<a class="jxr_linenumber" name="356" href="#356">356</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPParameterTypeException.html">JIPParameterTypeException</a>(1, JIPParameterTypeException.PREDICATE_INDICATOR);
+<a class="jxr_linenumber" name="357" href="#357">357</a> 		}
+<a class="jxr_linenumber" name="358" href="#358">358</a> 	}
+<a class="jxr_linenumber" name="359" href="#359">359</a> 
+<a class="jxr_linenumber" name="360" href="#360">360</a> 	<em class="jxr_comment">// called by assert</em>
+<a class="jxr_linenumber" name="361" href="#361">361</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">synchronized</strong> <strong class="jxr_keyword">void</strong> addPredicate(<strong class="jxr_keyword">final</strong> <a href="../../../../com/ugos/jiprolog/engine/Clause.html">Clause</a> clause, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> bFirst, <strong class="jxr_keyword">final</strong> String strFile, <strong class="jxr_keyword">boolean</strong> dynamic) {
+<a class="jxr_linenumber" name="362" href="#362">362</a> 		<strong class="jxr_keyword">if</strong> (!m_bCheckDisabled &amp;&amp; isSystem((Functor) clause.getHead()))
+<a class="jxr_linenumber" name="363" href="#363">363</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPPermissionException.html">JIPPermissionException</a>(<span class="jxr_string">"modify"</span>, <span class="jxr_string">"static_procedure"</span>, ((Functor) clause.getHead()).getName(), jipEngine);
+<a class="jxr_linenumber" name="364" href="#364">364</a> 
+<a class="jxr_linenumber" name="365" href="#365">365</a> 		<em class="jxr_comment">// Estrae il nome del funtore</em>
+<a class="jxr_linenumber" name="366" href="#366">366</a> 		PrologObject head = clause.getHead();
+<a class="jxr_linenumber" name="367" href="#367">367</a> 
+<a class="jxr_linenumber" name="368" href="#368">368</a> 		<em class="jxr_comment">// qui controllare se il funtore � nella export list corrente.</em>
+<a class="jxr_linenumber" name="369" href="#369">369</a> 		<em class="jxr_comment">// se si controllare se l'eventuale modulo specificato corrisponde a</em>
+<a class="jxr_linenumber" name="370" href="#370">370</a> 		<em class="jxr_comment">// quello di definizione. in tal caso la specifica di modulo va ignorata</em>
+<a class="jxr_linenumber" name="371" href="#371">371</a> 		String strFunctName = clause.isExported() ? GlobalDB.USER_MODULE : clause.getModuleName();
+<a class="jxr_linenumber" name="372" href="#372">372</a> 
+<a class="jxr_linenumber" name="373" href="#373">373</a> 		<strong class="jxr_keyword">if</strong> (head instanceof Functor) {
+<a class="jxr_linenumber" name="374" href="#374">374</a> 			strFunctName += <span class="jxr_string">":"</span> + ((Functor) head).getName();
+<a class="jxr_linenumber" name="375" href="#375">375</a> 		} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="376" href="#376">376</a> 			JIPTypeException ex = <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPTypeException.html">JIPTypeException</a>(JIPTypeException.PREDICATE_INDICATOR, head.toString());
+<a class="jxr_linenumber" name="377" href="#377">377</a> 			ex.m_engine = jipEngine;
+<a class="jxr_linenumber" name="378" href="#378">378</a> 			<strong class="jxr_keyword">throw</strong> ex;
+<a class="jxr_linenumber" name="379" href="#379">379</a> 		}
+<a class="jxr_linenumber" name="380" href="#380">380</a> 
+<a class="jxr_linenumber" name="381" href="#381">381</a> 		<em class="jxr_comment">// verifica se il predicato � stato gi� asserted in un altro file</em>
+<a class="jxr_linenumber" name="382" href="#382">382</a> 		<strong class="jxr_keyword">if</strong> (strFile != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="383" href="#383">383</a> 			<strong class="jxr_keyword">if</strong> (m_pred2FileMap.containsKey(strFunctName)) {
+<a class="jxr_linenumber" name="384" href="#384">384</a> 				String strFileName = (String) m_pred2FileMap.get(strFunctName);
+<a class="jxr_linenumber" name="385" href="#385">385</a> 				<strong class="jxr_keyword">if</strong> (!strFileName.equals(strFile) &amp;&amp; !isMultifile(((Functor) head).getName())) {
+<a class="jxr_linenumber" name="386" href="#386">386</a> 					<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPPermissionException.html">JIPPermissionException</a>(<span class="jxr_string">"modify"</span>, <span class="jxr_string">"static_procedure"</span>, strFunctName, jipEngine);
+<a class="jxr_linenumber" name="387" href="#387">387</a> 				}
+<a class="jxr_linenumber" name="388" href="#388">388</a> 			}
+<a class="jxr_linenumber" name="389" href="#389">389</a> 		}
+<a class="jxr_linenumber" name="390" href="#390">390</a> 
+<a class="jxr_linenumber" name="391" href="#391">391</a> 		JIPClausesDatabase db;
+<a class="jxr_linenumber" name="392" href="#392">392</a> 
+<a class="jxr_linenumber" name="393" href="#393">393</a> 		<em class="jxr_comment">// Verifica l'esistenza del funtore</em>
+<a class="jxr_linenumber" name="394" href="#394">394</a> 		<strong class="jxr_keyword">if</strong> (m_clauseTable.containsKey(strFunctName)) {
+<a class="jxr_linenumber" name="395" href="#395">395</a> 			<em class="jxr_comment">// System.out.println("database: " + strFunctName);</em>
+<a class="jxr_linenumber" name="396" href="#396">396</a> 
+<a class="jxr_linenumber" name="397" href="#397">397</a> 			<em class="jxr_comment">// Estrae il database</em>
+<a class="jxr_linenumber" name="398" href="#398">398</a> 			db = (JIPClausesDatabase) (m_clauseTable.get(strFunctName));
+<a class="jxr_linenumber" name="399" href="#399">399</a> 
+<a class="jxr_linenumber" name="400" href="#400">400</a> 			<strong class="jxr_keyword">if</strong> (dynamic &amp;&amp; !db.isDynamic()) {
+<a class="jxr_linenumber" name="401" href="#401">401</a> 				<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPPermissionException.html">JIPPermissionException</a>(<span class="jxr_string">"modify"</span>, <span class="jxr_string">"static_procedure"</span>, ((Functor) clause.getHead()).getName(), jipEngine);
+<a class="jxr_linenumber" name="402" href="#402">402</a> 				<em class="jxr_comment">// throw JIPRuntimeException.create(30,</em>
+<a class="jxr_linenumber" name="403" href="#403">403</a> 				<em class="jxr_comment">// ((Functor)clause.getHead()).getName());</em>
+<a class="jxr_linenumber" name="404" href="#404">404</a> 			}
+<a class="jxr_linenumber" name="405" href="#405">405</a> 
+<a class="jxr_linenumber" name="406" href="#406">406</a> 			<strong class="jxr_keyword">if</strong> (bFirst) {
+<a class="jxr_linenumber" name="407" href="#407">407</a> 				<em class="jxr_comment">// Aggiunge il predicato</em>
+<a class="jxr_linenumber" name="408" href="#408">408</a> 				<strong class="jxr_keyword">if</strong> (!db.addClauseAt(0, <strong class="jxr_keyword">new</strong> JIPClause(clause)))
+<a class="jxr_linenumber" name="409" href="#409">409</a> 					<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPPermissionException.html">JIPPermissionException</a>(<span class="jxr_string">"modify"</span>, <span class="jxr_string">"static_procedure"</span>, ((Functor) clause.getHead()).getName(), jipEngine);
+<a class="jxr_linenumber" name="410" href="#410">410</a> 				<em class="jxr_comment">// throw JIPRuntimeException.create(10, clause);</em>
+<a class="jxr_linenumber" name="411" href="#411">411</a> 			} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="412" href="#412">412</a> 				<em class="jxr_comment">// Aggiunge il predicato</em>
+<a class="jxr_linenumber" name="413" href="#413">413</a> 				<strong class="jxr_keyword">if</strong> (!db.addClause(<strong class="jxr_keyword">new</strong> JIPClause(clause)))
+<a class="jxr_linenumber" name="414" href="#414">414</a> 					<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPPermissionException.html">JIPPermissionException</a>(<span class="jxr_string">"modify"</span>, <span class="jxr_string">"static_procedure"</span>, ((Functor) clause.getHead()).getName(), jipEngine);
+<a class="jxr_linenumber" name="415" href="#415">415</a> 				<em class="jxr_comment">// throw JIPRuntimeException.create(10, clause);</em>
+<a class="jxr_linenumber" name="416" href="#416">416</a> 			}
+<a class="jxr_linenumber" name="417" href="#417">417</a> 		} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="418" href="#418">418</a> 			<em class="jxr_comment">// System.out.println("new database: " + strFunctName);</em>
+<a class="jxr_linenumber" name="419" href="#419">419</a> 			<em class="jxr_comment">// Crea un nuovo database</em>
+<a class="jxr_linenumber" name="420" href="#420">420</a> 			db = <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/DefaultClausesDatabase.html">DefaultClausesDatabase</a>(((Functor) head).getFriendlyName(), ((Functor) head).getArity());
+<a class="jxr_linenumber" name="421" href="#421">421</a> 			db.setJIPEngine(jipEngine);
+<a class="jxr_linenumber" name="422" href="#422">422</a> 
+<a class="jxr_linenumber" name="423" href="#423">423</a> 			<strong class="jxr_keyword">if</strong> (dynamic)
+<a class="jxr_linenumber" name="424" href="#424">424</a> 				db.setDynamic();
+<a class="jxr_linenumber" name="425" href="#425">425</a> 
+<a class="jxr_linenumber" name="426" href="#426">426</a> 			<em class="jxr_comment">// Aggiunge il predicato</em>
+<a class="jxr_linenumber" name="427" href="#427">427</a> 			<strong class="jxr_keyword">if</strong> (!db.addClause(<strong class="jxr_keyword">new</strong> JIPClause(clause)))
+<a class="jxr_linenumber" name="428" href="#428">428</a> 				<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPPermissionException.html">JIPPermissionException</a>(<span class="jxr_string">"modify"</span>, <span class="jxr_string">"static_procedure"</span>, ((Functor) clause.getHead()).getName(), jipEngine);
+<a class="jxr_linenumber" name="429" href="#429">429</a> 			<em class="jxr_comment">// throw JIPRuntimeException.create(10, clause);</em>
+<a class="jxr_linenumber" name="430" href="#430">430</a> 
+<a class="jxr_linenumber" name="431" href="#431">431</a> 			<em class="jxr_comment">// Aggiunge il vettore alla tabella</em>
+<a class="jxr_linenumber" name="432" href="#432">432</a> 			m_clauseTable.put(strFunctName, db);
+<a class="jxr_linenumber" name="433" href="#433">433</a> 		}
+<a class="jxr_linenumber" name="434" href="#434">434</a> 
+<a class="jxr_linenumber" name="435" href="#435">435</a> 		<strong class="jxr_keyword">if</strong> (strFile != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="436" href="#436">436</a> 			m_pred2FileMap.put(strFunctName, strFile);
+<a class="jxr_linenumber" name="437" href="#437">437</a> 			<strong class="jxr_keyword">if</strong> (m_file2PredMap.containsKey(strFile)) {
+<a class="jxr_linenumber" name="438" href="#438">438</a> 				Vector&lt;String&gt; preds = m_file2PredMap.get(strFile);
+<a class="jxr_linenumber" name="439" href="#439">439</a> 				<strong class="jxr_keyword">if</strong> (!preds.contains(strFunctName))
+<a class="jxr_linenumber" name="440" href="#440">440</a> 					preds.add(strFunctName);
+<a class="jxr_linenumber" name="441" href="#441">441</a> 			} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="442" href="#442">442</a> 				Vector&lt;String&gt; preds = <strong class="jxr_keyword">new</strong> Vector&lt;String&gt;();
+<a class="jxr_linenumber" name="443" href="#443">443</a> 				preds.add(strFunctName);
+<a class="jxr_linenumber" name="444" href="#444">444</a> 				m_file2PredMap.put(strFile, preds);
+<a class="jxr_linenumber" name="445" href="#445">445</a> 			}
+<a class="jxr_linenumber" name="446" href="#446">446</a> 		}
+<a class="jxr_linenumber" name="447" href="#447">447</a> 
+<a class="jxr_linenumber" name="448" href="#448">448</a> 		<strong class="jxr_keyword">if</strong> (m_moduleTransparentTbl.containsKey(strFunctName))
+<a class="jxr_linenumber" name="449" href="#449">449</a> 			db.setModuleTransparent();
+<a class="jxr_linenumber" name="450" href="#450">450</a> 	}
+<a class="jxr_linenumber" name="451" href="#451">451</a> 
+<a class="jxr_linenumber" name="452" href="#452">452</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">synchronized</strong> <strong class="jxr_keyword">void</strong> addClausesDatabase(<strong class="jxr_keyword">final</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPClausesDatabase.html">JIPClausesDatabase</a> db, <strong class="jxr_keyword">final</strong> String strModuleName, <strong class="jxr_keyword">final</strong> String strFuncName) {
+<a class="jxr_linenumber" name="453" href="#453">453</a> 		db.setDynamic();
+<a class="jxr_linenumber" name="454" href="#454">454</a> 
+<a class="jxr_linenumber" name="455" href="#455">455</a> 		<em class="jxr_comment">// qui va inserita con modulo user</em>
+<a class="jxr_linenumber" name="456" href="#456">456</a> 		m_clauseTable.put(strModuleName + <span class="jxr_string">":"</span> + strFuncName, db);
+<a class="jxr_linenumber" name="457" href="#457">457</a> 	}
+<a class="jxr_linenumber" name="458" href="#458">458</a> 
+<a class="jxr_linenumber" name="459" href="#459">459</a> 	<em class="jxr_comment">// called by rulesenumeration</em>
+<a class="jxr_linenumber" name="460" href="#460">460</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">synchronized</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPClausesDatabase.html">JIPClausesDatabase</a> search(<strong class="jxr_keyword">final</strong> <a href="../../../../com/ugos/jiprolog/engine/Functor.html">Functor</a> funct, <strong class="jxr_keyword">final</strong> String strModule) {
+<a class="jxr_linenumber" name="461" href="#461">461</a> 		<em class="jxr_comment">// System.out.println("SearchFor: " + strModule + ":" +</em>
+<a class="jxr_linenumber" name="462" href="#462">462</a> 		<em class="jxr_comment">// funct.getName()); // DBG</em>
+<a class="jxr_linenumber" name="463" href="#463">463</a> 
+<a class="jxr_linenumber" name="464" href="#464">464</a> 		JIPClausesDatabase db = (JIPClausesDatabase) m_clauseTable.get(strModule + <span class="jxr_string">":"</span> + funct.getName());
+<a class="jxr_linenumber" name="465" href="#465">465</a> 
+<a class="jxr_linenumber" name="466" href="#466">466</a> 		<strong class="jxr_keyword">if</strong> (db == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="467" href="#467">467</a> 			<em class="jxr_comment">// System.out.println("not found in " + strModule);</em>
+<a class="jxr_linenumber" name="468" href="#468">468</a> 			<em class="jxr_comment">// System.out.println("search in:" + USER_MODULE ); // DBG);</em>
+<a class="jxr_linenumber" name="469" href="#469">469</a> 
+<a class="jxr_linenumber" name="470" href="#470">470</a> 			db = (JIPClausesDatabase) m_clauseTable.get(USER_MODULE + <span class="jxr_string">":"</span> + funct.getName());
+<a class="jxr_linenumber" name="471" href="#471">471</a> 			<strong class="jxr_keyword">if</strong> (db == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="472" href="#472">472</a> 				<em class="jxr_comment">// System.out.println("not found in " + USER_MODULE);</em>
+<a class="jxr_linenumber" name="473" href="#473">473</a> 				<em class="jxr_comment">// System.out.println("search in:" + SYSTEM_MODULE); // DBG);</em>
+<a class="jxr_linenumber" name="474" href="#474">474</a> 
+<a class="jxr_linenumber" name="475" href="#475">475</a> 				<strong class="jxr_keyword">return</strong> (JIPClausesDatabase) m_clauseTable.get(SYSTEM_MODULE + <span class="jxr_string">":"</span> + funct.getName());
+<a class="jxr_linenumber" name="476" href="#476">476</a> 			}
+<a class="jxr_linenumber" name="477" href="#477">477</a> 		}
+<a class="jxr_linenumber" name="478" href="#478">478</a> 
+<a class="jxr_linenumber" name="479" href="#479">479</a> 		<strong class="jxr_keyword">return</strong> db;
+<a class="jxr_linenumber" name="480" href="#480">480</a> 	}
+<a class="jxr_linenumber" name="481" href="#481">481</a> 
+<a class="jxr_linenumber" name="482" href="#482">482</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">synchronized</strong> <strong class="jxr_keyword">void</strong> loadKernel(<a href="../../../../com/ugos/jiprolog/engine/GlobalDB.html">GlobalDB</a> gdb) {
+<a class="jxr_linenumber" name="483" href="#483">483</a> 		<strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="484" href="#484">484</a> 			gdb.m_bCheckDisabled = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="485" href="#485">485</a> 
+<a class="jxr_linenumber" name="486" href="#486">486</a> 			<strong class="jxr_keyword">if</strong> (JIPDebugger.debug) {
+<a class="jxr_linenumber" name="487" href="#487">487</a> 				System.out.println(<span class="jxr_string">"GlobalDebug"</span>);
+<a class="jxr_linenumber" name="488" href="#488">488</a> 
+<a class="jxr_linenumber" name="489" href="#489">489</a> 				InputStream ins = gdb.getClass().getResourceAsStream(JIPEngine.RESOURCEPATH + <span class="jxr_string">"jipkernel.txt"</span>);
+<a class="jxr_linenumber" name="490" href="#490">490</a> 
+<a class="jxr_linenumber" name="491" href="#491">491</a> 				PrologParser parser = <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/PrologParser.html">PrologParser</a>(<strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/ParserReader.html">ParserReader</a>(<strong class="jxr_keyword">new</strong> InputStreamReader(ins)), <strong class="jxr_keyword">new</strong> OperatorManager(), <span class="jxr_string">"jipkernel.txt"</span>);
+<a class="jxr_linenumber" name="492" href="#492">492</a> 
+<a class="jxr_linenumber" name="493" href="#493">493</a> 				PrologObject term;
+<a class="jxr_linenumber" name="494" href="#494">494</a> 				<strong class="jxr_keyword">while</strong> ((term = parser.parseNext()) != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="495" href="#495">495</a> 					<em class="jxr_comment">// System.out.println(term);</em>
+<a class="jxr_linenumber" name="496" href="#496">496</a> 					gdb.assertz(Clause.getClause(term), <span class="jxr_string">"__KERNEL__"</span>, false);
+<a class="jxr_linenumber" name="497" href="#497">497</a> 				}
+<a class="jxr_linenumber" name="498" href="#498">498</a> 
+<a class="jxr_linenumber" name="499" href="#499">499</a> 				ins.close();
+<a class="jxr_linenumber" name="500" href="#500">500</a> 			} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="501" href="#501">501</a> 				InputStream ins = gdb.getClass().getResourceAsStream(JIPEngine.RESOURCEPATH + <span class="jxr_string">"jipkernel.jip"</span>);
+<a class="jxr_linenumber" name="502" href="#502">502</a> 
+<a class="jxr_linenumber" name="503" href="#503">503</a> 				<strong class="jxr_keyword">final</strong> ObjectInputStream oins = <strong class="jxr_keyword">new</strong> ObjectInputStream(ins);
+<a class="jxr_linenumber" name="504" href="#504">504</a> 				ArrayList&lt;PrologObject&gt; program = (ArrayList&lt;PrologObject&gt;) oins.readObject();
+<a class="jxr_linenumber" name="505" href="#505">505</a> 				oins.close();
+<a class="jxr_linenumber" name="506" href="#506">506</a> 				ins.close();
+<a class="jxr_linenumber" name="507" href="#507">507</a> 
+<a class="jxr_linenumber" name="508" href="#508">508</a> 				<strong class="jxr_keyword">for</strong> (PrologObject term : program) {
+<a class="jxr_linenumber" name="509" href="#509">509</a> 					<em class="jxr_comment">// System.out.println(term);</em>
+<a class="jxr_linenumber" name="510" href="#510">510</a> 					gdb.assertz(Clause.getClause(term), <span class="jxr_string">"__KERNEL__"</span>, false);
+<a class="jxr_linenumber" name="511" href="#511">511</a> 				}
+<a class="jxr_linenumber" name="512" href="#512">512</a> 			}
+<a class="jxr_linenumber" name="513" href="#513">513</a> 
+<a class="jxr_linenumber" name="514" href="#514">514</a> 			gdb.moduleTransparent(<span class="jxr_string">"&#92;&#92;+/1"</span>);
+<a class="jxr_linenumber" name="515" href="#515">515</a> 			gdb.moduleTransparent(<span class="jxr_string">"not/1"</span>);
+<a class="jxr_linenumber" name="516" href="#516">516</a> 			gdb.moduleTransparent(<span class="jxr_string">";/2"</span>);
+<a class="jxr_linenumber" name="517" href="#517">517</a> 			gdb.moduleTransparent(<span class="jxr_string">"-&gt;/2"</span>);
+<a class="jxr_linenumber" name="518" href="#518">518</a> 			gdb.moduleTransparent(<span class="jxr_string">"^/2"</span>);
+<a class="jxr_linenumber" name="519" href="#519">519</a> 
+<a class="jxr_linenumber" name="520" href="#520">520</a> 			gdb.m_bCheckDisabled = false;
+<a class="jxr_linenumber" name="521" href="#521">521</a> 		} <strong class="jxr_keyword">catch</strong> (IOException ex) {
+<a class="jxr_linenumber" name="522" href="#522">522</a> 			gdb.m_bCheckDisabled = false;
+<a class="jxr_linenumber" name="523" href="#523">523</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPRuntimeException.html">JIPRuntimeException</a>(<span class="jxr_string">"Unable to load Kernel: "</span> + ex.toString());
+<a class="jxr_linenumber" name="524" href="#524">524</a> 		} <strong class="jxr_keyword">catch</strong> (JIPSyntaxErrorException ex) {
+<a class="jxr_linenumber" name="525" href="#525">525</a> 			gdb.m_bCheckDisabled = false;
+<a class="jxr_linenumber" name="526" href="#526">526</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPRuntimeException.html">JIPRuntimeException</a>(<span class="jxr_string">"Unable to load Kernel: "</span> + ex.toString());
+<a class="jxr_linenumber" name="527" href="#527">527</a> 		} <strong class="jxr_keyword">catch</strong> (NullPointerException ex) {
+<a class="jxr_linenumber" name="528" href="#528">528</a> 			<em class="jxr_comment">// ex.printStackTrace();</em>
+<a class="jxr_linenumber" name="529" href="#529">529</a> 			gdb.m_bCheckDisabled = false;
+<a class="jxr_linenumber" name="530" href="#530">530</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPRuntimeException.html">JIPRuntimeException</a>(<span class="jxr_string">"JIProlog Kernel is not found. JIPKernel.txt should be in the classpath."</span>);
+<a class="jxr_linenumber" name="531" href="#531">531</a> 		} <strong class="jxr_keyword">catch</strong> (ClassNotFoundException e) {
+<a class="jxr_linenumber" name="532" href="#532">532</a> 			<em class="jxr_comment">// ex.printStackTrace();</em>
+<a class="jxr_linenumber" name="533" href="#533">533</a> 			gdb.m_bCheckDisabled = false;
+<a class="jxr_linenumber" name="534" href="#534">534</a> 			<strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPRuntimeException.html">JIPRuntimeException</a>(<span class="jxr_string">"Unable to load Kernel: "</span> + e.toString());
+<a class="jxr_linenumber" name="535" href="#535">535</a> 		}
+<a class="jxr_linenumber" name="536" href="#536">536</a> 	}
+<a class="jxr_linenumber" name="537" href="#537">537</a> 
+<a class="jxr_linenumber" name="538" href="#538">538</a> 	<em class="jxr_comment">// final Vector listing()</em>
+<a class="jxr_linenumber" name="539" href="#539">539</a> 	<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="540" href="#540">540</a> 	<em class="jxr_comment">// Vector vect = new Vector(m_clauseTable.size());</em>
+<a class="jxr_linenumber" name="541" href="#541">541</a> 	<em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="542" href="#542">542</a> 	<em class="jxr_comment">// Enumeration enum = m_clauseTable.keys();</em>
+<a class="jxr_linenumber" name="543" href="#543">543</a> 	<em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="544" href="#544">544</a> 	<em class="jxr_comment">// while(enum.hasMoreElements())</em>
+<a class="jxr_linenumber" name="545" href="#545">545</a> 	<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="546" href="#546">546</a> 	<em class="jxr_comment">// String strPredDef = (String)enum.nextElement();</em>
+<a class="jxr_linenumber" name="547" href="#547">547</a> 	<em class="jxr_comment">// if(strPredDef.startsWith(SYSTEM_MODULE) ||</em>
+<a class="jxr_linenumber" name="548" href="#548">548</a> 	<em class="jxr_comment">// strPredDef.startsWith(USER_MODULE))</em>
+<a class="jxr_linenumber" name="549" href="#549">549</a> 	<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="550" href="#550">550</a> 	<em class="jxr_comment">// vect.addElement(strPredDef.substring(strPredDef.indexOf(':') + 1));</em>
+<a class="jxr_linenumber" name="551" href="#551">551</a> 	<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="552" href="#552">552</a> 	<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="553" href="#553">553</a> 	<em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="554" href="#554">554</a> 	<em class="jxr_comment">// return vect;</em>
+<a class="jxr_linenumber" name="555" href="#555">555</a> 	<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="556" href="#556">556</a> 
+<a class="jxr_linenumber" name="557" href="#557">557</a> 	Enumeration&lt;JIPClausesDatabase&gt; databases() {
+<a class="jxr_linenumber" name="558" href="#558">558</a> 		<strong class="jxr_keyword">return</strong> m_clauseTable.elements();
+<a class="jxr_linenumber" name="559" href="#559">559</a> 	}
+<a class="jxr_linenumber" name="560" href="#560">560</a> 
+<a class="jxr_linenumber" name="561" href="#561">561</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/ugos/jiprolog/engine/PrologObject.html">PrologObject</a> fixTerm(<strong class="jxr_keyword">final</strong> <a href="../../../../com/ugos/jiprolog/engine/PrologObject.html">PrologObject</a> term) {
+<a class="jxr_linenumber" name="562" href="#562">562</a> 		<em class="jxr_comment">// System.out.println("fixterm");</em>
+<a class="jxr_linenumber" name="563" href="#563">563</a> 		<em class="jxr_comment">// System.out.println(term);</em>
+<a class="jxr_linenumber" name="564" href="#564">564</a> 
+<a class="jxr_linenumber" name="565" href="#565">565</a> 		<strong class="jxr_keyword">if</strong> (term instanceof BuiltInPredicate) {
+<a class="jxr_linenumber" name="566" href="#566">566</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/BuiltInPredicate.html">BuiltInPredicate</a>(((Functor) term).getAtom(), (ConsCell) fixTerm(((BuiltInPredicate) term).getParams()));
+<a class="jxr_linenumber" name="567" href="#567">567</a> 		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (term instanceof Functor) {
+<a class="jxr_linenumber" name="568" href="#568">568</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/Functor.html">Functor</a>(((Functor) term).getAtom(), (ConsCell) fixTerm(((Functor) term).getParams()));
+<a class="jxr_linenumber" name="569" href="#569">569</a> 		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (term instanceof PString) {
+<a class="jxr_linenumber" name="570" href="#570">570</a> 			<em class="jxr_comment">// System.out.println("ConsCell");</em>
+<a class="jxr_linenumber" name="571" href="#571">571</a> 
+<a class="jxr_linenumber" name="572" href="#572">572</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/PString.html">PString</a>(<strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/List.html">List</a>(fixTerm(((ConsCell) term).getHead()), fixTerm(((ConsCell) term).getTail())));
+<a class="jxr_linenumber" name="573" href="#573">573</a> 		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (term instanceof List) {
+<a class="jxr_linenumber" name="574" href="#574">574</a> 			<em class="jxr_comment">// System.out.println("ConsCell");</em>
+<a class="jxr_linenumber" name="575" href="#575">575</a> 
+<a class="jxr_linenumber" name="576" href="#576">576</a> 			<strong class="jxr_keyword">if</strong> (term == List.NIL)
+<a class="jxr_linenumber" name="577" href="#577">577</a> 				<strong class="jxr_keyword">return</strong> term;
+<a class="jxr_linenumber" name="578" href="#578">578</a> 			<strong class="jxr_keyword">else</strong>
+<a class="jxr_linenumber" name="579" href="#579">579</a> 				<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/List.html">List</a>(fixTerm(((ConsCell) term).getHead()), fixTerm(((ConsCell) term).getTail()));
+<a class="jxr_linenumber" name="580" href="#580">580</a> 		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (term instanceof Clause) {
+<a class="jxr_linenumber" name="581" href="#581">581</a> 			<em class="jxr_comment">// System.out.println("Clause");</em>
+<a class="jxr_linenumber" name="582" href="#582">582</a> 			Clause clause = <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/Clause.html">Clause</a>(((Clause) term).getModuleName(), (Functor) fixTerm(((ConsCell) term).getHead()), (ConsCell) fixTerm(((ConsCell) term).getTail()));
+<a class="jxr_linenumber" name="583" href="#583">583</a> 			<strong class="jxr_keyword">if</strong> (((Clause) term).isExported() || isExported((Functor) clause.getHead()))
+<a class="jxr_linenumber" name="584" href="#584">584</a> 				clause.setExported();
+<a class="jxr_linenumber" name="585" href="#585">585</a> 
+<a class="jxr_linenumber" name="586" href="#586">586</a> 			clause.setFileName(((Clause) term).getFileName());
+<a class="jxr_linenumber" name="587" href="#587">587</a> 			clause.setLineNumber(((Clause) term).getLineNumber());
+<a class="jxr_linenumber" name="588" href="#588">588</a> 			clause.setPosition(((Clause) term).getPosition());
+<a class="jxr_linenumber" name="589" href="#589">589</a> 
+<a class="jxr_linenumber" name="590" href="#590">590</a> 			<strong class="jxr_keyword">return</strong> clause;
+<a class="jxr_linenumber" name="591" href="#591">591</a> 		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (term instanceof ConsCell) {
+<a class="jxr_linenumber" name="592" href="#592">592</a> 			<strong class="jxr_keyword">if</strong> (term == ConsCell.NIL)
+<a class="jxr_linenumber" name="593" href="#593">593</a> 				<strong class="jxr_keyword">return</strong> term;
+<a class="jxr_linenumber" name="594" href="#594">594</a> 			<strong class="jxr_keyword">else</strong>
+<a class="jxr_linenumber" name="595" href="#595">595</a> 				<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/ConsCell.html">ConsCell</a>(fixTerm(((ConsCell) term).getHead()), fixTerm(((ConsCell) term).getTail()));
+<a class="jxr_linenumber" name="596" href="#596">596</a> 		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (term instanceof Variable) {
+<a class="jxr_linenumber" name="597" href="#597">597</a> 			<em class="jxr_comment">// return term;</em>
+<a class="jxr_linenumber" name="598" href="#598">598</a> 			<strong class="jxr_keyword">if</strong> (((Variable) term).isBounded()) {
+<a class="jxr_linenumber" name="599" href="#599">599</a> 				<strong class="jxr_keyword">return</strong> fixTerm(((Variable) term).getObject());
+<a class="jxr_linenumber" name="600" href="#600">600</a> 			} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="601" href="#601">601</a> 				<strong class="jxr_keyword">return</strong> ((Variable) term).lastVariable();
+<a class="jxr_linenumber" name="602" href="#602">602</a> 			}
+<a class="jxr_linenumber" name="603" href="#603">603</a> 		}
+<a class="jxr_linenumber" name="604" href="#604">604</a> 
+<a class="jxr_linenumber" name="605" href="#605">605</a> 		<strong class="jxr_keyword">return</strong> term;
+<a class="jxr_linenumber" name="606" href="#606">606</a> 	}
+<a class="jxr_linenumber" name="607" href="#607">607</a> 
+<a class="jxr_linenumber" name="608" href="#608">608</a> 	<strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> unconsult(<strong class="jxr_keyword">final</strong> String strFileName) {
+<a class="jxr_linenumber" name="609" href="#609">609</a> 		Vector&lt;String&gt; predVector = m_file2PredMap.get(strFileName);
+<a class="jxr_linenumber" name="610" href="#610">610</a> 		<strong class="jxr_keyword">if</strong> (predVector == <strong class="jxr_keyword">null</strong>)
+<a class="jxr_linenumber" name="611" href="#611">611</a> 			<strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="612" href="#612">612</a> 
+<a class="jxr_linenumber" name="613" href="#613">613</a> 		<strong class="jxr_keyword">for</strong> (String strPredName : predVector) {
+<a class="jxr_linenumber" name="614" href="#614">614</a> 			<strong class="jxr_keyword">if</strong> (m_clauseTable.containsKey(strPredName)) {
+<a class="jxr_linenumber" name="615" href="#615">615</a> 				<strong class="jxr_keyword">if</strong> (isMultifile(strPredName)) {
+<a class="jxr_linenumber" name="616" href="#616">616</a> 					JIPClausesDatabase db = m_clauseTable.get(strPredName);
+<a class="jxr_linenumber" name="617" href="#617">617</a> 
+<a class="jxr_linenumber" name="618" href="#618">618</a> 					Enumeration en1 = db.clauses();
+<a class="jxr_linenumber" name="619" href="#619">619</a> 					Vector&lt;Clause&gt; clausesToRemove = <strong class="jxr_keyword">new</strong> Vector&lt;Clause&gt;();
+<a class="jxr_linenumber" name="620" href="#620">620</a> 
+<a class="jxr_linenumber" name="621" href="#621">621</a> 					<strong class="jxr_keyword">while</strong> (en1.hasMoreElements()) {
+<a class="jxr_linenumber" name="622" href="#622">622</a> 						Clause clause = (Clause) en1.nextElement();
+<a class="jxr_linenumber" name="623" href="#623">623</a> 						String f = clause.getFileName();
+<a class="jxr_linenumber" name="624" href="#624">624</a> 						<strong class="jxr_keyword">if</strong> (strFileName.equalsIgnoreCase(f)) {
+<a class="jxr_linenumber" name="625" href="#625">625</a> 							clausesToRemove.add(clause);
+<a class="jxr_linenumber" name="626" href="#626">626</a> 						}
+<a class="jxr_linenumber" name="627" href="#627">627</a> 					}
+<a class="jxr_linenumber" name="628" href="#628">628</a> 
+<a class="jxr_linenumber" name="629" href="#629">629</a> 					<strong class="jxr_keyword">for</strong> (Clause c : clausesToRemove) {
+<a class="jxr_linenumber" name="630" href="#630">630</a> 						db.removeClause(<strong class="jxr_keyword">new</strong> <a href="../../../../com/ugos/jiprolog/engine/JIPClause.html">JIPClause</a>(c));
+<a class="jxr_linenumber" name="631" href="#631">631</a> 					}
+<a class="jxr_linenumber" name="632" href="#632">632</a> 				} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="633" href="#633">633</a> 					m_pred2FileMap.remove(strPredName);
+<a class="jxr_linenumber" name="634" href="#634">634</a> 					m_clauseTable.remove(strPredName);
+<a class="jxr_linenumber" name="635" href="#635">635</a> 				}
+<a class="jxr_linenumber" name="636" href="#636">636</a> 			}
+<a class="jxr_linenumber" name="637" href="#637">637</a> 		}
+<a class="jxr_linenumber" name="638" href="#638">638</a> 
+<a class="jxr_linenumber" name="639" href="#639">639</a> 		<em class="jxr_comment">// Enumeration&lt;String&gt; en = m_pred2FileMap.keys();</em>
+<a class="jxr_linenumber" name="640" href="#640">640</a> 		<em class="jxr_comment">// while(en.hasMoreElements())</em>
+<a class="jxr_linenumber" name="641" href="#641">641</a> 		<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="642" href="#642">642</a> 		<em class="jxr_comment">// String strPredName = en.nextElement();</em>
+<a class="jxr_linenumber" name="643" href="#643">643</a> 		<em class="jxr_comment">// String strFile = m_pred2FileMap.get(strPredName);</em>
+<a class="jxr_linenumber" name="644" href="#644">644</a> 		<em class="jxr_comment">// if(strFile.equals(strFileName))</em>
+<a class="jxr_linenumber" name="645" href="#645">645</a> 		<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="646" href="#646">646</a> 		<em class="jxr_comment">// if(m_clauseTable.containsKey(strPredName))</em>
+<a class="jxr_linenumber" name="647" href="#647">647</a> 		<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="648" href="#648">648</a> 		<em class="jxr_comment">// if(isMultifile(strPredName))</em>
+<a class="jxr_linenumber" name="649" href="#649">649</a> 		<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="650" href="#650">650</a> 		<em class="jxr_comment">// JIPClausesDatabase db =</em>
+<a class="jxr_linenumber" name="651" href="#651">651</a> 		<em class="jxr_comment">// m_clauseTable.get(strPredName);</em>
+<a class="jxr_linenumber" name="652" href="#652">652</a> 		<em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="653" href="#653">653</a> 		<em class="jxr_comment">// Enumeration en1 = db.clauses();</em>
+<a class="jxr_linenumber" name="654" href="#654">654</a> 		<em class="jxr_comment">// while(en1.hasMoreElements())</em>
+<a class="jxr_linenumber" name="655" href="#655">655</a> 		<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="656" href="#656">656</a> 		<em class="jxr_comment">// Clause clause = (Clause)en1.nextElement();</em>
+<a class="jxr_linenumber" name="657" href="#657">657</a> 		<em class="jxr_comment">// if(strFileName.equalsIgnoreCase(clause.getFileName()))</em>
+<a class="jxr_linenumber" name="658" href="#658">658</a> 		<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="659" href="#659">659</a> 		<em class="jxr_comment">// db.removeClause(new JIPClause(clause));</em>
+<a class="jxr_linenumber" name="660" href="#660">660</a> 		<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="661" href="#661">661</a> 		<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="662" href="#662">662</a> 		<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="663" href="#663">663</a> 		<em class="jxr_comment">// else</em>
+<a class="jxr_linenumber" name="664" href="#664">664</a> 		<em class="jxr_comment">// {</em>
+<a class="jxr_linenumber" name="665" href="#665">665</a> 		<em class="jxr_comment">// m_pred2FileMap.remove(strPredName);</em>
+<a class="jxr_linenumber" name="666" href="#666">666</a> 		<em class="jxr_comment">// m_clauseTable.remove(strPredName);</em>
+<a class="jxr_linenumber" name="667" href="#667">667</a> 		<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="668" href="#668">668</a> 		<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="669" href="#669">669</a> 		<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="670" href="#670">670</a> 		<em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="671" href="#671">671</a> 	}
+<a class="jxr_linenumber" name="672" href="#672">672</a> 
+<a class="jxr_linenumber" name="673" href="#673">673</a> 	
+<a class="jxr_linenumber" name="674" href="#674">674</a> 
+<a class="jxr_linenumber" name="675" href="#675">675</a> 	<strong class="jxr_keyword">final</strong> ArrayList&lt;String&gt; getFiles() {
+<a class="jxr_linenumber" name="676" href="#676">676</a> 		ArrayList&lt;String&gt; files = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
+<a class="jxr_linenumber" name="677" href="#677">677</a> 
+<a class="jxr_linenumber" name="678" href="#678">678</a> 		Enumeration&lt;String&gt; en = m_pred2FileMap.keys();
+<a class="jxr_linenumber" name="679" href="#679">679</a> 		<strong class="jxr_keyword">while</strong> (en.hasMoreElements()) {
+<a class="jxr_linenumber" name="680" href="#680">680</a> 			String strPredName = en.nextElement();
+<a class="jxr_linenumber" name="681" href="#681">681</a> 			String strFile = m_pred2FileMap.get(strPredName);
+<a class="jxr_linenumber" name="682" href="#682">682</a> 			files.add(strFile);
+<a class="jxr_linenumber" name="683" href="#683">683</a> 		}
+<a class="jxr_linenumber" name="684" href="#684">684</a> 
+<a class="jxr_linenumber" name="685" href="#685">685</a> 		<strong class="jxr_keyword">return</strong> files;
+<a class="jxr_linenumber" name="686" href="#686">686</a> 	}
+<a class="jxr_linenumber" name="687" href="#687">687</a> 
+<a class="jxr_linenumber" name="688" href="#688">688</a> 	<strong class="jxr_keyword">void</strong> setExported(String functor) {
+<a class="jxr_linenumber" name="689" href="#689">689</a> 		<em class="jxr_comment">// String func = functor.getName();</em>
+<a class="jxr_linenumber" name="690" href="#690">690</a> 		m_exportedTable.put(functor, functor);
+<a class="jxr_linenumber" name="691" href="#691">691</a> 	}
+<a class="jxr_linenumber" name="692" href="#692">692</a> 
+<a class="jxr_linenumber" name="693" href="#693">693</a> 	<strong class="jxr_keyword">boolean</strong> isExported(<a href="../../../../com/ugos/jiprolog/engine/Functor.html">Functor</a> functor) {
+<a class="jxr_linenumber" name="694" href="#694">694</a> 		String func = functor.getName();
+<a class="jxr_linenumber" name="695" href="#695">695</a> 		<strong class="jxr_keyword">return</strong> m_exportedTable.containsKey(func);
+<a class="jxr_linenumber" name="696" href="#696">696</a> 	}
+<a class="jxr_linenumber" name="697" href="#697">697</a> }
+</pre>
+<hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
+</html>
+
