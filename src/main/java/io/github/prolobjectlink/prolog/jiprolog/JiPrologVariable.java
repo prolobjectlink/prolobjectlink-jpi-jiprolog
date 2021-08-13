@@ -22,6 +22,7 @@ package io.github.prolobjectlink.prolog.jiprolog;
 
 import static io.github.prolobjectlink.prolog.PrologTermType.VARIABLE_TYPE;
 
+import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 
 import io.github.prolobjectlink.prolog.ArityError;
@@ -38,6 +39,18 @@ class JiPrologVariable extends JiPrologTerm implements PrologVariable {
 
 	JiPrologVariable(PrologProvider provider, String name) {
 		super(VARIABLE_TYPE, provider, JIPVariable.create(name));
+	}
+
+	JiPrologVariable(int type, PrologProvider provider) {
+		super(type, provider);
+	}
+
+	JiPrologVariable(int type, PrologProvider provider, String name) {
+		super(type, provider, JIPVariable.create(name));
+	}
+
+	JiPrologVariable(int type, PrologProvider provider, JIPTerm var) {
+		super(type, provider, var);
 	}
 
 	public boolean isAnonymous() {

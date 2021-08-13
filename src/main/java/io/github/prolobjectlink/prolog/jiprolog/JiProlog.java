@@ -106,29 +106,18 @@ public final class JiProlog extends AbstractProvider implements PrologProvider {
 		JIPTermParser parser = new JIPEngine().getTermParser();
 		InputStream inputStream = new ByteArrayInputStream(stringTerms.getBytes());
 		Enumeration<JIPTerm> e = parser.parseStream(inputStream, inputStream.toString());
-//		PushbackLineNumberInputStream stream = new PushbackLineNumberInputStream(inputStream);
-//		Enumeration<JIPTerm> e = parser.parseStream(stream, stream.toString());
 		ArrayList<PrologTerm> terms = new ArrayList<PrologTerm>();
 		while (e.hasMoreElements()) {
 			JIPTerm term = e.nextElement();
 			if (!(term instanceof JIPCons)) {
 				terms.add(toTerm(term, PrologTerm.class));
 			} else {
-
 				JIPCons structure = (JIPCons) term;
 				int deep = structure.getHeight();
 				for (int i = 1; i <= deep; i++) {
-
-//					JIPTerm j = structure.getNth(i)
-
-//					System.out.println(j + "[ " + j.getClass() + " ]")
-
 					PrologTerm k = toTerm(structure.getNth(i), PrologTerm.class);
-
 					terms.add(k);
-
 				}
-
 			}
 		}
 		return terms.toArray(new PrologTerm[0]);
@@ -232,6 +221,60 @@ public final class JiProlog extends AbstractProvider implements PrologProvider {
 
 	public PrologTerm voidReference() {
 		return newReference(void.class);
+	}
+
+	public PrologTerm newField(PrologTerm name) {
+		return new JiPrologField(this, name);
+	}
+
+	public PrologTerm newField(String name) {
+		return new JiPrologField(this, name);
+	}
+
+	public PrologTerm newField(PrologTerm name, PrologTerm type) {
+		return new JiPrologTypedField(this, name, type);
+	}
+
+	public PrologTerm newField(String name, String type) {
+		PrologTerm oname = newVariable(name, 0);
+		PrologTerm otype = newVariable(type, 1);
+		return new JiPrologTypedField(this, oname, otype);
+	}
+
+	public PrologTerm newResult(PrologTerm name) {
+		return new JiPrologResult(this, name);
+	}
+
+	public PrologTerm newResult(String name) {
+		return new JiPrologResult(this, name);
+	}
+
+	public PrologTerm newResult(PrologTerm name, PrologTerm type) {
+		return new JiPrologTypedResult(this, name, type);
+	}
+
+	public PrologTerm newResult(String name, String type) {
+		PrologTerm oname = newVariable(name, 0);
+		PrologTerm otype = newVariable(type, 1);
+		return new JiPrologTypedResult(this, oname, otype);
+	}
+
+	public PrologTerm newParameter(PrologTerm name) {
+		return new JiPrologParameter(this, name);
+	}
+
+	public PrologTerm newParameter(String name) {
+		return new JiPrologParameter(this, name);
+	}
+
+	public PrologTerm newParameter(PrologTerm name, PrologTerm type) {
+		return new JiPrologTypedParameter(this, name, type);
+	}
+
+	public PrologTerm newParameter(String name, String type) {
+		PrologTerm oname = newVariable(name, 0);
+		PrologTerm otype = newVariable(type, 1);
+		return new JiPrologTypedParameter(this, oname, otype);
 	}
 
 	public PrologJavaConverter getJavaConverter() {
