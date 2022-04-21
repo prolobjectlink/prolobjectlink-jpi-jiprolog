@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd>
+<duplication lines="70" tokens="238">
+<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\See2.java"/>
+<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Tell2.java"/>
+<codefragment>
+<![CDATA[
+public final class Tell2 extends JIPXCall
+{
+    public final boolean unify(final JIPCons params, Hashtable varsTbl)
+    {
+        // viene chiamato o mediante tell/2 o mediante
+        // open(file, write, Handle)
+
+        JIPTerm input = params.getNth(1);
+
+        // check if input is a variable
+        if (input instanceof JIPVariable)
+        {
+            // try to extract the term
+            if(!((JIPVariable)input).isBounded())
+            {
+                throw new JIPParameterUnboundedException(1);
+            }
+            else
+            {
+                //extracts the term
+                input = ((JIPVariable)input).getValue();
+            }
+        }
+
+        String strFilePath;
+        // check if input is an atom
+        if(input instanceof JIPAtom)
+        {
+            strFilePath = ((JIPAtom)input).getName();
+        }
+        else if(input instanceof JIPString)
+        {
+            strFilePath = ((JIPString)input).getStringValue();
+        }
+        else
+        {
+            throw new JIPParameterTypeException(1, JIPParameterTypeException.ATOM_OR_STRING);
+        }
+
+        // delete ' at the beggining and end of string
+        if(strFilePath.charAt(0) == 39 || strFilePath.charAt(0) == 34)
+        {
+            strFilePath = strFilePath.substring(1, strFilePath.length() - 1);
+        }
+
+        //strFilePath = strFilePath.replace((char)92, File.separatorChar);
+        //strFilePath = strFilePath.replace('/', File.separatorChar);
+
+        JIPTerm handle = params.getNth(2);
+        // check if handle is a variable
+        if (handle instanceof JIPVariable)
+        {
+            // try to extract the term
+            if(((JIPVariable)handle).isBounded())
+            {
+                handle = ((JIPVariable)handle).getValue();
+            }
+        }
+
+        String strStreamHandle = null;
+
+        // check if handle is an atom
+        if(handle instanceof JIPAtom)
+        {
+            strStreamHandle = ((JIPAtom)handle).getName();
+        }
+
+        try
+        {
+            strStreamHandle = JIPio.openOutputStream(strFilePath, strStreamHandle, false, getJIPEngine());
+]]>
+</codefragment>
+</duplication>
+<duplication lines="28" tokens="171">
+<file line="149" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologEngine.java"/>
+<file line="193" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologEngine.java"/>
+<codefragment>
+<![CDATA[
+			BufferedReader bfr = new BufferedReader(reader);
+			StringBuilder script = new StringBuilder();
+			String line = bfr.readLine();
+			while (line != null) {
+				script.append(line);
+				script.append("\n");
+				line = bfr.readLine();
+			}
+
+			// load and assert
+			String name = reader.toString();
+			byte[] bs = script.toString().getBytes();
+			ByteArrayInputStream fins = new ByteArrayInputStream(bs);
+			Enumeration<?> loadEnumeration = parser.parseStream(fins, name);
+//			PushbackLineNumberInputStream stream = new PushbackLineNumberInputStream(fins);
+//			Enumeration<?> loadEnumeration = parser.parseStream(stream, name);
+			while (loadEnumeration.hasMoreElements()) {
+				JIPTerm jipTerm = (JIPTerm) loadEnumeration.nextElement();
+				engine.assertz(jipTerm);
+			}
+		} catch (FileNotFoundException e) {
+			getLogger().error(getClass(), PrologLogger.FILE_NOT_FOUND, e);
+		} catch (IOException e) {
+			getLogger().error(getClass(), PrologLogger.IO, e);
+		}
+	}
+
+	public void persist(String path) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="37" tokens="164">
+<file line="43" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologDouble.java"/>
+<file line="43" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologFloat.java"/>
+<file line="43" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologInteger.java"/>
+<file line="43" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologLong.java"/>
+<codefragment>
+<![CDATA[
+		super(LONG_TYPE, provider, JIPNumber.create(value.longValue()));
+	}
+
+	public PrologInteger getPrologInteger() {
+		return new JiPrologInteger(provider, getIntegerValue());
+	}
+
+	public PrologFloat getPrologFloat() {
+		return new JiPrologFloat(provider, getFloatValue());
+	}
+
+	public PrologDouble getPrologDouble() {
+		return new JiPrologDouble(provider, getDoubleValue());
+	}
+
+	public PrologLong getPrologLong() {
+		return new JiPrologLong(provider, getLongValue());
+	}
+
+	public long getLongValue() {
+		return (long) ((JIPNumber) value).getDoubleValue();
+	}
+
+	public double getDoubleValue() {
+		return ((JIPNumber) value).getDoubleValue();
+	}
+
+	public int getIntegerValue() {
+		return (int) ((JIPNumber) value).getDoubleValue();
+	}
+
+	public float getFloatValue() {
+		return (float) ((JIPNumber) value).getDoubleValue();
+	}
+
+	public PrologTerm[] getArguments() {
+		return new JiPrologLong[0];
+]]>
+</codefragment>
+</duplication>
+<duplication lines="41" tokens="164">
+<file line="28" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Append2.java"/>
+<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\See2.java"/>
+<codefragment>
+<![CDATA[
+public final class See2 extends JIPXCall
+{
+    public final boolean unify(final JIPCons params, Hashtable varsTbl)
+    {
+        JIPTerm input = params.getNth(1);
+
+        // check if input is a variable
+        if (input instanceof JIPVariable)
+        {
+            // try to extract the term
+            if(!((JIPVariable)input).isBounded())
+            {
+                throw new JIPParameterUnboundedException(1);
+            }
+            else
+            {
+                //extracts the term
+                input = ((JIPVariable)input).getValue();
+            }
+        }
+
+        String strFilePath;
+        // check if input is an atom
+        if(input instanceof JIPAtom)
+        {
+            strFilePath = ((JIPAtom)input).getName();
+        }
+        else if(input instanceof JIPString)
+        {
+            strFilePath = ((JIPString)input).getStringValue();
+        }
+        else
+        {
+            throw new JIPParameterTypeException(1, JIPParameterTypeException.ATOM_OR_STRING);
+        }
+
+        // delete ' at the beggining and end of string
+        if(strFilePath.charAt(0) == 39 || strFilePath.charAt(0) == 34)
+        {
+            strFilePath = strFilePath.substring(1, strFilePath.length() - 1);
+        }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="42" tokens="158">
+<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Write2.java"/>
+<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\WriteCanonical2.java"/>
+<codefragment>
+<![CDATA[
+public class WriteCanonical2 extends JIPXCall
+{
+    public final boolean unify(final JIPCons params, Hashtable varsTbl)
+    {
+        JIPTerm input = params.getNth(1);
+        JIPTerm term = params.getNth(2);
+
+        // check if input is a variable
+        if (input instanceof JIPVariable)
+        {
+            // try to extract the term
+            if(!((JIPVariable)input).isBounded())
+            {
+                throw new JIPParameterUnboundedException(1);
+            }
+            else
+            {
+                //extracts the term
+                input = ((JIPVariable)input).getValue();
+            }
+        }
+
+        if(!(input instanceof JIPAtom))
+            throw new JIPParameterTypeException(1, JIPParameterTypeException.ATOM);
+
+        JIPAtom handle = (JIPAtom)input;
+
+        // Gets the handle to the stream
+        String strStreamHandle = (handle).getName();
+        OutputStream writer;
+
+        // Get the stream
+        writer = JIPio.getOutputStream(strStreamHandle, getJIPEngine());
+        if(writer == null)
+        {
+        	throw JIPExistenceException.createStreamException("'" + strStreamHandle + "'");
+//        	throw new JIPDomainException("stream_or_alias", strStreamHandle);
+        }
+
+        try
+        {
+            writer.write(term.toString().getBytes(getJIPEngine().getEncoding()));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="42" tokens="156">
+<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Write2.java"/>
+<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Writeq2.java"/>
+<codefragment>
+<![CDATA[
+public class Writeq2 extends JIPXCall
+{
+    public final boolean unify(final JIPCons params, Hashtable varsTbl)
+    {
+        JIPTerm input = params.getNth(1);
+        JIPTerm term = params.getNth(2);
+
+        // check if input is a variable
+        if (input instanceof JIPVariable)
+        {
+            // try to extract the term
+            if(!((JIPVariable)input).isBounded())
+            {
+                throw new JIPParameterUnboundedException(1);
+            }
+            else
+            {
+                //extracts the term
+                input = ((JIPVariable)input).getValue();
+            }
+        }
+
+        if(!(input instanceof JIPAtom))
+            throw new JIPParameterTypeException(1, JIPParameterTypeException.ATOM);
+
+        JIPAtom handle = (JIPAtom)input;
+
+        // Gets the handle to the stream
+        String strStreamHandle = (handle).getName();
+        OutputStream writer;
+
+        // Get the stream
+        writer = JIPio.getOutputStream(strStreamHandle, getJIPEngine());
+        if(writer == null)
+        {
+        	throw JIPExistenceException.createStreamException("'" + strStreamHandle + "'");
+//        	throw new JIPDomainException("stream_or_alias", strStreamHandle);
+        }
+
+        try
+        {
+            writer.write(term.toStringq(getJIPEngine()).getBytes(getJIPEngine().getEncoding()));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="37" tokens="139">
+<file line="28" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\FlushOutput1.java"/>
+<file line="26" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Nl1.java"/>
+<codefragment>
+<![CDATA[
+public final class Nl1 extends JIPXCall
+{
+    public final boolean unify(final JIPCons params, Hashtable varsTbl)
+    {
+        JIPTerm input = params.getNth(1);
+
+        // check if input is a variable
+        if (input instanceof JIPVariable)
+        {
+            // try to extract the term
+            if(!((JIPVariable)input).isBounded())
+            {
+                throw new JIPParameterUnboundedException(1);
+            }
+            else
+            {
+                //extracts the term
+                input = ((JIPVariable)input).getValue();
+            }
+        }
+
+        if(!(input instanceof JIPAtom))
+            throw new JIPParameterTypeException(1, JIPParameterTypeException.ATOM);
+
+        String strStreamHandle = ((JIPAtom)input).getName();
+        OutputStream writer;
+
+        // Get the stream
+        writer = JIPio.getOutputStream(strStreamHandle, getJIPEngine());
+        if(writer == null)
+        {
+        	throw JIPExistenceException.createStreamException("'" + strStreamHandle + "'");
+        }
+
+        try
+        {
+            writer.write('\n');
+]]>
+</codefragment>
+</duplication>
+<duplication lines="16" tokens="117">
+<file line="90" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\GlobalDB.java"/>
+<file line="163" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\GlobalDB.java"/>
+<codefragment>
+<![CDATA[
+		int nPos = strPredName.lastIndexOf('/');
+		if (nPos < 0)
+			throw new JIPParameterTypeException(1, JIPParameterTypeException.PREDICATE_INDICATOR, jipEngine);
+
+		final String strDef = USER_MODULE + ":" + strPredName;
+		JIPClausesDatabase db;
+		if (m_clauseTable.containsKey(strDef)) {
+			db = ((JIPClausesDatabase) m_clauseTable.get(strDef));
+		} else {
+			final String strName = strPredName.substring(0, nPos);
+			final int nArity = Integer.parseInt(strPredName.substring(nPos + 1));
+			db = new DefaultClausesDatabase(strName, nArity);
+			db.setJIPEngine(jipEngine);
+			// Aggiunge il vettore alla tabella
+			m_clauseTable.put(strDef, db);
+		}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="22" tokens="110">
+<file line="33" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\AtomChars2.java"/>
+<file line="33" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\Name2.java"/>
+<codefragment>
+<![CDATA[
+        JIPTerm string = input.getNth(2);
+
+        // check if input is a variable
+        if (atom instanceof JIPVariable)
+        {
+            // try to extract the term
+            if(((JIPVariable)atom).isBounded())
+            {
+                //extracts the term
+                atom = ((JIPVariable)atom).getValue();
+            }
+        }
+
+        if (atom instanceof JIPNumber)
+        {
+            String strAtom;
+            if(((JIPNumber)atom).isInteger())
+                strAtom = Integer.toString((int)((JIPNumber)atom).getDoubleValue());
+            else
+                strAtom = Double.toString(((JIPNumber)atom).getDoubleValue());
+
+            atom = JIPString.create(strAtom, false);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="11" tokens="108">
+<file line="53" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Nospy1.java"/>
+<file line="43" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Spy1.java"/>
+<codefragment>
+<![CDATA[
+            spy(((List)pred).getTail());
+        }
+        else if(pred instanceof Functor)
+        {
+            // head deve essere instanza di funtore /2 del tipo name/arity
+            if(pred instanceof Functor && ((Functor)pred).getName().equals("//2"))
+            {
+                ConsCell params = ((Functor )pred).getParams();
+                String strPredDef = ((Atom)params.getHead()).getName() + "/" + ((ConsCell)params.getTail()).getHead();
+                Hashtable spyTable = (Hashtable)getJIPEngine().getEnvVariable("__spy__");
+                if(spyTable == null)
+]]>
+</codefragment>
+</duplication>
+<duplication lines="26" tokens="103">
+<file line="26" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\SetInput1.java"/>
+<file line="26" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\SetOutput1.java"/>
+<codefragment>
+<![CDATA[
+public final class SetOutput1 extends JIPXCall
+{
+    public final boolean unify(final JIPCons params, Hashtable varsTbl)
+    {
+        JIPTerm input = params.getNth(1);
+
+        // check if input is a variable
+        if (input instanceof JIPVariable)
+        {
+            // try to extract the term
+            if(!((JIPVariable)input).isBounded())
+            {
+                throw new JIPParameterUnboundedException(1);
+            }
+            else
+            {
+                //extracts the term
+                input = ((JIPVariable)input).getValue();
+            }
+        }
+
+        if(!(input instanceof JIPAtom))
+            throw new JIPParameterTypeException(1, JIPParameterTypeException.ATOM);
+
+        // Gets the handle to the stream
+        final String strStreamHandle = ((JIPAtom)input).getName();
+]]>
+</codefragment>
+</duplication>
+</pmd-cpd>

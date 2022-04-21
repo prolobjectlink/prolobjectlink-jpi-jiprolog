@@ -20,6 +20,12 @@
  */
 package io.github.prolobjectlink.prolog.jiprolog;
 
+import static io.github.prolobjectlink.prolog.PrologTermType.CLASS_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.FIELD_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.MIXIN_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.PARAMETER_TYPE;
+import static io.github.prolobjectlink.prolog.PrologTermType.RESULT_TYPE;
+
 import java.util.Arrays;
 
 import com.ugos.jiprolog.engine.JIPAtom;
@@ -147,6 +153,7 @@ final class JiPrologConverter extends AbstractConverter<JIPTerm> implements Prol
 			}
 			return variable;
 		case PrologTermType.LIST_TYPE:
+		case PrologTermType.MAP_TYPE:
 			PrologTerm[] arguments = ((PrologList) term).getArguments();
 			JIPList list = JIPList.NIL;
 			for (int i = arguments.length - 1; i >= 0; --i) {
@@ -154,12 +161,29 @@ final class JiPrologConverter extends AbstractConverter<JIPTerm> implements Prol
 			}
 			return list;
 		case PrologTermType.STRUCTURE_TYPE:
+		case PrologTermType.MAP_ENTRY_TYPE:
 			String functor = term.getFunctor();
 			arguments = ((PrologStructure) term).getArguments();
 			JIPCons cons = adaptCons(arguments);
 			return JIPFunctor.create(removeQuoted(functor), cons);
 		case PrologTermType.OBJECT_TYPE:
 			return JiPrologReference.set(term.getObject());
+		case PARAMETER_TYPE:
+		case RESULT_TYPE:
+		case FIELD_TYPE:
+			name = ((PrologVariable) term).getName();
+			variable = sharedPrologVariables.get(name);
+			if (variable == null) {
+				variable = JIPVariable.create(name);
+				sharedPrologVariables.put(name, variable);
+			}
+			return variable;
+		case MIXIN_TYPE:
+		case CLASS_TYPE:
+			functor = removeQuoted(term.getFunctor());
+			arguments = term.getArguments();
+			cons = adaptCons(arguments);
+			return JIPFunctor.create(functor, cons);
 		default:
 			throw new UnknownTermError(term);
 		}
