@@ -392,7 +392,7 @@ public class PrologProviderTest extends PrologBaseTest {
 	public void testNewEntryObjectObject() {
 		PrologTerm entry = provider.newEntry("X", "elephant");
 		PrologEntry e = entry.cast();
-		assertEquals(provider.newAtom("X"), e.getKey());
+		assertEquals(x, e.getKey());
 		assertEquals(elephant, e.getValue());
 	}
 
