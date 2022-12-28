@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
 <duplication lines="70" tokens="238">
-<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\See2.java"/>
-<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Tell2.java"/>
+<file line="27" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\See2.java"/>
+<file line="27" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Tell2.java"/>
 <codefragment>
 <![CDATA[
 public final class Tell2 extends JIPXCall
@@ -79,8 +79,8 @@ public final class Tell2 extends JIPXCall
 </codefragment>
 </duplication>
 <duplication lines="28" tokens="171">
-<file line="149" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologEngine.java"/>
-<file line="193" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologEngine.java"/>
+<file line="149" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologEngine.java"/>
+<file line="193" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologEngine.java"/>
 <codefragment>
 <![CDATA[
 			BufferedReader bfr = new BufferedReader(reader);
@@ -115,10 +115,10 @@ public final class Tell2 extends JIPXCall
 </codefragment>
 </duplication>
 <duplication lines="37" tokens="164">
-<file line="43" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologDouble.java"/>
-<file line="43" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologFloat.java"/>
-<file line="43" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologInteger.java"/>
-<file line="43" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologLong.java"/>
+<file line="43" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologDouble.java"/>
+<file line="43" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologFloat.java"/>
+<file line="43" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologInteger.java"/>
+<file line="43" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologLong.java"/>
 <codefragment>
 <![CDATA[
 		super(LONG_TYPE, provider, JIPNumber.create(value.longValue()));
@@ -162,8 +162,8 @@ public final class Tell2 extends JIPXCall
 </codefragment>
 </duplication>
 <duplication lines="41" tokens="164">
-<file line="28" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Append2.java"/>
-<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\See2.java"/>
+<file line="28" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Append2.java"/>
+<file line="27" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\See2.java"/>
 <codefragment>
 <![CDATA[
 public final class See2 extends JIPXCall
@@ -211,8 +211,8 @@ public final class See2 extends JIPXCall
 </codefragment>
 </duplication>
 <duplication lines="42" tokens="158">
-<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Write2.java"/>
-<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\WriteCanonical2.java"/>
+<file line="27" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Write2.java"/>
+<file line="27" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\WriteCanonical2.java"/>
 <codefragment>
 <![CDATA[
 public class WriteCanonical2 extends JIPXCall
@@ -261,8 +261,8 @@ public class WriteCanonical2 extends JIPXCall
 </codefragment>
 </duplication>
 <duplication lines="42" tokens="156">
-<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Write2.java"/>
-<file line="27" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Writeq2.java"/>
+<file line="27" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Write2.java"/>
+<file line="27" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Writeq2.java"/>
 <codefragment>
 <![CDATA[
 public class Writeq2 extends JIPXCall
@@ -311,8 +311,8 @@ public class Writeq2 extends JIPXCall
 </codefragment>
 </duplication>
 <duplication lines="37" tokens="139">
-<file line="28" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\FlushOutput1.java"/>
-<file line="26" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Nl1.java"/>
+<file line="28" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\FlushOutput1.java"/>
+<file line="26" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Nl1.java"/>
 <codefragment>
 <![CDATA[
 public final class Nl1 extends JIPXCall
@@ -356,8 +356,8 @@ public final class Nl1 extends JIPXCall
 </codefragment>
 </duplication>
 <duplication lines="16" tokens="117">
-<file line="90" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\GlobalDB.java"/>
-<file line="163" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\GlobalDB.java"/>
+<file line="90" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\GlobalDB.java"/>
+<file line="163" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\GlobalDB.java"/>
 <codefragment>
 <![CDATA[
 		int nPos = strPredName.lastIndexOf('/');
@@ -380,8 +380,8 @@ public final class Nl1 extends JIPXCall
 </codefragment>
 </duplication>
 <duplication lines="22" tokens="110">
-<file line="33" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\AtomChars2.java"/>
-<file line="33" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\Name2.java"/>
+<file line="33" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\AtomChars2.java"/>
+<file line="33" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\Name2.java"/>
 <codefragment>
 <![CDATA[
         JIPTerm string = input.getNth(2);
@@ -410,8 +410,8 @@ public final class Nl1 extends JIPXCall
 </codefragment>
 </duplication>
 <duplication lines="11" tokens="108">
-<file line="53" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Nospy1.java"/>
-<file line="43" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Spy1.java"/>
+<file line="53" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Nospy1.java"/>
+<file line="43" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Spy1.java"/>
 <codefragment>
 <![CDATA[
             spy(((List)pred).getTail());
@@ -429,8 +429,8 @@ public final class Nl1 extends JIPXCall
 </codefragment>
 </duplication>
 <duplication lines="26" tokens="103">
-<file line="26" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\SetInput1.java"/>
-<file line="26" path="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\SetOutput1.java"/>
+<file line="26" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\SetInput1.java"/>
+<file line="26" path="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\SetOutput1.java"/>
 <codefragment>
 <![CDATA[
 public final class SetOutput1 extends JIPXCall

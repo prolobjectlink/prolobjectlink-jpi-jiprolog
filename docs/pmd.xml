@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.5" timestamp="2022-05-04T12:54:46.315">
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\io\PushBackInputStream.java">
+<pmd version="4.2.5" timestamp="2022-12-28T17:29:23.910">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\io\PushBackInputStream.java">
 <violation beginline="34" endline="34" begincolumn="35" endcolumn="40" rule="UnusedPrivateField" ruleset="Unused Code Rules" package="com.ugos.io" class="PushBackInputStream" variable="m_outs" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
 Avoid unused private fields such as 'm_outs'.
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\JIProlog.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\JIProlog.java">
 <violation beginline="23" endline="23" begincolumn="1" endcolumn="22" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.awt.Frame'
 </violation>
@@ -28,22 +28,22 @@ Avoid unused imports such as 'java.util.Properties'
 Avoid unused local variables such as 'term'.
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Abort0.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Abort0.java">
 <violation beginline="27" endline="31" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Abort0" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\AcyclicTerm1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\AcyclicTerm1.java">
 <violation beginline="27" endline="32" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="AcyclicTerm1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Arg3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Arg3.java">
 <violation beginline="28" endline="71" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Arg3" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\AsyncWAMManager.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\AsyncWAMManager.java">
 <violation beginline="47" endline="50" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="AsyncWAMManager" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -66,7 +66,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Atom.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Atom.java">
 <violation beginline="40" endline="53" begincolumn="25" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Atom" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -89,7 +89,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Atom1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Atom1.java">
 <violation beginline="27" endline="43" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Atom1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -97,7 +97,7 @@ Unnecessary final modifier in final class
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\BuiltInFactory.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\BuiltInFactory.java">
 <violation beginline="140" endline="143" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="BuiltInFactory" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -111,7 +111,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\BuiltInPredicate.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\BuiltInPredicate.java">
 <violation beginline="42" endline="54" begincolumn="22" endcolumn="9" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="BuiltInPredicate" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -125,7 +125,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Chars1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Chars1.java">
 <violation beginline="27" endline="49" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Chars1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -133,7 +133,7 @@ Unnecessary final modifier in final class
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Clause2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Clause2.java">
 <violation beginline="30" endline="77" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Clause2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -141,7 +141,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\CloseSnip0.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\CloseSnip0.java">
 <violation beginline="27" endline="51" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="CloseSnip0" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -149,12 +149,12 @@ Unnecessary final modifier in final class
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Compare3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Compare3.java">
 <violation beginline="27" endline="73" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Compare3" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Compile1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Compile1.java">
 <violation beginline="36" endline="57" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Compile1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -177,12 +177,12 @@ Avoid empty catch blocks
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\ConsCell.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\ConsCell.java">
 <violation beginline="310" endline="311" begincolumn="13" endcolumn="61" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="ConsCell" method="lessThen" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Consult1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Consult1.java">
 <violation beginline="205" endline="206" begincolumn="17" endcolumn="18" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Consult1" method="consult" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
 Avoid empty catch blocks
 </violation>
@@ -196,12 +196,12 @@ Avoid empty catch blocks
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Copyright1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Copyright1.java">
 <violation beginline="26" endline="29" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Copyright1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\CurrentAtom1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\CurrentAtom1.java">
 <violation beginline="29" endline="38" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="CurrentAtom1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -209,7 +209,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\CurrentFunctor2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\CurrentFunctor2.java">
 <violation beginline="30" endline="92" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="CurrentFunctor2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -217,7 +217,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\CurrentOp3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\CurrentOp3.java">
 <violation beginline="32" endline="89" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="CurrentOp3" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -228,22 +228,22 @@ These nested if statements could be combined
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\CurrentQueryHandle1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\CurrentQueryHandle1.java">
 <violation beginline="27" endline="30" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="CurrentQueryHandle1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Cut0.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Cut0.java">
 <violation beginline="27" endline="32" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Cut0" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Debugging0.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Debugging0.java">
 <violation beginline="26" endline="40" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Debugging0" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\DefaultClausesDatabase.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\DefaultClausesDatabase.java">
 <violation beginline="35" endline="37" begincolumn="22" endcolumn="9" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="DefaultClausesDatabase" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -260,37 +260,37 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Encoding1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Encoding1.java">
 <violation beginline="28" endline="65" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Encoding1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\EnsureLoaded1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\EnsureLoaded1.java">
 <violation beginline="28" endline="62" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="EnsureLoaded1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Env2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Env2.java">
 <violation beginline="28" endline="80" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Env2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Equal2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Equal2.java">
 <violation beginline="27" endline="42" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Equal2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Error1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Error1.java">
 <violation beginline="27" endline="39" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Error1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Error2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Error2.java">
 <violation beginline="27" endline="81" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Error2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Expression.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Expression.java">
 <violation beginline="53" endline="56" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Expression" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -316,7 +316,7 @@ These nested if statements could be combined
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Extern3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Extern3.java">
 <violation beginline="27" endline="81" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Extern3" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -324,12 +324,12 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Fail0.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Fail0.java">
 <violation beginline="27" endline="30" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Fail0" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Findall3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Findall3.java">
 <violation beginline="12" endline="50" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Findall3" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -340,17 +340,17 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Float1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Float1.java">
 <violation beginline="27" endline="41" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Float1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Free1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Free1.java">
 <violation beginline="27" endline="31" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Free1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Functor3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Functor3.java">
 <violation beginline="27" endline="164" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Functor3" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -358,12 +358,12 @@ Unnecessary final modifier in final class
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\GarbageCollect0.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\GarbageCollect0.java">
 <violation beginline="27" endline="32" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="GarbageCollect0" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\GlobalDB.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\GlobalDB.java">
 <violation beginline="59" endline="63" begincolumn="22" endcolumn="9" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="GlobalDB" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -443,12 +443,12 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Great2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Great2.java">
 <violation beginline="27" endline="42" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Great2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Ground1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Ground1.java">
 <violation beginline="27" endline="30" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Ground1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -456,32 +456,32 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Halt1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Halt1.java">
 <violation beginline="27" endline="47" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Halt1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Integer1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Integer1.java">
 <violation beginline="26" endline="40" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Integer1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\IntegerBounds2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\IntegerBounds2.java">
 <violation beginline="26" endline="30" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="IntegerBounds2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Is2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Is2.java">
 <violation beginline="26" endline="29" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Is2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\JIPClausesEnumeration.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\JIPClausesEnumeration.java">
 <violation beginline="23" endline="23" begincolumn="1" endcolumn="22" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog.engine" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.awt.Frame'
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\JIPEngine.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\JIPEngine.java">
 <violation beginline="679" endline="680" begincolumn="19" endcolumn="17" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="JIPEngine" method="unconsultFile" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
 Avoid empty catch blocks
 </violation>
@@ -492,12 +492,12 @@ These nested if statements could be combined
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\JIPParameterUnboundedException.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\JIPParameterUnboundedException.java">
 <violation beginline="31" endline="31" begincolumn="17" endcolumn="24" rule="UnusedPrivateField" ruleset="Unused Code Rules" package="com.ugos.jiprolog.engine" class="JIPParameterUnboundedException" variable="m_nParam" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
 Avoid unused private fields such as 'm_nParam'.
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\JIPTerm.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\JIPTerm.java">
 <violation beginline="213" endline="214" begincolumn="25" endcolumn="60" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="JIPTerm" method="extractVariable" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
@@ -505,17 +505,17 @@ These nested if statements could be combined
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Length2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Length2.java">
 <violation beginline="27" endline="63" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Length2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Less2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Less2.java">
 <violation beginline="27" endline="42" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Less2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Load1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Load1.java">
 <violation beginline="127" endline="127" begincolumn="13" endcolumn="36" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Load1" method="load" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
 Avoid empty catch blocks
 </violation>
@@ -523,22 +523,22 @@ Avoid empty catch blocks
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\LoadLibrary1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\LoadLibrary1.java">
 <violation beginline="30" endline="84" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="LoadLibrary1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\NL0.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\NL0.java">
 <violation beginline="28" endline="32" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="NL0" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Nodebug0.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Nodebug0.java">
 <violation beginline="26" endline="36" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Nodebug0" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Nospy1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Nospy1.java">
 <violation beginline="26" endline="42" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Nospy1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -549,7 +549,7 @@ These nested if statements could be combined
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Notrace0.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Notrace0.java">
 <violation beginline="26" endline="40" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Notrace0" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -557,12 +557,12 @@ Unnecessary final modifier in final class
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Op3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Op3.java">
 <violation beginline="27" endline="82" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Op3" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Operator.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Operator.java">
 <violation beginline="38" endline="41" begincolumn="11" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Operator" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -612,7 +612,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\OperatorManager.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\OperatorManager.java">
 <violation beginline="35" endline="121" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="OperatorManager" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -635,7 +635,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PString.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PString.java">
 <violation beginline="66" endline="69" begincolumn="17" endcolumn="17" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="PString" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
@@ -661,12 +661,12 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\ParserInputStream.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\ParserInputStream.java">
 <violation beginline="20" endline="20" begincolumn="35" endcolumn="40" rule="UnusedPrivateField" ruleset="Unused Code Rules" package="com.ugos.jiprolog.engine" class="ParserInputStream" variable="m_outs" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
 Avoid unused private fields such as 'm_outs'.
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PredicateProperties2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PredicateProperties2.java">
 <violation beginline="28" endline="106" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="PredicateProperties2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -674,7 +674,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PrettyPrinter.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PrettyPrinter.java">
 <violation beginline="23" endline="23" begincolumn="1" endcolumn="29" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog.engine" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.util.Enumeration'
 </violation>
@@ -727,7 +727,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PrologParser.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PrologParser.java">
 <violation beginline="171" endline="960" begincolumn="19" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="PrologParser" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -747,17 +747,17 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PrologProgram.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PrologProgram.java">
 <violation beginline="13" endline="13" begincolumn="24" endcolumn="34" rule="UnusedPrivateField" ruleset="Unused Code Rules" package="com.ugos.jiprolog.engine" class="PrologProgram" variable="programName" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
 Avoid unused private fields such as 'programName'.
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PrologTokenizer.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\PrologTokenizer.java">
 <violation beginline="53" endline="53" begincolumn="30" endcolumn="39" rule="UnusedPrivateField" ruleset="Unused Code Rules" package="com.ugos.jiprolog.engine" class="PrologTokenizer" variable="STATE_SIGN" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
 Avoid unused private fields such as 'STATE_SIGN'.
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Retract1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Retract1.java">
 <violation beginline="33" endline="106" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Retract1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -765,7 +765,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\RetractAll1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\RetractAll1.java">
 <violation beginline="28" endline="28" begincolumn="32" endcolumn="33" rule="UnusedPrivateField" ruleset="Unused Code Rules" package="com.ugos.jiprolog.engine" class="RetractAll1" variable="db" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
 Avoid unused private fields such as 'db'.
 </violation>
@@ -776,7 +776,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\RulesEnumeration.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\RulesEnumeration.java">
 <violation beginline="45" endline="48" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="RulesEnumeration" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -784,7 +784,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\RulesEnumerationBuiltIn.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\RulesEnumerationBuiltIn.java">
 <violation beginline="48" endline="60" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="RulesEnumerationBuiltIn" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -792,12 +792,12 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\SCut0.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\SCut0.java">
 <violation beginline="27" endline="32" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="SCut0" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\SearchPath1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\SearchPath1.java">
 <violation beginline="33" endline="126" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="SearchPath1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -808,12 +808,12 @@ Unnecessary final modifier in final class
 Avoid unused local variables such as 'url'.
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\SetEnv2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\SetEnv2.java">
 <violation beginline="26" endline="64" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="SetEnv2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Spy1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Spy1.java">
 <violation beginline="26" endline="32" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Spy1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -821,7 +821,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\StreamManager.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\StreamManager.java">
 <violation beginline="32" endline="32" begincolumn="1" endcolumn="33" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog.engine" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.io.ObjectInputStream'
 </violation>
@@ -829,32 +829,32 @@ Avoid unused imports such as 'java.io.ObjectInputStream'
 Avoid unused imports such as 'java.util.Vector'
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\TermEquals2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\TermEquals2.java">
 <violation beginline="27" endline="34" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="TermEquals2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Trace0.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Trace0.java">
 <violation beginline="27" endline="33" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Trace0" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Unconsult1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Unconsult1.java">
 <violation beginline="27" endline="58" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Unconsult1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Univ2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Univ2.java">
 <violation beginline="27" endline="135" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Univ2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Var1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Var1.java">
 <violation beginline="26" endline="31" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Var1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Variable.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Variable.java">
 <violation beginline="51" endline="61" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Variable" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -889,17 +889,17 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Ver1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Ver1.java">
 <violation beginline="26" endline="29" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Ver1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Ver4.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\Ver4.java">
 <violation beginline="26" endline="33" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="Ver4" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\WAM.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\WAM.java">
 <violation beginline="25" endline="25" begincolumn="1" endcolumn="23" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog.engine" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.util.Stack'
 </violation>
@@ -910,7 +910,7 @@ An empty statement (semicolon) not part of a loop
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\WAMTrace.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\WAMTrace.java">
 <violation beginline="23" endline="23" begincolumn="1" endcolumn="29" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog.engine" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.util.Enumeration'
 </violation>
@@ -927,7 +927,7 @@ These nested if statements could be combined
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\XCall2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\engine\XCall2.java">
 <violation beginline="33" endline="77" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.engine" class="XCall2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -938,12 +938,12 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\database\JDBCClausesDatabase.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\database\JDBCClausesDatabase.java">
 <violation beginline="478" endline="478" begincolumn="9" endcolumn="32" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.database" class="JDBCClausesDatabase" method="finalize" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\database\JDBCClausesEnumeration.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\database\JDBCClausesEnumeration.java">
 <violation beginline="27" endline="27" begincolumn="8" endcolumn="32" rule="DuplicateImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog.extensions.database" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#DuplicateImports" priority="4">
 Avoid duplicate imports such as 'java.util.StringTokenizer'
 </violation>
@@ -951,7 +951,7 @@ Avoid duplicate imports such as 'java.util.StringTokenizer'
 Avoid unused imports such as 'java.util.StringTokenizer'
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\database\PrologClausesEnumeration.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\database\PrologClausesEnumeration.java">
 <violation beginline="25" endline="25" begincolumn="1" endcolumn="29" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog.extensions.database" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.util.Enumeration'
 </violation>
@@ -968,12 +968,12 @@ An empty statement (semicolon) not part of a loop
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\database\TextClausesDatabase.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\database\TextClausesDatabase.java">
 <violation beginline="86" endline="87" begincolumn="21" endcolumn="63" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.database" class="TextClausesDatabase" method="addClause" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\database\TextClausesEnumeration.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\database\TextClausesEnumeration.java">
 <violation beginline="25" endline="25" begincolumn="1" endcolumn="29" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog.extensions.database" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.util.Enumeration'
 </violation>
@@ -984,17 +984,17 @@ An empty statement (semicolon) not part of a loop
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\AbsoluteFileName2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\AbsoluteFileName2.java">
 <violation beginline="28" endline="63" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="AbsoluteFileName2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\AccessFile2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\AccessFile2.java">
 <violation beginline="30" endline="111" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="AccessFile2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Append2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Append2.java">
 <violation beginline="30" endline="112" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="Append2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -1005,7 +1005,7 @@ These nested if statements could be combined
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\CharAtom2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\CharAtom2.java">
 <violation beginline="39" endline="43" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="CharAtom2" method="unify" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
@@ -1013,22 +1013,22 @@ These nested if statements could be combined
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\CurrentInput1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\CurrentInput1.java">
 <violation beginline="28" endline="35" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="CurrentInput1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\CurrentOutput1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\CurrentOutput1.java">
 <violation beginline="29" endline="36" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="CurrentOutput1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\CurrentStream1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\CurrentStream1.java">
 <violation beginline="33" endline="67" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="CurrentStream1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\EOF2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\EOF2.java">
 <violation beginline="22" endline="22" begincolumn="1" endcolumn="29" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog.extensions.io" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.util.Enumeration'
 </violation>
@@ -1036,17 +1036,17 @@ Avoid unused imports such as 'java.util.Enumeration'
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\FileAttributes7.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\FileAttributes7.java">
 <violation beginline="28" endline="116" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="FileAttributes7" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\FlushOutput1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\FlushOutput1.java">
 <violation beginline="30" endline="73" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="FlushOutput1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Get02.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Get02.java">
 <violation beginline="31" endline="41" begincolumn="21" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="Get02" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -1054,7 +1054,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\JIPio.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\JIPio.java">
 <violation beginline="88" endline="94" begincolumn="26" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="JIPio" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -1083,12 +1083,12 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Nl1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Nl1.java">
 <violation beginline="28" endline="71" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="Nl1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\OutputStreamInfo.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\OutputStreamInfo.java">
 <violation beginline="4" endline="4" begincolumn="1" endcolumn="29" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog.extensions.io" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.util.Enumeration'
 </violation>
@@ -1096,7 +1096,7 @@ Avoid unused imports such as 'java.util.Enumeration'
 Avoid unused imports such as 'com.ugos.io.PushBackInputStream'
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\PeekByte2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\PeekByte2.java">
 <violation beginline="32" endline="44" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="PeekByte2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -1104,12 +1104,12 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Read2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Read2.java">
 <violation beginline="34" endline="125" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="Read2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\See2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\See2.java">
 <violation beginline="29" endline="112" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="See2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -1117,22 +1117,22 @@ Unnecessary final modifier in final class
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Seen1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Seen1.java">
 <violation beginline="29" endline="69" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="Seen1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\SetInput1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\SetInput1.java">
 <violation beginline="28" endline="64" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="SetInput1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\SetOutput1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\SetOutput1.java">
 <violation beginline="28" endline="64" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="SetOutput1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\StreamHandle1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\StreamHandle1.java">
 <violation beginline="34" endline="66" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="StreamHandle1" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -1140,7 +1140,7 @@ Unnecessary final modifier in final class
 Avoid unused local variables such as 'prop1'.
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\StreamPosition3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\StreamPosition3.java">
 <violation beginline="21" endline="21" begincolumn="1" endcolumn="39" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.jiprolog.extensions.io" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'com.ugos.io.PushBackInputStream'
 </violation>
@@ -1148,12 +1148,12 @@ Avoid unused imports such as 'com.ugos.io.PushBackInputStream'
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\StreamProperty3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\StreamProperty3.java">
 <violation beginline="34" endline="154" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="StreamProperty3" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Tell2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\io\Tell2.java">
 <violation beginline="29" endline="113" begincolumn="18" endcolumn="5" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.io" class="Tell2" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -1161,17 +1161,17 @@ Unnecessary final modifier in final class
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\reflect\JIPGet3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\reflect\JIPGet3.java">
 <violation beginline="32" endline="32" begincolumn="21" endcolumn="28" rule="UnusedPrivateField" ruleset="Unused Code Rules" package="com.ugos.jiprolog.extensions.reflect" class="JIPGet3" variable="m_retVal" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
 Avoid unused private fields such as 'm_retVal'.
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\reflect\JIPSet3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\reflect\JIPSet3.java">
 <violation beginline="91" endline="91" begincolumn="20" endcolumn="28" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="com.ugos.jiprolog.extensions.reflect" class="JIPSet3" method="unify" variable="objRetVal" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
 Avoid unused local variables such as 'objRetVal'.
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\reflect\JIPxReflect.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\reflect\JIPxReflect.java">
 <violation beginline="157" endline="157" begincolumn="24" endcolumn="43" rule="BooleanInstantiation" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.reflect" class="JIPxReflect" method="marshallIn" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#BooleanInstantiation" priority="2">
 Avoid instantiating Boolean objects; reference Boolean.TRUE or Boolean.FALSE or call Boolean.valueOf() instead.
 </violation>
@@ -1179,32 +1179,32 @@ Avoid instantiating Boolean objects; reference Boolean.TRUE or Boolean.FALSE or 
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\sets\Bagof3.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\sets\Bagof3.java">
 <violation beginline="58" endline="62" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.sets" class="Bagof3" method="unify" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\AtomChars2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\AtomChars2.java">
 <violation beginline="39" endline="43" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.terms" class="AtomChars2" method="unify" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\Name2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\Name2.java">
 <violation beginline="39" endline="43" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.terms" class="Name2" method="unify" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\Vars2.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\terms\Vars2.java">
 <violation beginline="38" endline="42" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.terms" class="Vars2" method="unify" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\xml\XMLRead1.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\jiprolog\extensions\xml\XMLRead1.java">
 <violation beginline="41" endline="42" begincolumn="13" endcolumn="54" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="com.ugos.jiprolog.extensions.xml" class="XMLRead1" method="unify" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\util\ClassLoaderEx.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\util\ClassLoaderEx.java">
 <violation beginline="92" endline="95" begincolumn="17" endcolumn="17" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.ugos.util" class="ClassLoaderEx" method="loadClass" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
 Avoid empty catch blocks
 </violation>
@@ -1215,12 +1215,12 @@ Avoid empty catch blocks
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\util\ClassProvider.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\util\ClassProvider.java">
 <violation beginline="97" endline="97" begincolumn="9" endcolumn="30" rule="EmptyCatchBlock" ruleset="Basic Rules" package="com.ugos.util" class="ClassProvider" method="finalize" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
 Avoid empty catch blocks
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\util\ValueEncoder.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\com\ugos\util\ValueEncoder.java">
 <violation beginline="12" endline="12" begincolumn="1" endcolumn="28" rule="UnusedImports" ruleset="Import Statement Rules" package="com.ugos.util" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
 Avoid unused imports such as 'java.math.BigInteger'
 </violation>
@@ -1246,7 +1246,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiProlog.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiProlog.java">
 <violation beginline="94" endline="98" begincolumn="22" endcolumn="9" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.jiprolog" class="JiProlog" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -1266,12 +1266,12 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologConverter.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologConverter.java">
 <violation beginline="21" endline="229" begincolumn="1" endcolumn="3" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="io.github.prolobjectlink.prolog.jiprolog" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
 Too many static imports may lead to messy code
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologStructure.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologStructure.java">
 <violation beginline="84" endline="86" begincolumn="22" endcolumn="9" rule="UnnecessaryFinalModifier" ruleset="Basic Rules" package="io.github.prolobjectlink.prolog.jiprolog" class="JiPrologStructure" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UnnecessaryFinalModifier" priority="3">
 Unnecessary final modifier in final class
 </violation>
@@ -1282,7 +1282,7 @@ Unnecessary final modifier in final class
 Unnecessary final modifier in final class
 </violation>
 </file>
-<file name="C:\eclipse-jee-photon-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologTerm.java">
+<file name="C:\eclipse-jee-2022-03-R-workspace\prolobjectlink-jpi-jiprolog\src\main\java\io\github\prolobjectlink\prolog\jiprolog\JiPrologTerm.java">
 <violation beginline="21" endline="294" begincolumn="1" endcolumn="3" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="io.github.prolobjectlink.prolog.jiprolog" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
 Too many static imports may lead to messy code
 </violation>
